@@ -1,8 +1,5 @@
+import { GenresIds } from "../../aliases/types/GenresIds";
 import { StyledTile } from "./styled";
-
-const genresIds = [28, 12, 16, 35, 80, 99, 18, 10751, 14, 36, 27, 10402, 9648, 10749, 878, 10770, 53, 10752, 37] as const;
-
-type GenresIds = typeof genresIds;
 
 interface ProductionCountry {
     iso_3166_1: string;
@@ -31,9 +28,10 @@ interface TileProps {
 };
 
 export const Tile = ({ id, picture, title, subTitle, horizontalLayout, verticalLayout, movieDetails }: TileProps) => {
+
     return (
         <StyledTile>
-            
+
         </StyledTile>
     );
 };
