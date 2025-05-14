@@ -18,3 +18,9 @@ export const Title = styled.header`
     font-size: 22px;
     line-height: 130%;
 `;
+
+export const SubTitle = styled.p`
+    color: ${({ theme }) => theme.colors.waterloo};
+    font-size:  16px;
+    font-weight: 400;
+`;
