@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FetchStatus } from "./common/aliases/types/FetchStatus";
 import { failed, idle, loading, success } from "./common/constants/fetchStatuses";
 import { RootState } from "./core/store";
-import { GenreResponse } from "./common/aliases/types/GenresIds";
+import { GenreResponse } from "./common/aliases/types/genre.types";
 interface GenresState {
     list: GenreResponse[] | [];
     status: FetchStatus;

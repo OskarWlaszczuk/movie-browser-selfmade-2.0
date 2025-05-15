@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { fetchGenres, handleGenresFailed, setFetchedGenres } from "./genresSlice";
-import { GenreResponse } from "./common/aliases/types/GenresIds";
+import { GenreResponse } from "./common/aliases/types/genre.types";
 import { fetchFromAPI } from "./common/functions/fetchFromAPI";
 import { SagaIterator } from "redux-saga";
 
