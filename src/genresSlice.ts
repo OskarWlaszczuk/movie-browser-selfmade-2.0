@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { GenreId } from "./common/aliases/types/GenresIds";
 import { FetchStatus } from "./common/aliases/types/FetchStatus";
 import { failed, idle, loading, success } from "./common/constants/fetchStatuses";
+import { RootState } from "./core/store";
 interface Genre {
     id: GenreId,
     name: string;
@@ -39,3 +40,7 @@ export const {
     fetchGenresSuccess,
     fetchGenresFailed,
 } = genresSlice.actions;
+
+export const selectGenres = (state: RootState) => state.genres;
+export const selectGenresList = (state: RootState) => selectGenres(state).list;
+export const selectGenresStatus = (state: RootState) => selectGenres(state).status;
