@@ -1,16 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { GenreId } from "./common/aliases/types/GenresIds";
+import { FetchStatus } from "./common/aliases/types/FetchStatus";
+import { failed, idle, loading, success } from "./common/constants/fetchStatuses";
+interface Genre {
+    id: GenreId,
+    name: string;
+}
 
-const idle = "idle";
-const loading = "loading";
-const success = "success";
-const failed = "failed";
+interface GenresState {
+    list: Genre[] | [];
+    status: FetchStatus;
+}
+
+const initialState: GenresState = {
+    list: [],
+    status: idle,
+};
 
 const genresSlice = createSlice({
     name: "genres",
-    initialState: {
-        list: [],
-        status: idle,
-    },
+    initialState,
     reducers: {
         fetchGenres: (state) => {
             state.status = loading;
