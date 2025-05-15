@@ -1,8 +1,9 @@
 import { call, put, takeLatest } from "redux-saga/effects";
-import { fetchGenres, setFetchedGenres } from "./genresSlice";
+import { fetchGenres, handleGenresFailed, setFetchedGenres } from "./genresSlice";
 import axios from "axios";
+import { GenreResponse } from "./common/aliases/types/GenresIds";
 
-const fetchFromAPI = async (url: string) => {
+const fetchFromAPI = async <ResponseType>(url: string): Promise<ResponseType> => {
     const options = {
         headers: {
             accept: 'application/json',
@@ -10,16 +11,17 @@ const fetchFromAPI = async (url: string) => {
         }
     };
 
-    const response = await axios.get(url, options);
+    const response = await axios.get<ResponseType>(url, options);
     return response.data;
 };
 
 function* fetchGenresHandler() {
     try {
-        const genresList = yield call(fetchFromAPI, "/genres.json");
+        const typedFetch = fetchFromAPI<GenreResponse[]>;
+        const genresList: GenreResponse[] = yield call(typedFetch, "/genres.json");
         yield put(setFetchedGenres(genresList));
     } catch (error) {
-        console.error(error)
+        put(handleGenresFailed());
     };
 };
 
