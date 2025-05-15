@@ -3,13 +3,13 @@ import { GenreId } from "./common/aliases/types/GenresIds";
 import { FetchStatus } from "./common/aliases/types/FetchStatus";
 import { failed, idle, loading, success } from "./common/constants/fetchStatuses";
 import { RootState } from "./core/store";
-interface Genre {
+interface GenreResponse {
     id: GenreId,
     name: string;
 }
 
 interface GenresState {
-    list: Genre[] | [];
+    list: GenreResponse[] | [];
     status: FetchStatus;
 }
 
@@ -25,7 +25,7 @@ const genresSlice = createSlice({
         fetchGenres: (state) => {
             state.status = loading;
         },
-        setFetchedGenres: (state, { payload }: PayloadAction<Genre[]>) => {
+        setFetchedGenres: (state, { payload }: PayloadAction<GenreResponse[]>) => {
             state.status = success;
             state.list = payload;
         },
@@ -38,7 +38,7 @@ const genresSlice = createSlice({
 export const {
     fetchGenres,
     setFetchedGenres,
-    handleGenresFailed: fetchGenresFailed,
+    handleGenresFailed,
 } = genresSlice.actions;
 
 export const selectGenres = (state: RootState) => state.genres;
