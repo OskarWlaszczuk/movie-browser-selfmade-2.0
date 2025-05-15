@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { GenreId } from "./common/aliases/types/GenresIds";
 import { FetchStatus } from "./common/aliases/types/FetchStatus";
 import { failed, idle, loading, success } from "./common/constants/fetchStatuses";
@@ -25,11 +25,11 @@ const genresSlice = createSlice({
         fetchGenres: (state) => {
             state.status = loading;
         },
-        setFetchedGenres: (state, action) => {
+        setFetchedGenres: (state, { payload }: PayloadAction<Genre[]>) => {
             state.status = success;
-            state.list = action.payload;
+            state.list = payload;
         },
-        fetchGenresFailed: (state) => {
+        handleGenresFailed: (state) => {
             state.status = failed;
         },
     },
@@ -38,7 +38,7 @@ const genresSlice = createSlice({
 export const {
     fetchGenres,
     setFetchedGenres,
-    fetchGenresFailed,
+    handleGenresFailed: fetchGenresFailed,
 } = genresSlice.actions;
 
 export const selectGenres = (state: RootState) => state.genres;
