@@ -25,7 +25,7 @@ const genresSlice = createSlice({
         fetchGenres: (state) => {
             state.status = loading;
         },
-        fetchGenresSuccess: (state, action) => {
+        setFetchedGenres: (state, action) => {
             state.status = success;
             state.list = action.payload;
         },
@@ -37,7 +37,7 @@ const genresSlice = createSlice({
 
 export const {
     fetchGenres,
-    fetchGenresSuccess,
+    setFetchedGenres,
     fetchGenresFailed,
 } = genresSlice.actions;
 
