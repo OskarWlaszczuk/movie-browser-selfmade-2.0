@@ -2,4 +2,8 @@ const genresIds = [28, 12, 16, 35, 80, 99, 18, 10751, 14, 36, 27, 10402, 9648, 1
 
 export type GenreId = typeof genresIds[number];
 
+export interface GenreResponse {
+    id: GenreId,
+    name: string;
+}
 export type GenresIds = GenreId[];
