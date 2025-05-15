@@ -44,3 +44,5 @@ export const {
 export const selectGenres = (state: RootState) => state.genres;
 export const selectGenresList = (state: RootState) => selectGenres(state).list;
 export const selectGenresStatus = (state: RootState) => selectGenres(state).status;
+
+export const genresReducer = genresSlice.reducer;
