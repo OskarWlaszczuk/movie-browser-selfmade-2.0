@@ -1,4 +1,4 @@
-import { GenresIds } from "../../aliases/types/GenresIds";
+import { GenresIds } from "../../aliases/types/genre.types";
 import { StyledTile } from "./styled";
 
 interface ProductionCountry {
