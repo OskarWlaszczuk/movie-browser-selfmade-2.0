@@ -8,7 +8,12 @@ export const StyledNavPanel = styled.nav`
     justify-content: space-evenly;
     color: ${({ theme }) => theme.colors.white};
     background-color: ${({ theme }) => theme.colors.black};
-    height: 94px;
+    padding: 24px;
+`;
+
+export const NavPanelInner = styled.div`
+    display: flex;
+    gap: 80px;
 `;
 
 export const NavItemsList = styled.div`
@@ -47,6 +52,4 @@ export const AppTitle = styled(NavLink)`
     text-decoration: none;
 `;
 
-export const StyledAppLogo = styled(AppLogo)`
-
-`;
+export const StyledAppLogo = styled(AppLogo)``;
