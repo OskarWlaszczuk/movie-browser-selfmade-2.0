@@ -13,8 +13,8 @@ export const NavigationPanel = () => {
             <header>Movie Browser</header>
             <NavItemsList>
                 {
-                    navItems.map(({ label, path }) => (
-                        <NavItem to={path}>{label}</NavItem>
+                    navItems.map(({ label, path }, index) => (
+                        <NavItem key={index} to={path}>{label}</NavItem>
                     ))
                 }
             </NavItemsList>
