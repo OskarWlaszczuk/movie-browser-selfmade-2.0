@@ -14,7 +14,6 @@ export const GlobalStyles = createGlobalStyle`
     };
 
     main {
-        background-color:teal;
          font-family: "Inter", sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
