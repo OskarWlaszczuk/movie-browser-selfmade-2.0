@@ -2,6 +2,9 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 export const StyledNavPanel = styled.nav`
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
     color: ${({ theme }) => theme.colors.white};
     background-color: ${({ theme }) => theme.colors.black};
     height: 94px;
