@@ -3,9 +3,9 @@ import { Search } from "./Search";
 import { NavItem, NavItemsList, StyledNavPanel } from "./styled"
 
 export const NavigationPanel = () => {
-    const navLinks = [
-        { text: 'Movies', link: routes.movies() },
-        { text: 'People', link: routes.people() },
+    const navItems = [
+        { label: 'Movies', path: routes.movies() },
+        { label: 'People', path: routes.people() },
     ];
 
     return (
@@ -13,8 +13,8 @@ export const NavigationPanel = () => {
             <header>Movie Browser</header>
             <NavItemsList>
                 {
-                    navLinks.map(({ text, link }) => (
-                        <NavItem to={link}>{text}</NavItem>
+                    navItems.map(({ label, path }) => (
+                        <NavItem to={path}>{label}</NavItem>
                     ))
                 }
             </NavItemsList>
