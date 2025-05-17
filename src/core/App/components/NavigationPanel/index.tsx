@@ -1,6 +1,6 @@
 import { routes } from "../../../../common/functions/routes"
 import { Search } from "./Search";
-import { NavItem, NavItemsList, StyledNavPanel } from "./styled"
+import { AppTitle, NavItem, NavItemsList, StyledNavPanel } from "./styled"
 
 export const NavigationPanel = () => {
     const navItems = [
@@ -10,7 +10,7 @@ export const NavigationPanel = () => {
 
     return (
         <StyledNavPanel>
-            <header>Movie Browser</header>
+            <AppTitle>Movie Browser</AppTitle>
             <NavItemsList>
                 {
                     navItems.map(({ label, path }, index) => (
