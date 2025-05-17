@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FetchStatus } from "./common/aliases/types/FetchStatus";
-import { failed, idle, loading, success } from "./common/constants/fetchStatuses";
+import { FETCH_STATUSES } from "./common/constants/FETCH_STATUSES";
 import { RootState } from "./core/store";
 import { GenreResponse } from "./common/aliases/types/genre.types";
 interface GenresState {
@@ -10,7 +10,7 @@ interface GenresState {
 
 const initialState: GenresState = {
     list: [],
-    status: idle,
+    status: FETCH_STATUSES.IDLE,
 };
 
 const genresSlice = createSlice({
@@ -18,14 +18,14 @@ const genresSlice = createSlice({
     initialState,
     reducers: {
         fetchGenres: (state) => {
-            state.status = loading;
+            state.status = FETCH_STATUSES.LOADING;
         },
         setFetchedGenres: (state, { payload }: PayloadAction<GenreResponse[]>) => {
-            state.status = success;
+            state.status = FETCH_STATUSES.SUCCESS;
             state.list = payload;
         },
         handleGenresFailed: (state) => {
-            state.status = failed;
+            state.status = FETCH_STATUSES.FAILED;
         },
     },
 });
