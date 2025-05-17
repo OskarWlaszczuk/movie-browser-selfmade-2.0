@@ -24,8 +24,8 @@ export const NavItemsList = styled.div`
 export const NavItem = styled(NavLink)`
     color: ${({ theme }) => theme.colors.white};
     text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
+    font-size:  ${({ theme }) => theme.fontSizes.s};
+    font-weight:  ${({ theme }) => theme.fontWeights.semiBold};
     border: 1px solid transparent;
     padding: 12px 24px;
     transition: 0.5s;
@@ -46,8 +46,8 @@ export const AppTitle = styled(NavLink)`
     display:flex;
     align-items: center;
     gap: 12px;
-    font-size: 24px;
-    font-weight: 500;
+    font-size:  ${({ theme }) => theme.fontSizes.xl};;
+    font-weight:  ${({ theme }) => theme.fontWeights.medium};;
     color: ${({ theme }) => theme.colors.white};
     text-decoration: none;
 `;

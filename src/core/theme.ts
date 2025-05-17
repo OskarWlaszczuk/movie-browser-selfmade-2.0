@@ -12,4 +12,20 @@ export const theme = {
         pattensBlue: "#D6E4FF",
         scienceBlue: "#0044CC",
     },
+    fontSizes: {
+        xs: "12px",
+        s: "14px",
+        m: "16px",
+        l: "20px",
+        xl: "24px",
+        xxl: "32px",
+        title: "36px",
+    },
+    fontWeights: {
+        light: 300,
+        regular: 400,
+        medium: 500,
+        semiBold: 600,
+        bold: 700,
+    },
 } as const;

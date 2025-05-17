@@ -19,8 +19,8 @@ export const StyledSearchIcon = styled(SearchIcon)`
 export const Input = styled.input`
     border: none;
     background-color: transparent;
-    font-size: 16px;
-    font-weight: 400;
+    font-size:  ${({ theme }) => theme.fontSizes.m};
+    font-weight:  ${({ theme }) => theme.fontWeights.regular};
     line-height: 24px;
     
     &::placeholder {

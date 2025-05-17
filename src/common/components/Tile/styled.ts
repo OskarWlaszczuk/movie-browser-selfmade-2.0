@@ -9,18 +9,18 @@ export const StyledTile = styled.li`
 `;
 
 export const Picture = styled.img`
-    width:100%;
+    width: 100%;
     height: 50px;
 `;
 
 export const Title = styled.header`
-    font-weight: 500;
-    font-size: 22px;
+    font-weight: ${({ theme }) => theme.fontWeights.medium};
+    font-size:  ${({ theme }) => theme.fontSizes.l};
     line-height: 130%;
 `;
 
 export const SubTitle = styled.p`
     color: ${({ theme }) => theme.colors.waterloo};
-    font-size:  16px;
-    font-weight: 400;
+    font-size:   ${({ theme }) => theme.fontSizes.m};
+    font-weight: ${({ theme }) => theme.fontWeights.regular};
 `;
