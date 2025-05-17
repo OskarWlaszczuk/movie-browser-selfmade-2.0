@@ -1,5 +1,5 @@
 import { ROUTES } from "../../../../common/functions/routes"
-import { StyledNavPanel } from "./styled"
+import { NavItem, NavItemsList, StyledNavPanel } from "./styled"
 
 export const NavigationPanel = () => {
 
@@ -11,7 +11,13 @@ export const NavigationPanel = () => {
     return (
         <StyledNavPanel>
             <header>Movie Browser</header>
-
+            <NavItemsList>
+                {
+                    navLinks.map(({ text, link }) => (
+                        <NavItem to={link}>{text}</NavItem>
+                    ))
+                }
+            </NavItemsList>
         </StyledNavPanel>
     )
 }
