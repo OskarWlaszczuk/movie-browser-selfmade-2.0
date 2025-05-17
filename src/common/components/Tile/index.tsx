@@ -1,5 +1,5 @@
 import { GenresIds } from "../../aliases/types/genre.types";
-import { StyledTile } from "./styled";
+import { Picture, StyledTile, SubTitle, Title } from "./styled";
 
 interface ProductionCountry {
     iso_3166_1: string;
@@ -31,7 +31,10 @@ export const Tile = ({ id, picture, title, subTitle, horizontalLayout, verticalL
 
     return (
         <StyledTile>
-
+            <Picture src={picture} />
+            <Title>{title}</Title>
+            {subTitle && <SubTitle>{subTitle}</SubTitle>}
+            
         </StyledTile>
     );
 };
