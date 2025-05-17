@@ -8,18 +8,12 @@ interface GenresListProps {
 }
 
 export const GenresList = ({ genresIds }: GenresListProps) => {
-    const dispatch = useAppDispatch();
 
     const genresList = useAppSelector(selectGenresList);
     const genresStatus = useAppSelector(selectGenresStatus);
 
     const filteredGenres = genresIds?.map(id => genresList?.find(genre => id === genre.id));
-
-    //Przenieść fetchowanie genres do głównego komponentu, tak aby odbywało się to tylko raz na render
-    useEffect(() => {
-        dispatch(fetchGenres())
-    }, [dispatch]);
-
+   
     return (
         <>
 
