@@ -1,9 +1,7 @@
 import styled from "styled-components";
 import { ReactComponent as SearchIcon } from "..Search.svg";
 
-
-
-export const Search = styled.div`
+export const SearchPanel = styled.div`
     display: flex;
     flex-basis: 30%;
     align-items: center;
