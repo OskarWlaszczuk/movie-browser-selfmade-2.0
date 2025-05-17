@@ -3,6 +3,7 @@ import { GenresList } from "../../common/components/GenresList";
 import { Movies } from "../../features/ListPage/Movies";
 import { NavigationPanel } from "./components/NavigationPanel";
 import { ROUTES, toListPage } from "../../common/functions/routes";
+import { People } from "../../features/ListPage/People";
 
 export const App = () => {
   return (
@@ -21,7 +22,8 @@ export const App = () => {
       <NavigationPanel />
       <Routes>
         <Route path={ROUTES.list.movies} element={<Movies />} />
-        <Route path="*" element={<Navigate to={ROUTES.details.movie} />} />
+        <Route path={ROUTES.list.people} element={<People />} />
+        <Route path="*" element={<Navigate to={ROUTES.list.movies} />} />
       </Routes>
     </HashRouter>
   );
