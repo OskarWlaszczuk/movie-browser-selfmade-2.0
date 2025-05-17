@@ -13,7 +13,7 @@ export const App = () => {
         <Route path={routes.people()} element={<People />} />
         <Route path="/movies/:movieId" element={<></>} />
         <Route path="/people/:personId" element={<></>} />
-        <Route path="*" element={<Navigate to={routes.movies()} />} />
+        <Route path="*" element={<Navigate to={routes.homepage()} />} />
       </Routes>
     </HashRouter>
   );
