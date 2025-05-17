@@ -35,3 +35,8 @@ export const NavItem = styled(NavLink)`
         border-radius: 24px;
     };
 `;
+
+export const AppTitle = styled.header`
+    font-size: 24px;
+    font-weight: 500;
+`;
