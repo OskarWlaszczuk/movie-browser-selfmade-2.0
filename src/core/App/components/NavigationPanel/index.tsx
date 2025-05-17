@@ -1,4 +1,5 @@
 import { ROUTES } from "../../../../common/functions/routes"
+import { Search } from "./Search";
 import { NavItem, NavItemsList, StyledNavPanel } from "./styled"
 
 export const NavigationPanel = () => {
@@ -18,6 +19,7 @@ export const NavigationPanel = () => {
                     ))
                 }
             </NavItemsList>
+            <Search />
         </StyledNavPanel>
     )
 }
