@@ -1,12 +1,11 @@
-import { ROUTES } from "../../../../common/functions/routes"
+import { routes } from "../../../../common/functions/routes"
 import { Search } from "./Search";
 import { NavItem, NavItemsList, StyledNavPanel } from "./styled"
 
 export const NavigationPanel = () => {
-
     const navLinks = [
-        { text: 'Movies', link: ROUTES.list.movies },
-        { text: 'People', link: ROUTES.list.people },
+        { text: 'Movies', link: routes.movies() },
+        { text: 'People', link: routes.people() },
     ];
 
     return (
