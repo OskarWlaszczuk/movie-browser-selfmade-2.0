@@ -1,6 +1,6 @@
 import { routes } from "../../../../common/functions/routes"
 import { Search } from "./Search";
-import { AppTitle, NavItem, NavItemsList, StyledNavPanel, StyledAppLogo } from "./styled"
+import { AppTitle, NavItem, NavItemsList, StyledNavPanel, StyledAppLogo, NavPanelInner } from "./styled"
 
 export const NavigationPanel = () => {
     const navItems = [
@@ -10,20 +10,22 @@ export const NavigationPanel = () => {
 
     return (
         <StyledNavPanel>
-            <header>
-                <AppTitle to={routes.homepage()}>
-                    <StyledAppLogo />
-                    <> Movie Browser</>
-                </AppTitle>
-            </header>
-            <NavItemsList>
-                {
-                    navItems.map(({ label, path }, index) => (
-                        <NavItem key={index} to={path}>{label}</NavItem>
-                    ))
-                }
-            </NavItemsList>
+            <NavPanelInner>
+                <header>
+                    <AppTitle to={routes.homepage()}>
+                        <StyledAppLogo />
+                        <> Movie Browser</>
+                    </AppTitle>
+                </header>
+                <NavItemsList>
+                    {
+                        navItems.map(({ label, path }, index) => (
+                            <NavItem key={index} to={path}>{label}</NavItem>
+                        ))
+                    }
+                </NavItemsList>
+            </NavPanelInner>
             <Search />
         </StyledNavPanel>
-    )
-}
+    );
+};
