@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { ReactComponent as AppLogo } from "./Icons/Video.svg";
 
 export const StyledNavPanel = styled.nav`
     display: flex;
@@ -23,7 +24,7 @@ export const NavItem = styled(NavLink)`
     border: 1px solid transparent;
     padding: 12px 24px;
     transition: 0.5s;
-     border-radius: 24px;
+    border-radius: 24px;
 
     &:hover {
         border: 1px solid ${({ theme }) => theme.colors.white};
@@ -36,7 +37,16 @@ export const NavItem = styled(NavLink)`
     };
 `;
 
-export const AppTitle = styled.header`
+export const AppTitle = styled(NavLink)`
+    display:flex;
+    align-items: center;
+    gap: 12px;
     font-size: 24px;
     font-weight: 500;
+    color: ${({ theme }) => theme.colors.white};
+    text-decoration: none;
+`;
+
+export const StyledAppLogo = styled(AppLogo)`
+
 `;
