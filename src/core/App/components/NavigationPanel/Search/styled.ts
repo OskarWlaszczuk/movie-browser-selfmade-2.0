@@ -19,7 +19,6 @@ export const StyledSearchIcon = styled(SearchIcon)`
     max-width: 40px;
 `;
 
-
 export const Input = styled.input`
     border: none;
     background-color: unset;
