@@ -8,9 +8,19 @@ export const StyledTile = styled.li`
     padding: 16px;
 `;
 
-export const Picture = styled.img`
-    width: 100%;
-    height: 50px;
+interface PictureProps {
+    $picture: string;
+}
+
+export const Picture = styled.div.attrs<PictureProps>(({ $picture }) => ({
+    style: {
+        backgroundImage: `url(${$picture})`,
+    },
+})) <PictureProps>`
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    padding-top: calc(100% * 585 / 582);
 `;
 
 export const Title = styled.header`
