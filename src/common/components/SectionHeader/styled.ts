@@ -11,4 +11,5 @@ export const StyledSectionHeader = styled.header`
 
 export const MainPageHeader = styled.h1`
     ${sharedHeaderStyles}
+    margin: 0;
 `;
