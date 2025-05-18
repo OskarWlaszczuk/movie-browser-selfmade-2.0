@@ -49,5 +49,8 @@ export const {
 export const selectPopularMovies = (state: RootState) => state.popularMovies;
 export const selectPopularMoviesList = (state: RootState) => selectPopularMovies(state).list;
 export const selectPopularMoviesStatus = (state: RootState) => selectPopularMovies(state).status;
+export const selectPopularMoviesTotalPages = (state: RootState) => selectPopularMovies(state).totalPages;
+export const selectPopularMoviesTotalResults = (state: RootState) => selectPopularMovies(state).totalResults;
+export const selectPopularMoviesCurrentPage = (state: RootState) => selectPopularMovies(state).currentPage;
 
 export const popularMoviesReducer = popularMoviesSlice.reducer;
