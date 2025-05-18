@@ -13,12 +13,12 @@ interface TileProps {
     horizontalLayout?: boolean;
     verticalLayout?: boolean;
     movieDetails?: {
-        productionCountries: ProductionCountry[];
-        release_date: string;
         genresIds: GenresIds;
         rate: number;
         votesTotal: number;
-        overview: string;
+        release_date?: string;
+        productionCountries?: ProductionCountry[];
+        overview?: string;
     };
     actorDetails?: {
         biography: string;
@@ -27,14 +27,14 @@ interface TileProps {
     }
 };
 
-export const Tile = ({ id, picture, title, subTitle, horizontalLayout, verticalLayout, movieDetails }: TileProps) => {
+export const Tile = ({ id, picture, title, subTitle, horizontalLayout, verticalLayout, movieDetails, actorDetails }: TileProps) => {
 
     return (
         <StyledTile>
             <Picture src={picture} />
             <Title>{title}</Title>
             {subTitle && <SubTitle>{subTitle}</SubTitle>}
-            
+
         </StyledTile>
     );
 };
