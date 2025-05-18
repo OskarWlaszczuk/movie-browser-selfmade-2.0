@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ReactComponent as SearchIcon } from "./Icons/Search.svg";
+import { ReactComponent as SearchIcon } from "../Icons/Search.svg";
 
 export const SearchPanel = styled.div`
     display: flex;
