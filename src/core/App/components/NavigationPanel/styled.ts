@@ -22,6 +22,8 @@ export const NavItemsList = styled.div`
 `;
 
 export const NavItem = styled(NavLink)`
+    display: flex;
+    align-items: center;
     color: ${({ theme }) => theme.colors.white};
     text-decoration: none;
     font-size:  ${({ theme }) => theme.fontSizes.s};
