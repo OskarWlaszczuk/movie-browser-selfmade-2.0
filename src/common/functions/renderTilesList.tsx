@@ -1,19 +1,17 @@
 import { JSX } from "react";
-import { TilesList } from "../../features/ListPage/Movies/styled"
+import { TilesList } from "../../features/ListPage/Movies/styled";
 import { Movie } from "../aliases/interfaces/Movie";
 import { Person } from "../aliases/interfaces/Person";
 
-type RenderListItem = (item: Movie | Person) => JSX.Element
+type RenderListItem<ListItem> = (item: ListItem) => JSX.Element;
 
-export const renderTilesList = (list: Person[] | Movie[], renderListItem: RenderListItem) => {
-
-    const iterateOnList = (list: Person[] | Movie[]) => (
-        list.map((item) => renderListItem(item))
-    );
-
+export const renderTilesList = <ListItem extends Movie | Person>(
+    list: ListItem[],
+    renderListItem: RenderListItem<ListItem>
+) => {
     return (
         <TilesList>
-            {iterateOnList(list)}
+            {list.map((item) => renderListItem(item))}
         </TilesList>
     );
 };
