@@ -16,14 +16,14 @@ interface TileProps {
         genresIds: GenresIds;
         rate: number;
         votesTotal: number;
-        release_date?: string;
+        releaseDate?: string;
         productionCountries?: ProductionCountry[];
         overview?: string;
     };
     actorDetails?: {
         biography: string;
         birthday: string;
-        place_of_birth: string;
+        placeOfBirth: string;
     }
 };
 
