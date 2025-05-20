@@ -1,6 +1,8 @@
 import { Movie } from "../../aliases/interfaces/Movie";
 import { Person } from "../../aliases/interfaces/Person";
 import { GenresIds } from "../../aliases/types/genre.types";
+import { GenresList } from "../GenresList";
+import { MovieRating } from "../MovieRating";
 import { Picture, StyledTile, SubTitle, Title } from "./styled";
 
 interface ProductionCountry {
@@ -31,11 +33,21 @@ interface TileProps {
 
 export const Tile = ({ id, picture, title, subTitle, horizontalLayout, verticalLayout, movieDetails, personDetails }: TileProps) => {
 
+    const movieExtraInfo = (
+        movieDetails && (
+            <>
+                <GenresList genresIds={movieDetails.genresIds} />
+                <MovieRating rate={movieDetails?.rate} votesTotal={movieDetails?.votesTotal} />
+            </>
+        )
+    )
+
     return (
         <StyledTile>
             <Picture $picture={picture} />
             <Title>{title}</Title>
             {subTitle && <SubTitle>{subTitle}</SubTitle>}
+            {movieExtraInfo}
         </StyledTile>
     );
 };
