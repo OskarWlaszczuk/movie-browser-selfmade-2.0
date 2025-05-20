@@ -1,3 +1,5 @@
+import { Movie } from "../../aliases/interfaces/Movie";
+import { Person } from "../../aliases/interfaces/Person";
 import { GenresIds } from "../../aliases/types/genre.types";
 import { Picture, StyledTile, SubTitle, Title } from "./styled";
 
@@ -14,20 +16,20 @@ interface TileProps {
     verticalLayout?: boolean;
     movieDetails?: {
         genresIds: GenresIds;
-        rate: number;
-        votesTotal: number;
-        releaseDate?: string;
+        rate: Movie["vote_average"];
+        votesTotal: Movie["vote_count"];
+        releaseDate?: Movie["release_date"];
         productionCountries?: ProductionCountry[];
-        overview?: string;
+        overview?: Movie["overview"];
     };
-    actorDetails?: {
-        biography: string;
-        birthday: string;
-        placeOfBirth: string;
+    personDetails?: {
+        biography: Person["biography"];
+        birthday: Person["birthday"];
+        placeOfBirth: Person["place_of_birth"];
     }
 };
 
-export const Tile = ({ id, picture, title, subTitle, horizontalLayout, verticalLayout, movieDetails, actorDetails }: TileProps) => {
+export const Tile = ({ id, picture, title, subTitle, horizontalLayout, verticalLayout, movieDetails, personDetails }: TileProps) => {
 
     return (
         <StyledTile>
