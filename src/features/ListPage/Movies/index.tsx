@@ -7,6 +7,7 @@ import { TilesList } from "./styled";
 import { Tile } from "../../../common/components/Tile";
 import { renderTilesList } from "../../../common/functions/renderTilesList";
 import { Movie } from "../../../common/aliases/interfaces/Movie";
+import { Person } from "../../../common/aliases/interfaces/Person";
 
 export const Movies = () => {
     const dispatch = useAppDispatch();
@@ -22,7 +23,7 @@ export const Movies = () => {
     }, [dispatch]);
     console.log(popularMovies)
 
-    const renderListItem = ({
+    const renderMovieItem = ({
         genre_ids,
         id,
         vote_average,
@@ -37,9 +38,35 @@ export const Movies = () => {
             picture={poster_path}
             title={title}
             subTitle={release_date}
+            movieDetails={{
+                genresIds: genre_ids,
+                rate: vote_average,
+                votesTotal: vote_count,
+            }}
         />
     );
 
+
+    const renderPersonItem = ({
+        id,
+        profile_path,
+        biography,
+        birthday,
+        name,
+        place_of_birth,
+    }: Person) => (
+        <Tile
+            key={id}
+            id={id}
+            picture={profile_path}
+            title={name}
+            personDetails={{
+                biography,
+                birthday,
+                placeOfBirth: place_of_birth,
+            }}
+        />
+    );
 
     return (
         <>
@@ -48,12 +75,10 @@ export const Movies = () => {
                 list={popularMovies}
                 fetchStatuses={[genresStatus, popularMoviesStatus]}
             />
-            <TilesList>
-                {renderTilesList(
-                    popularMovies,
-                    renderListItem
-                )}
-            </TilesList>
+            {renderTilesList(
+                popularMovies,
+                renderMovieItem
+            )}
         </>
     );
 };
