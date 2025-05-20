@@ -18,6 +18,5 @@ export const GlobalStyles = createGlobalStyle`
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         background-color: ${({ theme }) => theme.colors.whisper};
-        height: 100vh;
     };
 `;
