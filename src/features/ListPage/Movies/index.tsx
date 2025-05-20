@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from "../../../reduxTypedHooks";
 import { fetchGenres, selectGenresStatus } from "../../../genresSlice";
 import { fetchPopularMovies, selectPopularMoviesList, selectPopularMoviesStatus } from "../../../popularMoviesSlice";
 import { ListPage } from "..";
-import { TilesList } from "./styled";
 import { Tile } from "../../../common/components/Tile";
 import { renderTilesList } from "../../../common/functions/renderTilesList";
 import { Movie } from "../../../common/aliases/interfaces/Movie";
