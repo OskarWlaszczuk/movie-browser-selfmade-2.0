@@ -2,9 +2,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../reduxTypedHooks";
 import { fetchGenres, selectGenresStatus } from "../../../genresSlice";
 import { fetchPopularMovies, selectPopularMoviesList, selectPopularMoviesStatus } from "../../../popularMoviesSlice";
-import { ListPage } from "..";
-import { renderTilesList } from "../../../common/functions/renderTilesList";
-import { renderMovieItem } from "../../../common/functions/renderMovieItem";
+import { ListPage } from "../index";
 
 export const Movies = () => {
     const dispatch = useAppDispatch();
@@ -21,16 +19,10 @@ export const Movies = () => {
     console.log(popularMovies)
 
     return (
-        <>
-            <ListPage
-                title="Popular movies"
-                list={popularMovies}
-                fetchStatuses={[genresStatus, popularMoviesStatus]}
-            />
-            {renderTilesList(
-                popularMovies,
-                renderMovieItem
-            )}
-        </>
+        <ListPage
+            title="Popular movies"
+            list={popularMovies}
+            fetchStatuses={[genresStatus, popularMoviesStatus]}
+        />
     );
 };
