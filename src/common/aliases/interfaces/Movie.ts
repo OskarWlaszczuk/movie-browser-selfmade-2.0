@@ -2,7 +2,7 @@ import { GenresIds } from "../types/genre.types";
 
 export interface Movie {
     backdrop_path: string;
-    genre_ids: GenresIds[];
+    genre_ids: GenresIds;
     id: number;
     overview: string;
     poster_path: string;
