@@ -6,6 +6,11 @@ export const StyledTile = styled.li`
     color: ${({ theme }) => theme.colors.black};
     background-color: ${({ theme }) => theme.colors.white};
     padding: 16px;
+    transition: 0.3s;
+
+    &:hover{
+        scale: 105%
+    }
 `;
 
 interface PictureProps {
