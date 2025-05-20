@@ -8,10 +8,8 @@ type RenderListItem<ListItem> = (item: ListItem) => JSX.Element;
 export const renderTilesList = <ListItem extends Movie | Person>(
     list: ListItem[],
     renderListItem: RenderListItem<ListItem>
-) => {
-    return (
-        <TilesList>
-            {list.map((item) => renderListItem(item))}
-        </TilesList>
-    );
-};
+) => (
+    <TilesList>
+        {list.map((item) => renderListItem(item))}
+    </TilesList>
+);
