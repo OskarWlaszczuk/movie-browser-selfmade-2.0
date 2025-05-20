@@ -36,7 +36,6 @@ export const Tile = ({ id, picture, title, subTitle, horizontalLayout, verticalL
             <Picture $picture={picture} />
             <Title>{title}</Title>
             {subTitle && <SubTitle>{subTitle}</SubTitle>}
-
         </StyledTile>
     );
 };

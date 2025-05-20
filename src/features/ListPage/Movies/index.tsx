@@ -45,7 +45,6 @@ export const Movies = () => {
         />
     );
 
-
     const renderPersonItem = ({
         id,
         profile_path,
