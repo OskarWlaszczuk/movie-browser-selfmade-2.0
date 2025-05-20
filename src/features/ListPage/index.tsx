@@ -1,48 +1,32 @@
+import { Movie } from "../../common/aliases/interfaces/Movie";
+import { Person } from "../../common/aliases/interfaces/Person";
 import { FetchStatus } from "../../common/aliases/types/FetchStatus";
-import { Main } from "../../common/components/Main";
 import { SectionHeader } from "../../common/components/SectionHeader";
-import { TilesList } from "./Movies/styled";
+import { renderMovieItem } from "../../common/functions/renderMovieItem";
+import { renderPersonItem } from "../../common/functions/renderPersonItem";
+import { renderTilesList } from "../../common/functions/renderTilesList";
 
 interface ListPageProps {
     title: string;
-    list: any[];
+    list: Movie[] | Person[];
     fetchStatuses: FetchStatus[]
 }
 
 export const ListPage = ({ title, list, fetchStatuses }: ListPageProps) => {
+    const isMoviesList = (list: Movie[] | Person[]): list is Movie[] => {
+        return list.length > 0 && "title" in list[0];
+    };
 
-    /* <TilesList>
-                    {
-                        data?.map(({
-                            genre_ids,
-                            id,
-                            vote_average,
-                            vote_count,
-                            title,
-                            release_date,
-                            poster_path
-                        }, index) => (
-                            <Tile
-                                key={index}
-                                id={id}
-                                picture={"poster_path"}
-                                title={title}
-                                subTitle={release_date}
-                                movieDetails={{
-                                    genresIds: genre_ids,
-                                    rate: vote_average,
-                                    votesTotal: vote_count,
-                                }}
-                            />
-                        ))
-                    }
-                </TilesList> */
+    const renderList = (list: Movie[] | Person[]) => (
+        isMoviesList(list) ?
+            renderTilesList(list, renderMovieItem) :
+            renderTilesList(list, renderPersonItem)
+    );
 
     return (
         <>
             <SectionHeader text={title} isMainHeader />
-            <TilesList>
-            </TilesList>
+            {renderList(list)}
         </>
     );
 };
