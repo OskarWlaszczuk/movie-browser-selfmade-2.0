@@ -1,7 +1,7 @@
 import { Movie } from "../../aliases/interfaces/Movie";
 import { Person } from "../../aliases/interfaces/Person";
 import { GenresIds } from "../../aliases/types/genre.types";
-import { pictureWidths } from "../../constants/tmdbConfig";
+import { pictureWidths } from "../../constants/pictureConfigs";
 import { getPictureUrl } from "../../functions/getPictureUrl";
 import { GenresList } from "../GenresList";
 import { MovieRating } from "../MovieRating";
