@@ -1,6 +1,8 @@
 import { Movie } from "../../aliases/interfaces/Movie";
 import { Person } from "../../aliases/interfaces/Person";
 import { GenresIds } from "../../aliases/types/genre.types";
+import { pictureWidths } from "../../constants/tmdbConfig";
+import { getPictureUrl } from "../../functions/getPictureUrl";
 import { GenresList } from "../GenresList";
 import { MovieRating } from "../MovieRating";
 import { Picture, StyledTile, SubTitle, Title } from "./styled";
@@ -32,7 +34,7 @@ interface TileProps {
 };
 
 export const Tile = ({ id, picture, title, subTitle, horizontalLayout, verticalLayout, movieDetails, personDetails }: TileProps) => {
-
+    const pictureUrl = getPictureUrl(picture, pictureWidths.tile);
     const movieExtraInfo = (
         movieDetails && (
             <>
@@ -44,7 +46,7 @@ export const Tile = ({ id, picture, title, subTitle, horizontalLayout, verticalL
 
     return (
         <StyledTile>
-            <Picture $picture={picture} />
+            <Picture $picture={pictureUrl} />
             <Title>{title}</Title>
             {subTitle && <SubTitle>{subTitle}</SubTitle>}
             {movieExtraInfo}
