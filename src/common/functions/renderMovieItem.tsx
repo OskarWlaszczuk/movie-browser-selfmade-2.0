@@ -18,8 +18,8 @@ export const renderMovieItem = ({
         subTitle={release_date}
         movieDetails={{
             genresIds: genre_ids,
-            rate: vote_average,
-            votesTotal: vote_count,
+            voteAverage: vote_average,
+            voteCount: vote_count,
         }}
     />
 );

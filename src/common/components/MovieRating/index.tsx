@@ -3,16 +3,16 @@ import { MetaData } from "../MetaData";
 import { RatingScore, StyledMovieRating, StyledStarIcon } from "./styled";
 
 interface MovieRatingProps {
-    rate: Movie["vote_average"];
-    votesTotal: Movie["vote_count"];
+    voteAverage: Movie["vote_average"];
+    voteCount: Movie["vote_count"];
 }
 
-export const MovieRating = ({ rate, votesTotal }: MovieRatingProps) => {
+export const MovieRating = ({ voteAverage, voteCount }: MovieRatingProps) => {
     return (
         <StyledMovieRating>
             <StyledStarIcon />
-            <RatingScore>{rate}</RatingScore>
-            <MetaData>{votesTotal} votes</MetaData>
+            <RatingScore>{voteAverage.toFixed(1).replace('.', ',')}</RatingScore>
+            <MetaData>{voteCount} votes</MetaData>
         </StyledMovieRating>
     );
 };

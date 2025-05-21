@@ -18,8 +18,8 @@ interface TileProps {
     verticalLayout?: boolean;
     movieDetails?: {
         genresIds: GenresIds;
-        rate: Movie["vote_average"];
-        votesTotal: Movie["vote_count"];
+        voteAverage: Movie["vote_average"];
+        voteCount: Movie["vote_count"];
         releaseDate?: Movie["release_date"];
         productionCountries?: ProductionCountry[];
         overview?: Movie["overview"];
@@ -37,10 +37,10 @@ export const Tile = ({ id, picture, title, subTitle, horizontalLayout, verticalL
         movieDetails && (
             <>
                 <GenresList genresIds={movieDetails.genresIds} />
-                <MovieRating rate={movieDetails?.rate} votesTotal={movieDetails?.votesTotal} />
+                <MovieRating voteAverage={movieDetails?.voteAverage} voteCount={movieDetails?.voteCount} />
             </>
         )
-    )
+    );
 
     return (
         <StyledTile>
