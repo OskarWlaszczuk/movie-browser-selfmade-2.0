@@ -16,7 +16,6 @@ export const Movies = () => {
         dispatch(fetchGenres());
         dispatch(fetchPopularMovies());
     }, [dispatch]);
-    console.log(popularMovies)
 
     return (
         <ListPage
