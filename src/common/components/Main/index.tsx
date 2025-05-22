@@ -5,13 +5,13 @@ import { MainContent, MainSection } from "./styled";
 
 interface MainProps {
     content: ReactElement;
-    currentFetchStatus: FetchStatus;
+    combinedFetchStatus: FetchStatus;
     bannerContent?: ReactElement;
 };
 
-export const Main = ({ content, bannerContent, currentFetchStatus }: MainProps) => {
+export const Main = ({ content, bannerContent, combinedFetchStatus }: MainProps) => {
     //Ustawić poprawne elementy zwracane w razie ładowania/błędu/initial
-    switch (currentFetchStatus) {
+    switch (combinedFetchStatus) {
         case FETCH_STATUSES.SUCCESS:
             return (
                 <MainSection>
