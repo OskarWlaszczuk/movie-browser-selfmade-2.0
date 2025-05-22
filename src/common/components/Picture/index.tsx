@@ -8,16 +8,18 @@ interface PictureProps {
     picturePath: string;
     pictureWidth: PictureWidth;
     entityType: "movie" | "person";
+    entityName: string;
 }
 
-export const Picture = ({ picturePath, pictureWidth, entityType }: PictureProps) => {
-    const pictureUrl = getPictureUrl(picturePath, pictureWidth);
+export const Picture = ({ picturePath, pictureWidth, entityType, entityName }: PictureProps) => {
+    const pictureSrc = getPictureUrl(picturePath, pictureWidth);
+    const pictureAlt = `${entityType}: ${entityName}`;
 
-    const isValidImageUrl = pictureUrl !== getInvalidPictureUrl(pictureWidth);
+    const isValidImageUrl = pictureSrc !== getInvalidPictureUrl(pictureWidth);
 
     const pictureElement = (
         isValidImageUrl ?
-            <StyledPicture $picture={isValidImageUrl ? pictureUrl : "placeholder"} /> :
+            <StyledPicture src={pictureSrc} alt={pictureAlt} /> :
             <Placeholder entityType={entityType} />
     );
 
