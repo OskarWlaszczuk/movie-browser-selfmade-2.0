@@ -1,6 +1,7 @@
-import { getInvalidPictureUrl, PictureWidth } from "../../constants/pictureConfigs";
-import { getPictureUrl } from "../../functions/getPictureUrl";
+import { PictureWidth } from "../../constants/pictureConfigs";
+import { getPictureUrl } from "./utilis/getPictureUrl";
 import { StyledPicture } from "./styled";
+import { getInvalidPictureUrl } from "./utilis/getInvalidPictureUrl";
 
 interface PictureProps {
     picturePath: string;

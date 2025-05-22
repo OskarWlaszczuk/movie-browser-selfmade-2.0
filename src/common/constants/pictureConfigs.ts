@@ -9,5 +9,3 @@ export const pictureWidths = {
 } as const;
 
 export type PictureWidth = typeof pictureWidths[keyof typeof pictureWidths];
-
-export const getInvalidPictureUrl = (pictureWidths: PictureWidth) => `${apiUrls.image}${pictureWidths}null`;
