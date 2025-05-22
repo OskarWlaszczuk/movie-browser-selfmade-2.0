@@ -11,13 +11,21 @@ export const GenresList = ({ genresIds }: GenresListProps) => {
     const genresList = useAppSelector(selectGenresList);
 
     const extractedGenres = genresIds.map(id => genresList?.find(genre => id === genre.id));
+    const isGenresIdsEmpty = genresIds.length > 0;
+    
     return (
-        <StyledGenres>
+        <>
             {
-                extractedGenres.map(genre => (
-                    <Genre key={genre?.id}>{genre?.name}</Genre>
-                ))
+                isGenresIdsEmpty && (
+                    <StyledGenres>
+                        {
+                            extractedGenres.map(genre => (
+                                <Genre key={genre?.id}>{genre?.name}</Genre>
+                            ))
+                        }
+                    </StyledGenres>
+                )
             }
-        </StyledGenres>
+        </>
     );
 };
