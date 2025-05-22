@@ -2,11 +2,11 @@ import { MainPageHeader, StyledSectionHeader } from "./styled";
 
 interface SectionHeaderProps {
     text: string;
-    isMainHeader: boolean;
+    setAsPageTitle: boolean;
 }
 
-export const SectionHeader = ({ text, isMainHeader }: SectionHeaderProps) => {
-    const HeaderComponent = isMainHeader ? MainPageHeader : StyledSectionHeader;
+export const SectionHeader = ({ text, setAsPageTitle }: SectionHeaderProps) => {
+    const HeaderComponent = setAsPageTitle ? MainPageHeader : StyledSectionHeader;
 
     return (
         <HeaderComponent>
