@@ -1,8 +1,8 @@
 import { JSX } from "react";
-import { TilesList, TilesListContainer } from "../../features/ListPage/Movies/styled";
-import { Movie } from "../aliases/interfaces/Movie";
-import { Person } from "../aliases/interfaces/Person";
-import { SectionHeader } from "../components/SectionHeader";
+import { TilesList } from "./styled";
+import { Movie } from "../../aliases/interfaces/Movie";
+import { Person } from "../../aliases/interfaces/Person";
+import { SectionHeader } from "../SectionHeader";
 
 type RenderListItem<ListItem> = (item: ListItem) => JSX.Element;
 
@@ -22,10 +22,10 @@ export const TilesListSection = <ListItem extends Movie | Person>({
     titleData,
     renderListItem,
 }: TilesListSectionProps<ListItem>) => (
-    <TilesListContainer>
+    <>
         <SectionHeader text={titleData.text} setAsPageTitle={titleData.isPageTitle} />
         <TilesList>
             {list.map((item) => renderListItem(item))}
         </TilesList>
-    </TilesListContainer>
+    </>
 );
