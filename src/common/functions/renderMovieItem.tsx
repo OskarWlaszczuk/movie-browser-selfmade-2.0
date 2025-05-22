@@ -1,5 +1,6 @@
 import { Movie } from "../aliases/interfaces/Movie";
 import { Tile } from "../components/Tile";
+import { getYear } from "./getYear";
 
 export const renderMovieItem = ({
     genre_ids,
@@ -15,7 +16,7 @@ export const renderMovieItem = ({
         id={id}
         picture={poster_path}
         title={title}
-        subTitle={release_date}
+        subTitle={getYear(release_date)}
         movieDetails={{
             genresIds: genre_ids,
             voteAverage: vote_average,
