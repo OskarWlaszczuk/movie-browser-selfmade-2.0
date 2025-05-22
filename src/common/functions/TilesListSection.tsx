@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { TilesList } from "../../features/ListPage/Movies/styled";
+import { TilesList, TilesListContainer } from "../../features/ListPage/Movies/styled";
 import { Movie } from "../aliases/interfaces/Movie";
 import { Person } from "../aliases/interfaces/Person";
 import { SectionHeader } from "../components/SectionHeader";
@@ -22,10 +22,10 @@ export const TilesListSection = <ListItem extends Movie | Person>({
     titleData,
     renderListItem,
 }: TilesListSectionProps<ListItem>) => (
-    <section>
+    <TilesListContainer>
         <SectionHeader text={titleData.text} setAsPageTitle={titleData.isPageTitle} />
         <TilesList>
             {list.map((item) => renderListItem(item))}
         </TilesList>
-    </section>
+    </TilesListContainer>
 );
