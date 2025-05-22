@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 const sharedHeaderStyles = css`
     font-size: ${({ theme }) => theme.fontSizes.title};
     font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+    margin:  0 0 24px;
 `;
 
 export const StyledSectionHeader = styled.header`
@@ -11,5 +12,4 @@ export const StyledSectionHeader = styled.header`
 
 export const MainPageHeader = styled.h1`
     ${sharedHeaderStyles}
-    margin: 0;
 `;
