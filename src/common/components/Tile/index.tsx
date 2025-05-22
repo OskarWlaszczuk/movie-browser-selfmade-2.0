@@ -2,10 +2,10 @@ import { Movie } from "../../aliases/interfaces/Movie";
 import { Person } from "../../aliases/interfaces/Person";
 import { GenresIds } from "../../aliases/types/genre.types";
 import { pictureWidths } from "../../constants/pictureConfigs";
-import { getPictureUrl } from "../../functions/getPictureUrl";
 import { GenresList } from "../GenresList";
 import { MovieRating } from "../MovieRating";
-import { Picture, StyledTile, SubTitle, Title } from "./styled";
+import { Picture } from "../Picture";
+import { StyledTile, SubTitle, Title } from "./styled";
 
 interface ProductionCountry {
     iso_3166_1: string;
@@ -34,7 +34,6 @@ interface TileProps {
 };
 
 export const Tile = ({ id, picture, title, subTitle, horizontalLayout, verticalLayout, movieDetails, personDetails }: TileProps) => {
-    const pictureUrl = getPictureUrl(picture, pictureWidths.tile);
     const movieExtraInfo = (
         movieDetails && (
             <>
@@ -46,7 +45,7 @@ export const Tile = ({ id, picture, title, subTitle, horizontalLayout, verticalL
 
     return (
         <StyledTile>
-            <Picture $picture={pictureUrl} />
+            <Picture picturePath={picture} pictureWidth={pictureWidths.tile} />
             <Title>{title}</Title>
             {subTitle && <SubTitle>{subTitle}</SubTitle>}
             {movieExtraInfo}

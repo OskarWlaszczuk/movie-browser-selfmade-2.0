@@ -13,21 +13,6 @@ export const StyledTile = styled.li`
     }
 `;
 
-interface PictureProps {
-    $picture: string;
-}
-
-export const Picture = styled.div.attrs<PictureProps>(({ $picture }) => ({
-    style: {
-        backgroundImage: `url(${$picture})`,
-    },
-})) <PictureProps>`
-    background-size: cover;
-    background-position: center;
-    border-radius: 8px;
-    padding-top: calc(100% * 585 / 582);
-`;
-
 export const Title = styled.header`
     font-weight: ${({ theme }) => theme.fontWeights.medium};
     font-size:  ${({ theme }) => theme.fontSizes.l};
