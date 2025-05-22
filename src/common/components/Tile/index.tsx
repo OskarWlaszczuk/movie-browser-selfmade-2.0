@@ -43,9 +43,11 @@ export const Tile = ({ id, picture, title, subTitle, horizontalLayout, verticalL
         )
     );
 
+    const entityType = movieDetails ? "movie" : "person";
+
     return (
         <StyledTile>
-            <Picture picturePath={picture} pictureWidth={pictureWidths.tile} />
+            <Picture picturePath={picture} pictureWidth={pictureWidths.tile} entityType={entityType} />
             <Title>{title}</Title>
             {subTitle && <SubTitle>{subTitle}</SubTitle>}
             {movieExtraInfo}
