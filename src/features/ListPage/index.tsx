@@ -4,7 +4,7 @@ import { FetchStatus } from "../../common/aliases/types/FetchStatus";
 import { Main } from "../../common/components/Main";
 import { renderMovieItem } from "../../common/functions/renderMovieItem";
 import { renderPersonItem } from "../../common/functions/renderPersonItem";
-import { TilesListSection } from "../../common/functions/TilesListSection";
+import { TilesListSection } from "../../common/components/TilesListSection";
 import { useCombinedFetchStatus } from "../../common/hooks/useCombinedFetchStatus";
 
 interface ListPageProps {
