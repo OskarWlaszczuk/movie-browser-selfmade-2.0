@@ -13,7 +13,7 @@ export const GlobalStyles = createGlobalStyle`
         margin: 0;
     };
 
-    main {
+    #root {
          font-family: "Inter", sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
