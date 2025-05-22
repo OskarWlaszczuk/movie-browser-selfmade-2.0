@@ -1,10 +1,11 @@
 import { Movie } from "../../common/aliases/interfaces/Movie";
 import { Person } from "../../common/aliases/interfaces/Person";
 import { FetchStatus } from "../../common/aliases/types/FetchStatus";
-import { SectionHeader } from "../../common/components/SectionHeader";
+import { Main } from "../../common/components/Main";
 import { renderMovieItem } from "../../common/functions/renderMovieItem";
 import { renderPersonItem } from "../../common/functions/renderPersonItem";
-import { renderTilesList } from "../../common/functions/renderTilesList";
+import { TilesListSection } from "../../common/functions/TilesListSection";
+import { useCombinedFetchStatus } from "../../common/hooks/useCombinedFetchStatus";
 
 interface ListPageProps {
     title: string;
@@ -17,16 +18,21 @@ export const ListPage = ({ title, list, fetchStatuses }: ListPageProps) => {
         return list.length > 0 && "title" in list[0];
     };
 
-    const renderList = (list: Movie[] | Person[]) => (
+    const tilesListSectionElement = (
         isMoviesList(list) ?
-            renderTilesList(list, renderMovieItem) :
-            renderTilesList(list, renderPersonItem)
+            <TilesListSection list={list} titleData={{ isPageTitle: true, text: title }} renderListItem={renderMovieItem} /> :
+            <TilesListSection list={list} titleData={{ isPageTitle: true, text: title }} renderListItem={renderPersonItem} />
+
     );
+
+    const combinedFetchStatus = useCombinedFetchStatus(fetchStatuses);
 
     return (
         <>
-            <SectionHeader text={title} isMainHeader />
-            {renderList(list)}
+            <Main
+                content={<>{tilesListSectionElement}</>}
+                combinedFetchStatus={combinedFetchStatus}
+            />
         </>
     );
 };
