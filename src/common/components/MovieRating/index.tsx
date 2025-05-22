@@ -8,11 +8,17 @@ interface MovieRatingProps {
 }
 
 export const MovieRating = ({ voteAverage, voteCount }: MovieRatingProps) => {
+    const areVotesAvailable = voteCount !== 0;
+
     return (
         <StyledMovieRating>
-            <StyledStarIcon />
-            <RatingScore>{voteAverage.toFixed(1).replace('.', ',')}</RatingScore>
-            <MetaData>{voteCount} votes</MetaData>
+            {areVotesAvailable && (
+                <>
+                    <StyledStarIcon />
+                    <RatingScore>{voteAverage.toFixed(1).replace('.', ',')}</RatingScore>
+                </>
+            )}
+            <MetaData>{areVotesAvailable ? `${voteCount} votes` : "No votes yet"}</MetaData>
         </StyledMovieRating>
     );
 };
