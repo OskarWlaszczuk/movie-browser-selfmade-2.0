@@ -5,6 +5,12 @@ export const StyledMovieRating = styled.section`
     display: flex;
     gap: 12px;
     align-items: end;
+    grid-area: movieRating;
+    white-space: nowrap;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.tabletS}) {
+        gap: 8px;
+    }
 `;
 
 export const StyledStarIcon = styled(StarIcon)`
