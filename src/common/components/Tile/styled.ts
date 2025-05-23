@@ -9,6 +9,8 @@ export const StyledTile = styled.li`
     grid-template-columns: 100%;
     grid-template-rows: min-content;
     grid-gap: 12px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 7px -1px #5a575747;
 
     &:hover{
         scale: 103%
