@@ -5,7 +5,7 @@ import { pictureWidths } from "../../constants/pictureConfigs";
 import { GenresList } from "../GenresList";
 import { MovieRating } from "../MovieRating";
 import { Picture } from "../Picture";
-import { StyledTile, SubTitle, Title } from "./styled";
+import { InfoWrapper, StyledTile, SubTitle, Title } from "./styled";
 
 interface ProductionCountry {
     iso_3166_1: string;
@@ -34,23 +34,18 @@ interface TileProps {
 };
 
 export const Tile = ({ id, picture, title, subTitle, horizontalLayout, verticalLayout, movieDetails, personDetails }: TileProps) => {
-    const movieExtraInfo = (
-        movieDetails && (
-            <>
-                <GenresList genresIds={movieDetails.genresIds} />
-                <MovieRating voteAverage={movieDetails?.voteAverage} voteCount={movieDetails?.voteCount} />
-            </>
-        )
-    );
 
     const entityType = movieDetails ? "movie" : "person";
 
     return (
         <StyledTile>
             <Picture picturePath={picture} pictureWidth={pictureWidths.tile} entityType={entityType} entityName={title} />
-            <Title>{title}</Title>
-            {subTitle && <SubTitle>{subTitle}</SubTitle>}
-            {movieExtraInfo}
+            <InfoWrapper>
+                <Title>{title}</Title>
+                {subTitle && <SubTitle>{subTitle}</SubTitle>}
+                {movieDetails && <GenresList genresIds={movieDetails.genresIds} />}
+            </InfoWrapper>
+            {movieDetails && <MovieRating voteAverage={movieDetails?.voteAverage} voteCount={movieDetails?.voteCount} />}
         </StyledTile>
     );
 };
