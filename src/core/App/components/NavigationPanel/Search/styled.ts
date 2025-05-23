@@ -10,6 +10,14 @@ export const SearchPanel = styled.div`
     border: 1px solid ${({ theme }) => theme.colors.mystic};
     border-radius: 33px;
     background-color: ${({ theme }) => theme.colors.white};
+    
+    @media (max-width: ${({ theme }) => theme.breakpoints.laptopS}) {
+        flex-grow:1;
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobileM}) {
+        padding: 14px 16px;
+    }
 `;
 
 export const StyledSearchIcon = styled(SearchIcon)`
