@@ -4,7 +4,7 @@ import { ReactComponent as StarIcon } from "./Icons/Star.svg";
 export const StyledMovieRating = styled.section`
     display: flex;
     gap: 12px;
-    align-items: center;
+    align-items: end;
 `;
 
 export const StyledStarIcon = styled(StarIcon)`
