@@ -4,7 +4,7 @@ export const StyledGenres = styled.ul`
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
-    justify-items: start;
+    align-items: flex-start;
     margin: 0;
     padding: 0;
 `;
@@ -15,6 +15,7 @@ export const Genre = styled.li`
     padding: 8px 16px;
     list-style: none;
     border-radius: 5px;
-    flex-grow: 1;
+    flex-basis: 30%;
     text-align: center;
+    white-space: nowrap;
 `;
