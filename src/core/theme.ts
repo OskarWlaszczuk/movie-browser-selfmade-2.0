@@ -12,6 +12,17 @@ export const theme = {
         pattensBlue: "#D6E4FF",
         scienceBlue: "#0044CC",
     },
+    breakpoints: {
+        mobileS: "320px",
+        mobileM: "480px",
+        mobileL: "600px",
+        mobileXL: "700px",
+        tabletS: "768px",
+        laptopS: "970px",
+        tabletM: "1024px",
+        tabletL: "1200px",
+        laptop: "1480px"
+    },
     fontSizes: {
         xs: "12px",
         s: "14px",
