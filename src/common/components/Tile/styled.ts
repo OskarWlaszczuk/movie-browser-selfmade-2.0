@@ -42,11 +42,8 @@ export const Title = styled.header`
     font-weight: ${({ theme }) => theme.fontWeights.medium};
     font-size:  ${({ theme }) => theme.fontSizes.l};
     line-height: 130%;
-`;
 
-export const SubTitle = styled.p`
-    color: ${({ theme }) => theme.colors.waterloo};
-    font-size:   ${({ theme }) => theme.fontSizes.m};
-    font-weight: ${({ theme }) => theme.fontWeights.regular};
-    margin: 0;
+    @media (max-width: ${({ theme }) => theme.breakpoints.laptopXS}) {
+        font-size:  ${({ theme }) => theme.fontSizes.m};
+    }
 `;
