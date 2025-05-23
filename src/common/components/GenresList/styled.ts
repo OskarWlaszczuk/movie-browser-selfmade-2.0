@@ -19,7 +19,8 @@ export const Genre = styled.li`
     text-align: center;
     white-space: nowrap;
 
-    @media (max-width: ${({ theme }) => theme.breakpoints.laptopS}) {
-        white-space: normal;
+    @media (max-width: ${({ theme }) => theme.breakpoints.tabletS}) {
+        font-size: ${({ theme }) => theme.fontSizes.xs};
+        padding: 4px 8px;
     }
 `;
