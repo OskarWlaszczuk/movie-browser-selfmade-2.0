@@ -5,6 +5,8 @@ export const StyledGenres = styled.ul`
     gap: 8px;
     flex-wrap: wrap;
     justify-items: start;
+    margin: 0;
+    padding: 0;
 `;
 
 export const Genre = styled.li`
