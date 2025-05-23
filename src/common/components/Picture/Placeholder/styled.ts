@@ -10,6 +10,7 @@ export const StyledPlaceholder = styled.div`
     border-radius: 8px;
     aspect-ratio: 2/ 3;
     width: 100%;
+    grid-area: picture;
 `;
 
 export const StyledMoviePlaceholder = styled(MoviePlaceholder)`
