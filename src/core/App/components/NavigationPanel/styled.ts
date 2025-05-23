@@ -4,6 +4,7 @@ import { ReactComponent as AppLogo } from "./Icons/Video.svg";
 
 export const StyledNavPanel = styled.nav`
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-evenly;
     color: ${({ theme }) => theme.colors.white};
