@@ -12,6 +12,10 @@ export const StyledTile = styled.li`
     border-radius: 5px;
     box-shadow: 0px 0px 7px -1px #5a575747;
 
+    @media (max-width: ${({ theme }) => theme.breakpoints.laptopS}) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     &:hover{
         scale: 103%
     }
