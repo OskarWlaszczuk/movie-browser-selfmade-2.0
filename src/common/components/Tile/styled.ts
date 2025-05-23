@@ -6,6 +6,10 @@ export const StyledTile = styled.li`
     padding: 16px;
     transition: 0.4s;
     display: grid;
+    grid-template-areas: 
+        "picture"
+        "infoWrapper"
+        "movieRating";
     grid-template-columns: 100%;
     grid-template-rows: min-content;
     grid-gap: 12px;
@@ -14,6 +18,12 @@ export const StyledTile = styled.li`
 
     @media (max-width: ${({ theme }) => theme.breakpoints.laptopS}) {
         grid-template-columns: repeat(2, 1fr);
+        align-items: start;
+        grid-template-areas: 
+        "picture infoWrapper"
+        "picture movieRating"
+        "picture ..."
+        ;
     }
 
     &:hover{
@@ -25,6 +35,7 @@ export const InfoWrapper = styled.article`
     display: flex;
     flex-direction: column;
     gap: 8px;
+    grid-area: infoWrapper;
 `;
 
 export const Title = styled.header`
