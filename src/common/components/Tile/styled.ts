@@ -1,6 +1,20 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const StyledTile = styled.li`
+interface StyledTileProps {
+    $horizontalLayout?: boolean;
+}
+
+const horizontalLayoutStyles = css`
+    grid-template-columns: repeat(2, 1fr);
+    align-items: start;
+    grid-template-areas: 
+        "picture infoWrapper"
+        "picture movieRating"
+        "picture ..."
+    ;
+`;
+
+export const StyledTile = styled.li<StyledTileProps>`
     color: ${({ theme }) => theme.colors.black};
     background-color: ${({ theme }) => theme.colors.white};
     padding: 16px;
@@ -17,18 +31,16 @@ export const StyledTile = styled.li`
     box-shadow: 0px 0px 7px -1px #5a575747;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.laptopS}) {
-        grid-template-columns: repeat(2, 1fr);
-        align-items: start;
-        grid-template-areas: 
-        "picture infoWrapper"
-        "picture movieRating"
-        "picture ..."
-        ;
+       ${horizontalLayoutStyles}
     }
 
     &:hover{
         scale: 103%
     }
+
+    ${({ $horizontalLayout }) => $horizontalLayout && css`
+        ${horizontalLayoutStyles}
+    `}
 `;
 
 export const InfoWrapper = styled.article`
