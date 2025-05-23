@@ -18,4 +18,8 @@ export const Genre = styled.li`
     flex-basis: 30%;
     text-align: center;
     white-space: nowrap;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.laptopS}) {
+        white-space: normal;
+    }
 `;
