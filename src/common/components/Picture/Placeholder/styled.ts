@@ -9,6 +9,7 @@ export const StyledPlaceholder = styled.div`
     background-color: ${({ theme }) => theme.colors.silver};
     border-radius: 8px;
     aspect-ratio: 2/ 3;
+    width: 100%;
 `;
 
 export const StyledMoviePlaceholder = styled(MoviePlaceholder)`
