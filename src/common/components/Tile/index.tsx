@@ -18,7 +18,6 @@ interface TileProps {
     title: string;
     subTitle?: string | number;
     horizontalLayout?: boolean;
-    verticalLayout?: boolean;
     movieDetails?: {
         genresIds: GenresIds;
         voteAverage: Movie["vote_average"];
@@ -34,12 +33,12 @@ interface TileProps {
     }
 };
 
-export const Tile = ({ id, picture, title, subTitle, horizontalLayout, verticalLayout, movieDetails, personDetails }: TileProps) => {
+export const Tile = ({ id, picture, title, subTitle, horizontalLayout, movieDetails, personDetails }: TileProps) => {
 
     const entityType = movieDetails ? "movie" : "person";
 
     return (
-        <StyledTile>
+        <StyledTile $horizontalLayout={horizontalLayout}>
             <Picture picturePath={picture} pictureWidth={pictureWidths.tile} entityType={entityType} entityName={title} />
             <InfoWrapper>
                 <Title>{title}</Title>
