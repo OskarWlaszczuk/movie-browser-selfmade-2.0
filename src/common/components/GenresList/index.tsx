@@ -12,15 +12,15 @@ export const GenresList = ({ genresIds }: GenresListProps) => {
 
     const extractedGenres = genresIds.map(id => genresList?.find(genre => id === genre.id));
     const isGenresIdsEmpty = genresIds.length > 0;
-    
+
     return (
         <>
             {
                 isGenresIdsEmpty && (
                     <StyledGenres>
                         {
-                            extractedGenres.map(genre => (
-                                <Genre key={genre?.id}>{genre?.name}</Genre>
+                            extractedGenres.map((genre, index) => (
+                                <Genre key={index}>{genre?.name}</Genre>
                             ))
                         }
                     </StyledGenres>
