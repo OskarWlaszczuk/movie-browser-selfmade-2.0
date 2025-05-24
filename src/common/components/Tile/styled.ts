@@ -4,14 +4,9 @@ interface StyledTileProps {
     $horizontalLayout?: boolean;
 }
 
-const horizontalLayoutStyles = css`
+const sharedHorizontalLayoutStyles = css`
     grid-template-columns: repeat(2, 1fr);
     align-items: start;
-    grid-template-areas: 
-        "picture infoWrapper"
-        "picture movieRating"
-        "picture ..."
-    ;
 `;
 
 export const StyledTile = styled.li<StyledTileProps>`
@@ -23,7 +18,8 @@ export const StyledTile = styled.li<StyledTileProps>`
     grid-template-areas: 
         "picture"
         "infoWrapper"
-        "movieRating";
+        "movieRating"
+    ;
     grid-template-columns: 100%;
     grid-template-rows: min-content;
     grid-gap: 12px;
@@ -31,7 +27,12 @@ export const StyledTile = styled.li<StyledTileProps>`
     box-shadow: 0px 0px 7px -1px #5a575747;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.laptopS}) {
-       ${horizontalLayoutStyles}
+        grid-template-areas: 
+            "picture infoWrapper"
+            "picture movieRating"
+            "picture ..."
+        ;
+        ${sharedHorizontalLayoutStyles}
     }
 
     &:hover{
@@ -39,7 +40,12 @@ export const StyledTile = styled.li<StyledTileProps>`
     }
 
     ${({ $horizontalLayout }) => $horizontalLayout && css`
-        ${horizontalLayoutStyles}
+        ${sharedHorizontalLayoutStyles}
+        grid-template-areas: 
+            "picture infoWrapper"
+            "picture movieRating"
+            "picture overview"
+        ;
     `}
 `;
 
@@ -59,3 +65,7 @@ export const Title = styled.header`
         font-size:  ${({ theme }) => theme.fontSizes.m};
     }
 `;
+
+export const Overview = styled.p`
+    grid-area: overview;
+`
