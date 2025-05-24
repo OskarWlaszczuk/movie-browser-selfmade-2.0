@@ -1,8 +1,8 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { fetchFromAPI } from "./common/functions/fetchFromAPI";
 import { SagaIterator } from "redux-saga";
-import { PopularMoviesResponse } from "./common/aliases/interfaces/PopularMoviesResponse";
 import { fetchPopularMovies, handlePopularMoviesFailed, setFetchedPopularMovies } from "./popularMoviesSlice";
+import { PopularMoviesResponse } from "./common/aliases/interfaces/TMDBRList";
 
 function* fetchPopularMoviesHandler(): SagaIterator {
     try {

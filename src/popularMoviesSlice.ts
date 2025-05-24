@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FetchStatus } from "./common/aliases/types/FetchStatus";
 import { FETCH_STATUSES } from "./common/constants/FETCH_STATUSES";
 import { RootState } from "./core/store";
-import { PopularMoviesResponse } from "./common/aliases/interfaces/PopularMoviesResponse";
+import { PopularMoviesResponse } from "./common/aliases/interfaces/TMDBRList";
 
 interface PopularMoviesState {
     list: PopularMoviesResponse["results"];
