@@ -18,10 +18,12 @@ export const ListPage = ({ title, list, fetchStatuses }: ListPageProps) => {
         return list.length > 0 && "title" in list[0];
     };
 
+    const titleData = { isPageTitle: true, text: title };
+
     const tilesListSectionElement = (
         isMoviesList(list) ?
-            <TilesListSection list={list} titleData={{ isPageTitle: true, text: title }} renderListItem={renderMovieItem} /> :
-            <TilesListSection list={list} titleData={{ isPageTitle: true, text: title }} renderListItem={renderPersonItem} />
+            <TilesListSection list={list} titleData={titleData} renderListItem={renderMovieItem} /> :
+            <TilesListSection list={list} titleData={titleData} renderListItem={renderPersonItem} />
 
     );
 
