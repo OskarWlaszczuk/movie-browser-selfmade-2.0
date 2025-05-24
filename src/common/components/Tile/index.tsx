@@ -6,7 +6,7 @@ import { GenresList } from "../GenresList";
 import { MetaData } from "../MetaData";
 import { MovieRating } from "../MovieRating";
 import { Picture } from "../Picture";
-import { InfoWrapper, StyledTile, Title } from "./styled";
+import { InfoWrapper, Overview, StyledTile, Title } from "./styled";
 
 interface ProductionCountry {
     iso_3166_1: string;
@@ -30,13 +30,12 @@ interface TileProps {
         biography: Person["biography"];
         birthday: Person["birthday"];
         placeOfBirth: Person["place_of_birth"];
-    }
+    };
 };
 
 export const Tile = ({ id, picture, title, subTitle, horizontalLayout, movieDetails, personDetails }: TileProps) => {
 
     const entityType = movieDetails ? "movie" : "person";
-
     return (
         <StyledTile $horizontalLayout={horizontalLayout}>
             <Picture picturePath={picture} pictureWidth={pictureWidths.tile} entityType={entityType} entityName={title} />
@@ -46,6 +45,7 @@ export const Tile = ({ id, picture, title, subTitle, horizontalLayout, movieDeta
                 {movieDetails && <GenresList genresIds={movieDetails.genresIds} />}
             </InfoWrapper>
             {movieDetails && <MovieRating voteAverage={movieDetails?.voteAverage} voteCount={movieDetails?.voteCount} />}
+            {movieDetails?.overview && <Overview>{movieDetails.overview}</Overview>}
         </StyledTile>
     );
 };
