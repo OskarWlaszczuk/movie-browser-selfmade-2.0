@@ -14,6 +14,7 @@ export const Movie = () => {
     console.log(crew, cast, movieCreditsStatus)
 
     useEffect(() => {
+        if (!movieId) return;
         dispatch(fetchMovieCredits({ movieId }));
     }, [dispatch, movieId]);
 
@@ -40,5 +41,5 @@ export const Movie = () => {
             sectionsData={[castSectionData, crewSectionData]}
             fetchStatuses={[movieCreditsStatus]}
         />
-    )
-}
+    );
+};
