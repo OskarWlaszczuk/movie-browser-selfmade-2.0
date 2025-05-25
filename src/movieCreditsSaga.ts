@@ -22,8 +22,8 @@ interface MovieCreditsApiResponse {
     crew: CrewMember[];
 }
 
-function* fetchMovieCreditsHandler({ payload }: string): SagaIterator {
-    const { movieId } = payload;
+function* fetchMovieCreditsHandler(action: ReturnType<typeof fetchMovieCredits>): SagaIterator {
+    const { movieId } = action.payload;
 
     try {
         const typedFetch = fetchFromAPI<MovieCreditsApiResponse>;
