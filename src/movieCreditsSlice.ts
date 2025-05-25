@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FETCH_STATUSES } from "./common/constants/FETCH_STATUSES";
 import { FetchStatus } from "./common/aliases/types/FetchStatus";
 import { RootState } from "./core/store";
-import { Movie } from "./common/aliases/interfaces/Movie";
 
 interface CastMember {
     id: number;
@@ -39,7 +38,7 @@ const movieCreditsSlice = createSlice({
     name: "movieCredits",
     initialState,
     reducers: {
-        fetchMovieCredits: (state, { payload }: PayloadAction<string>) => {
+        fetchMovieCredits: (state, { payload }: PayloadAction<{ movieId: string }>) => {
             state.status = FETCH_STATUSES.LOADING;
         },
         setFetchedMovieCredits: (state, { payload }: PayloadAction<MovieCreditsApiResponse>) => {
