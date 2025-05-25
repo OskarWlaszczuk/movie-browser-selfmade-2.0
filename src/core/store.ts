@@ -4,12 +4,14 @@ import { rootSaga } from './rootSaga';
 import { genresReducer } from '../genresSlice';
 import { popularMoviesReducer } from '../popularMoviesSlice';
 import { popularPeopleReducer } from '../popularPeopleSlice';
+import { movieCreditsReducer } from '../movieCreditsSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
     reducer: {
         genres: genresReducer,
+        movieCredits: movieCreditsReducer,
         popularMovies: popularMoviesReducer,
         popularPeople: popularPeopleReducer,
     },
