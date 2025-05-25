@@ -4,14 +4,14 @@ import { GenreResponse } from "./common/aliases/types/genre.types";
 import { fetchFromAPI } from "./common/functions/fetchFromAPI";
 import { SagaIterator } from "redux-saga";
 
-interface RawGenresResponse {
+interface GenresApiResponse {
     genres: GenreResponse[]
 }
 
 function* fetchGenresHandler(): SagaIterator {
     try {
-        const typedFetch = fetchFromAPI<RawGenresResponse>;
-        const genresList: RawGenresResponse = yield call(typedFetch, "/genres.json");
+        const typedFetch = fetchFromAPI<GenresApiResponse>;
+        const genresList: GenresApiResponse = yield call(typedFetch, "/genres.json");
         yield put(setFetchedGenres(genresList.genres));
     } catch {
         yield put(handleGenresFailed());
