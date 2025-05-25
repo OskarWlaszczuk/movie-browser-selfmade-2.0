@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 interface StyledTileProps {
@@ -9,7 +10,7 @@ const sharedHorizontalLayoutStyles = css`
     align-items: start;
 `;
 
-export const StyledTile = styled.li<StyledTileProps>`
+export const StyledTile = styled(NavLink) <StyledTileProps>`
     color: ${({ theme }) => theme.colors.black};
     background-color: ${({ theme }) => theme.colors.white};
     padding: 16px;
@@ -25,6 +26,7 @@ export const StyledTile = styled.li<StyledTileProps>`
     grid-gap: 12px;
     border-radius: 5px;
     box-shadow: 0px 0px 7px -1px #5a575747;
+    text-decoration: none;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.laptopS}) {
         grid-template-areas: 
