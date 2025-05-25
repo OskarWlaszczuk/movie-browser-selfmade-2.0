@@ -2,6 +2,7 @@ import { Movie } from "../../aliases/interfaces/Movie";
 import { Person } from "../../aliases/interfaces/Person";
 import { GenresIds } from "../../aliases/types/genre.types";
 import { pictureWidths } from "../../constants/pictureConfigs";
+import { routes } from "../../functions/routes";
 import { GenresList } from "../GenresList";
 import { MetaData } from "../MetaData";
 import { MovieRating } from "../MovieRating";
@@ -37,7 +38,7 @@ export const Tile = ({ id, picture, title, subTitle, horizontalLayout, movieDeta
 
     const entityType = movieDetails ? "movie" : "person";
     return (
-        <StyledTile $horizontalLayout={horizontalLayout}>
+        <StyledTile $horizontalLayout={horizontalLayout} to={entityType === "movie" ? routes.movieDetails(id) : routes.personDetails(id)}>
             <Picture picturePath={picture} pictureWidth={pictureWidths.tile} entityType={entityType} entityName={title} />
             <InfoWrapper>
                 <Title>{title}</Title>
