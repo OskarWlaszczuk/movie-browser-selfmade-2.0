@@ -1,24 +1,24 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { fetchFromAPI } from "./common/functions/fetchFromAPI";
 import { SagaIterator } from "redux-saga";
-import { fetchPopularPeople, handlePopularPeopleFailed, setFetchedPopularPeople } from "./popularPeopleSlice";
-import { PopularPeopleResponse } from "./common/aliases/interfaces/TMDBRList";
+import { popularPeopleActions } from "./popularPeopleSlice";
+import { PopularPeopleApi } from "./common/aliases/interfaces/TMDBRList";
 
 function* fetchPopularPeopleHandler(): SagaIterator {
     try {
-        const typedFetch = fetchFromAPI<PopularPeopleResponse>;
-        const popularPeople: PopularPeopleResponse = yield call(typedFetch, "/popularPeople.json");
-        yield put(setFetchedPopularPeople(popularPeople));
+        const typedFetch = fetchFromAPI<PopularPeopleApi>;
+        const popularPeople: PopularPeopleApi = yield call(typedFetch, "/popularPeople.json");
+        yield put(popularPeopleActions.setFetchedPopularList(popularPeople));
     } catch {
-        yield put(handlePopularPeopleFailed());
+        yield put(popularPeopleActions.handlePopularListFailed());
     };
 };
 
-type FetchPopularPeopleAction = ReturnType<typeof fetchPopularPeople>;
+type FetchPopularPeopleAction = ReturnType<typeof popularPeopleActions.fetchPopularList>;
 
 export function* popularPeopleSaga() {
     yield takeLatest<FetchPopularPeopleAction>(
-        fetchPopularPeople.type,
+        popularPeopleActions.fetchPopularList.type,
         fetchPopularPeopleHandler
     );
 };
