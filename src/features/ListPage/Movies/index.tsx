@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../reduxTypedHooks";
 import { fetchGenres, selectGenresStatus } from "../../../genresSlice";
-import { fetchPopularMovies, selectPopularMoviesList, selectPopularMoviesStatus } from "../../../popularMoviesSlice";
+import { popularMoviesActions, popularMoviesSelectors } from "../../../popularMoviesSlice";
 import { ListPage } from "../index";
 
 export const Movies = () => {
@@ -9,12 +9,12 @@ export const Movies = () => {
 
     const genresStatus = useAppSelector(selectGenresStatus);
 
-    const popularMoviesStatus = useAppSelector(selectPopularMoviesStatus);
-    const popularMovies = useAppSelector(selectPopularMoviesList);
+    const popularMoviesStatus = useAppSelector(popularMoviesSelectors.selectPopularListStatus);
+    const popularMovies = useAppSelector(popularMoviesSelectors.selectPopularList);
 
     useEffect(() => {
         dispatch(fetchGenres());
-        dispatch(fetchPopularMovies());
+        dispatch(popularMoviesActions.fetchPopularList());
     }, [dispatch]);
 
     return (
