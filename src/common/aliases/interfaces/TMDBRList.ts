@@ -8,6 +8,5 @@ export interface PopularListApi<PopularListItemType> {
     total_results: number;
 }
 
-
 export type PopularPeopleApi = PopularListApi<Person>;
 export type PopularMovieApi = PopularListApi<Movie>;
