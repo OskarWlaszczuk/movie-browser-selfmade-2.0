@@ -1,19 +1,20 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../reduxTypedHooks";
-import { fetchGenres, selectGenresStatus } from "../../../genresSlice";
 import { popularMoviesActions, popularMoviesSelectors } from "../../../popularMoviesSlice";
 import { ListPage } from "../index";
+import { GenreResponse } from "../../../common/aliases/types/genre.types";
+import { useFetchApi } from "../../../common/hooks/useFetchApi";
 
 export const Movies = () => {
-    const dispatch = useAppDispatch();
 
-    const genresStatus = useAppSelector(selectGenresStatus);
+    const dispatch = useAppDispatch();
 
     const popularMoviesStatus = useAppSelector(popularMoviesSelectors.selectPopularListStatus);
     const popularMovies = useAppSelector(popularMoviesSelectors.selectPopularList);
 
+
+    
     useEffect(() => {
-        dispatch(fetchGenres());
         dispatch(popularMoviesActions.fetchPopularList());
     }, [dispatch]);
 
@@ -22,7 +23,8 @@ export const Movies = () => {
             title="Popular movies"
             // @ts-ignore
             list={popularMovies}
-            fetchStatuses={[genresStatus, popularMoviesStatus]}
+            // @ts-ignore
+            fetchStatuses={[popularMoviesStatus]}
         />
     );
 };
