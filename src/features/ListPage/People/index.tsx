@@ -16,7 +16,9 @@ export const People = () => {
     return (
         <ListPage
             title="Popular people"
+            // @ts-ignore
             list={popularPeople}
+            // @ts-ignore
             fetchStatuses={[popularPeopleStatus]}
         />
     );

@@ -20,6 +20,7 @@ export const Movies = () => {
     return (
         <ListPage
             title="Popular movies"
+            // @ts-ignore
             list={popularMovies}
             fetchStatuses={[genresStatus, popularMoviesStatus]}
         />

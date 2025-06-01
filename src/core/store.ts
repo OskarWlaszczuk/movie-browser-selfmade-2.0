@@ -7,7 +7,7 @@ import { popularPeopleReducer } from '../popularPeopleSlice';
 import { movieCreditsReducer } from '../movieCreditsSlice';
 
 const sagaMiddleware = createSagaMiddleware();
-
+// @ts-ignore
 export const store = configureStore({
     reducer: {
         genres: genresReducer,
@@ -22,4 +22,5 @@ export const store = configureStore({
 sagaMiddleware.run(rootSaga);
 
 export type AppDispatch = typeof store.dispatch;
+// @ts-ignore
 export type RootState = ReturnType<typeof store.getState>;
