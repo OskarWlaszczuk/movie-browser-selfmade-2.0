@@ -3,9 +3,10 @@ import { getPictureUrl } from "./utilis/getPictureUrl";
 import { StyledPicture } from "./styled";
 import { getInvalidPictureUrl } from "./utilis/getInvalidPictureUrl";
 import { Placeholder } from "./Placeholder";
+import { OrNull } from "../../aliases/types/OrNull";
 
 interface PictureProps {
-    picturePath: string;
+    picturePath: OrNull<string>;
     pictureWidth: PictureWidth;
     entityType: "movie" | "person";
     entityName: string;
