@@ -1,5 +1,5 @@
 import { OrUndefined } from "../types/OrUndefined";
-import { TileEntity } from "../types/TileEntity";
+import { TileEntity } from "./Entities";
 
 interface TitleData {
     text: string;

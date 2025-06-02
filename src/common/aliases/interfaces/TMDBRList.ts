@@ -1,5 +1,4 @@
-import { Movie } from "./Movie";
-import { Person } from "./Person";
+import { Movie, Person } from "./Entities";
 
 export interface PopularListApi<PopularListItemType> {
     page: number;

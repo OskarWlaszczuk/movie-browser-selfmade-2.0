@@ -1,5 +1,4 @@
-import { Movie } from "../../aliases/interfaces/Movie";
-import { Person } from "../../aliases/interfaces/Person";
+import { Movie, Person } from "../../aliases/interfaces/Entities";
 import { GenresIds } from "../../aliases/types/genre.types";
 import { OrNull } from "../../aliases/types/OrNull";
 import { pictureWidths } from "../../constants/pictureConfigs";

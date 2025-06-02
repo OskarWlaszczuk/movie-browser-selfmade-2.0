@@ -1,8 +1,8 @@
 import { TilesList } from "./styled";
 import { SectionHeader } from "../SectionHeader";
-import { TileEntity } from "../../aliases/types/TileEntity";
 import { renderVerticalTile } from "../../functions/renderPersonItem";
 import { OrUndefined } from "../../aliases/types/OrUndefined";
+import { TileEntity } from "../../aliases/interfaces/Entities";
 interface TitleData {
     text: string;
     isPageTitle: boolean;
