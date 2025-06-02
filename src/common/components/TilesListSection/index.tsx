@@ -1,31 +1,22 @@
-import { JSX } from "react";
 import { TilesList } from "./styled";
-import { Movie } from "../../aliases/interfaces/Movie";
-import { Person } from "../../aliases/interfaces/Person";
 import { SectionHeader } from "../SectionHeader";
-
-type RenderListItem<ListItem> = (item: ListItem) => JSX.Element;
-
+import { TileEntity } from "../../aliases/types/TileEntity";
+import { renderVerticalTile } from "../../functions/renderPersonItem";
+import { OrUndefined } from "../../aliases/types/OrUndefined";
 interface TitleData {
     text: string;
     isPageTitle: boolean;
 }
-
-interface TilesListSectionProps<ListItem extends Movie | Person> {
-    list: ListItem[];
+interface TilesListSectionProps {
+    list: OrUndefined<TileEntity[]>;
     titleData: TitleData;
-    renderListItem: RenderListItem<ListItem>;
 };
 
-export const TilesListSection = <ListItem extends Movie | Person>({
-    list,
-    titleData,
-    renderListItem,
-}: TilesListSectionProps<ListItem>) => (
+export const TilesListSection = ({ list, titleData }: TilesListSectionProps) => (
     <>
         <SectionHeader text={titleData.text} setAsPageTitle={titleData.isPageTitle} />
         <TilesList>
-            {list.map((item) => renderListItem(item))}
+            {list?.map((item) => renderVerticalTile(item))}
         </TilesList>
     </>
 );
