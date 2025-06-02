@@ -1,4 +1,4 @@
-import { Movie, Person } from "./Entities";
+import { MovieDetails, Person } from "./Entities";
 
 export interface PopularListApi<PopularListItemType> {
     page: number;
@@ -8,4 +8,4 @@ export interface PopularListApi<PopularListItemType> {
 }
 
 export type PopularPeopleApi = PopularListApi<Person>;
-export type PopularMovieApi = PopularListApi<Movie>;
+export type PopularMovieApi = PopularListApi<MovieDetails>;

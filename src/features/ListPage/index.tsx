@@ -1,4 +1,4 @@
-import { Movie, PeopleOrMovies } from "../../common/aliases/interfaces/Entities";
+import { MovieDetails, PeopleOrMovies } from "../../common/aliases/interfaces/Entities";
 import { FetchStatus } from "../../common/aliases/types/FetchStatus";
 import { OrUndefined } from "../../common/aliases/types/OrUndefined";
 import { Main } from "../../common/components/Main";
@@ -13,7 +13,7 @@ interface ListPageProps {
 
 export const ListPage = ({ title, list, fetchStatuses }: ListPageProps) => {
     //inny type guard
-    const isMoviesList = (list: PeopleOrMovies): list is Movie[] => {
+    const isMoviesList = (list: PeopleOrMovies): list is MovieDetails[] => {
         return list?.length > 0 && "title" in list?.[0];
     };
 

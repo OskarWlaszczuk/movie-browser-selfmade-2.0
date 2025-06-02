@@ -1,4 +1,4 @@
-import { Movie, Person } from "../../aliases/interfaces/Entities";
+import { MovieDetails, Person } from "../../aliases/interfaces/Entities";
 import { GenresIds } from "../../aliases/types/genre.types";
 import { OrNull } from "../../aliases/types/OrNull";
 import { pictureWidths } from "../../constants/pictureConfigs";
@@ -21,11 +21,11 @@ interface TileProps {
     horizontalLayout?: boolean;
     movieDetails?: {
         genresIds: GenresIds;
-        voteAverage: Movie["vote_average"];
-        voteCount: Movie["vote_count"];
-        releaseDate?: Movie["release_date"];
+        voteAverage: MovieDetails["vote_average"];
+        voteCount: MovieDetails["vote_count"];
+        releaseDate?: MovieDetails["release_date"];
         productionCountries?: ProductionCountry[];
-        overview?: Movie["overview"];
+        overview?: MovieDetails["overview"];
     };
     personDetails?: {
         biography: Person["biography"];

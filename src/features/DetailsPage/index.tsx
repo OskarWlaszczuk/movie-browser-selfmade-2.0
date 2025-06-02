@@ -4,15 +4,15 @@ import { Main } from "../../common/components/Main";
 import { useCombinedFetchStatus } from "../../common/hooks/useCombinedFetchStatus";
 import { nanoid } from "@reduxjs/toolkit";
 import { TilesSectionData } from "../../common/aliases/interfaces/TilesSectionData";
-import { CastMember, CrewMember, Movie, Person } from "../../common/aliases/interfaces/Entities";
+import { CastMember, CrewMember, MovieDetails, Person } from "../../common/aliases/interfaces/Entities";
 
 type SectionDataUnion =
     | TilesSectionData<CrewMember>
     | TilesSectionData<CastMember>
-    | TilesSectionData<Movie>
+    | TilesSectionData<MovieDetails>
 ;
 interface DetailsPageProps {
-    details?: Movie | Person;
+    details?: MovieDetails | Person;
     sectionsData: SectionDataUnion[];
     fetchStatuses: FetchStatus[];
 }
