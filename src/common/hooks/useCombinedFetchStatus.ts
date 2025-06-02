@@ -13,21 +13,19 @@ const areStatusesMatching = (
 );
 
 export const useCombinedFetchStatus = (fetchStatuses: FetchStatus[]): FetchStatus => {
-    const { IDLE, LOADING, FAILED, SUCCESS } = FETCH_STATUSES;
-    const [combinedFetchStatus, setCombinedFetchStatus] = useState<FetchStatus>(IDLE);
+    const { PENDING, ERROR, SUCCESS } = FETCH_STATUSES;
+    const [combinedFetchStatus, setCombinedFetchStatus] = useState<FetchStatus>(PENDING);
 
     useEffect(() => {
-        const isIdle = areStatusesMatching(fetchStatuses, IDLE);
-        const isLoading = areStatusesMatching(fetchStatuses, LOADING);
-        const isFailed = areStatusesMatching(fetchStatuses, FAILED);
+        const isLoading = areStatusesMatching(fetchStatuses, PENDING);
+        const isFailed = areStatusesMatching(fetchStatuses, ERROR);
         const isSuccess = areStatusesMatching(fetchStatuses, SUCCESS, true);
 
-        if (isIdle) setCombinedFetchStatus(IDLE);
-        if (isLoading) setCombinedFetchStatus(LOADING);
-        if (isFailed) setCombinedFetchStatus(FAILED);
+        if (isLoading) setCombinedFetchStatus(PENDING);
+        if (isFailed) setCombinedFetchStatus(ERROR);
         if (isSuccess) setCombinedFetchStatus(SUCCESS);
 
-    }, [fetchStatuses, IDLE, LOADING, FAILED, SUCCESS]);
+    }, [fetchStatuses, PENDING, ERROR, SUCCESS]);
 
     return combinedFetchStatus;
 };
