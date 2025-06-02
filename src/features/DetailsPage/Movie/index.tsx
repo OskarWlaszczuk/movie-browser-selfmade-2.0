@@ -3,7 +3,7 @@ import { DetailsPage } from "../index"
 import { useFetchApi } from "../../../common/hooks/useFetchApi";
 import { apiUrls } from "../../../common/constants/pictureConfigs";
 import { TilesSectionData } from "../../../common/aliases/interfaces/TilesSectionData";
-import { CastMember, CrewMember } from "../../../common/aliases/interfaces/Entities";
+import { CastMember, CrewMember, MovieDetails } from "../../../common/aliases/interfaces/Entities";
 
 export const Movie = () => {
     interface MovieCreditsApiResponse {
@@ -12,9 +12,16 @@ export const Movie = () => {
     }
 
     const { movieId } = useParams();
+
     const { status: movieCreditsStatus, data: movieCredits } = useFetchApi<MovieCreditsApiResponse>({
         queryKey: "popularMovies",
         url: `${apiUrls.base}/movie/${movieId}/credits`,
+        urlDependencies: [movieId!]
+    });
+
+    const { status: movieStatus, data: movie } = useFetchApi<MovieDetails>({
+        queryKey: "movieDetails",
+        url: `${apiUrls.base}/movie/${movieId}`,
         urlDependencies: [movieId!]
     });
 
@@ -40,7 +47,42 @@ export const Movie = () => {
     return (
         <DetailsPage
             sectionsData={[castSectionData, crewSectionData]}
-            fetchStatuses={[]}
+            fetchStatuses={[movieCreditsStatus, movieStatus]}
         />
     );
 };
+
+// interface ApiConfig {
+//     // queryKey: string;
+//     url: string;
+//     urlDependencies?: string | number;
+// }
+
+// const useFetchApis = <ResponseType,>(apiConfigs: ApiConfig[]) => {
+//     // const queryKeys = apiConfigs.map(({ queryKey, urlDependencies }) => queryKey);
+//     const urls = apiConfigs.map(({ url }) => url);
+//     const dependencies = apiConfigs.map(({ urlDependencies }) => urlDependencies);
+
+//     const { status, data } = useQuery({
+//         queryKey: ["queryKey", ...dependencies],
+//         queryFn: () => fetchFromAPIs(urls),
+//     });
+
+//     return { status, data };
+// };
+// const apiConfigs: ApiConfig[] = [
+//     {
+//         url: `${apiUrls.base}/movie/${movieId}/credits`,
+//         urlDependencies: movieId,
+//     },
+//     {
+//         url: `${apiUrls.base}/movie/${movieId}`,
+//         urlDependencies: movieId,
+//     },
+// ]
+// const { status, data } = useFetchApis(apiConfigs);
+// const credits1 = data?.[0];
+// const details2 = data?.[1];
+
+// // const [credits1, details2] = data
+// console.log(credits1, details2)
