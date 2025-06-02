@@ -24,7 +24,7 @@ export interface Person {
     place_of_birth: string;
 }
 
-export interface Movie {
+export interface MovieDetails {
     backdrop_path: OrNull<string>;
     genre_ids: GenresIds;
     id: number;
@@ -36,6 +36,6 @@ export interface Movie {
     vote_count: number;
 }
 
-export type TileEntity = Movie | Person | CastMember | CrewMember;
+export type TileEntity = MovieDetails | Person | CastMember | CrewMember;
 
-export type PeopleOrMovies = Movie[] | Person[];
+export type PeopleOrMovies = MovieDetails[] | Person[];
