@@ -1,5 +1,4 @@
-import { Movie } from "../../common/aliases/interfaces/Movie";
-import { Person } from "../../common/aliases/interfaces/Person";
+import { Movie, PeopleOrMovies } from "../../common/aliases/interfaces/Entities";
 import { FetchStatus } from "../../common/aliases/types/FetchStatus";
 import { OrUndefined } from "../../common/aliases/types/OrUndefined";
 import { Main } from "../../common/components/Main";
@@ -8,12 +7,13 @@ import { useCombinedFetchStatus } from "../../common/hooks/useCombinedFetchStatu
 
 interface ListPageProps {
     title: string;
-    list: OrUndefined<Movie[] | Person[]>;
+    list: OrUndefined<PeopleOrMovies>;
     fetchStatuses: FetchStatus[]
 }
 
 export const ListPage = ({ title, list, fetchStatuses }: ListPageProps) => {
-    const isMoviesList = (list: Movie[] | Person[]): list is Movie[] => {
+    //inny type guard
+    const isMoviesList = (list: PeopleOrMovies): list is Movie[] => {
         return list?.length > 0 && "title" in list?.[0];
     };
 
