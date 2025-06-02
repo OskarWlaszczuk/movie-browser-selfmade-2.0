@@ -22,10 +22,10 @@ export const Main = ({ content, bannerContent, combinedFetchStatus }: MainProps)
                 </MainSection>
             );
 
-        case FETCH_STATUSES.LOADING:
+        case FETCH_STATUSES.PENDING:
             return <>Ładowanie</>;
 
-        case FETCH_STATUSES.FAILED:
+        case FETCH_STATUSES.ERROR:
             return <>Błąd</>;
 
         default:
