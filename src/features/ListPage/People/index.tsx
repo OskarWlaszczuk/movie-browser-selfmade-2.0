@@ -1,25 +1,19 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../reduxTypedHooks";
 import { ListPage } from "../index";
-import { popularPeopleActions, popularPeopleSelectors } from "../../../popularPeopleSlice";
+import { useFetchApi } from "../../../common/hooks/useFetchApi";
+import { PopularPeopleApi } from "../../../common/aliases/interfaces/TMDBRList";
 
 export const People = () => {
-    const dispatch = useAppDispatch();
 
-    const popularPeopleStatus = useAppSelector(popularPeopleSelectors.selectPopularListStatus);
-    const popularPeople = useAppSelector(popularPeopleSelectors.selectPopularList);
-
-    useEffect(() => {
-        dispatch(popularPeopleActions.fetchPopularList());
-    }, [dispatch]);
+    const {
+        status: popularPeopleStatus,
+        data: popularPeople
+    } = useFetchApi<PopularPeopleApi>({ queryKey: "popularPeople", url: "/popularPeople.json" });
 
     return (
         <ListPage
             title="Popular people"
-            // @ts-ignore
-            list={popularPeople}
-            // @ts-ignore
-            fetchStatuses={[popularPeopleStatus]}
+            list={popularPeople?.results}
+            fetchStatuses={[]}
         />
     );
 };
