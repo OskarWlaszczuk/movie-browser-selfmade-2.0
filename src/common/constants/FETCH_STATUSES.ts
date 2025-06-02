@@ -1,6 +1,5 @@
 export const FETCH_STATUSES = {
-  IDLE: "idle",
-  LOADING: "loading",
+  PENDING: "pending",
   SUCCESS: "success",
-  FAILED: "failed",
+  ERROR: "error",
 } as const;
