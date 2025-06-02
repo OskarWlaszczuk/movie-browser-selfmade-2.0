@@ -1,0 +1,1 @@
+export type OrUndefined<T> = T | undefined;
