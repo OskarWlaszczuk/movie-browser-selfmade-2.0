@@ -13,7 +13,7 @@ export const Movies = () => {
         <ListPage
             title="Popular movies"
             list={popularMovies?.results}
-            fetchStatuses={[]}
+            fetchStatuses={[popularMoviesStatus]}
         />
     );
 };
