@@ -1,45 +1,46 @@
 import { useParams } from "react-router-dom"
 import { DetailsPage } from "../index"
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../reduxTypedHooks";
-import { fetchMovieCredits, selectMovieCast, selectMovieCreditsStatus, selectMovieCrew } from "../../../movieCreditsSlice";
-import { renderPersonItem } from "../../../common/functions/renderPersonItem";
+import { useFetchApi } from "../../../common/hooks/useFetchApi";
+import { apiUrls } from "../../../common/constants/pictureConfigs";
+import { TilesSectionData } from "../../../common/aliases/interfaces/TilesSectionData";
+import { CastMember, CrewMember } from "../../../common/aliases/interfaces/Entities";
 
 export const Movie = () => {
+    interface MovieCreditsApiResponse {
+        cast: CastMember[];
+        crew: CrewMember[];
+    }
+
     const { movieId } = useParams();
-    const dispatch = useAppDispatch();
-    const crew = useAppSelector(selectMovieCrew);
-    const cast = useAppSelector(selectMovieCast);
-    const movieCreditsStatus = useAppSelector(selectMovieCreditsStatus);
-    console.log(crew, cast, movieCreditsStatus)
+    const { status: movieCreditsStatus, data: movieCredits } = useFetchApi<MovieCreditsApiResponse>({
+        queryKey: "popularMovies",
+        url: `${apiUrls.base}/movie/${movieId}/credits`,
+        urlDependencies: [movieId!]
+    });
 
-    useEffect(() => {
-        if (!movieId) return;
-        dispatch(fetchMovieCredits({ movieId }));
-    }, [dispatch, movieId]);
+    const cast = movieCredits?.cast;
+    const crew = movieCredits?.crew;
 
-    const castSectionData = {
+    const castSectionData: TilesSectionData<CastMember> = {
         list: cast,
         titleData: {
             text: "cast",
             isPageTitle: false,
         },
-        renderListItem: renderPersonItem,
     };
 
-    const crewSectionData = {
+    const crewSectionData: TilesSectionData<CrewMember> = {
         list: crew,
         titleData: {
             text: "Crew",
             isPageTitle: false,
         },
-        renderListItem: renderPersonItem,
-    }
+    };
 
     return (
         <DetailsPage
             sectionsData={[castSectionData, crewSectionData]}
-            fetchStatuses={[movieCreditsStatus]}
+            fetchStatuses={[]}
         />
     );
 };
