@@ -1,6 +1,7 @@
 import { Movie } from "../../aliases/interfaces/Movie";
 import { Person } from "../../aliases/interfaces/Person";
 import { GenresIds } from "../../aliases/types/genre.types";
+import { OrNull } from "../../aliases/types/OrNull";
 import { pictureWidths } from "../../constants/pictureConfigs";
 import { routes } from "../../functions/routes";
 import { GenresList } from "../GenresList";
@@ -15,7 +16,7 @@ interface ProductionCountry {
 };
 interface TileProps {
     id: number;
-    picture: string;
+    picture: OrNull<string>;
     title: string;
     subTitle?: string | number;
     horizontalLayout?: boolean;
