@@ -1,3 +1,3 @@
-import { Movie } from "../aliases/interfaces/Movie";
+import { MovieItem } from "../aliases/interfaces/Entities";
 
-export const getYear = (rawReleaseDate: Movie["release_date"]) => new Date(rawReleaseDate).getFullYear();
+export const getYear = (rawReleaseDate: MovieItem["release_date"]) => new Date(rawReleaseDate).getFullYear();
