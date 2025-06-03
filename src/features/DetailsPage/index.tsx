@@ -4,15 +4,16 @@ import { Main } from "../../common/components/Main";
 import { useCombinedFetchStatus } from "../../common/hooks/useCombinedFetchStatus";
 import { nanoid } from "@reduxjs/toolkit";
 import { TilesSectionData } from "../../common/aliases/interfaces/TilesSectionData";
-import { CastMember, CrewMember, MovieDetails, Person } from "../../common/aliases/interfaces/Entities";
+import { CastMember, CrewMember, MovieDetails, MovieItem, PersonDetails } from "../../common/aliases/interfaces/Entities";
+import { renderHorizontalTile } from "./renderHorizontalTile";
 
 type SectionDataUnion =
     | TilesSectionData<CrewMember>
     | TilesSectionData<CastMember>
-    | TilesSectionData<MovieDetails>
-;
+    | TilesSectionData<MovieItem>;
+
 interface DetailsPageProps {
-    details?: MovieDetails | Person;
+    details: MovieDetails | PersonDetails;
     sectionsData: SectionDataUnion[];
     fetchStatuses: FetchStatus[];
 }
@@ -26,7 +27,7 @@ export const DetailsPage = ({ details, sectionsData, fetchStatuses }: DetailsPag
             <Main
                 content={
                     <>
-
+                        {renderHorizontalTile(details)}
                         {
                             sectionsData.map(sectionData => (
                                 <TilesListSection key={nanoid()} {...sectionData} />
