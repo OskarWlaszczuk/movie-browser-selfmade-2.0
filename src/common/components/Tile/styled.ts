@@ -10,6 +10,16 @@ const sharedHorizontalLayoutStyles = css`
     align-items: start;
 `;
 
+
+export const HorizontalTile = styled.article`
+    color: ${({ theme }) => theme.colors.black};
+    background-color: ${({ theme }) => theme.colors.white};
+    padding: 16px;
+    display: flex;
+    
+`;
+
+
 export const StyledTile = styled(NavLink) <StyledTileProps>`
     color: ${({ theme }) => theme.colors.black};
     background-color: ${({ theme }) => theme.colors.white};
