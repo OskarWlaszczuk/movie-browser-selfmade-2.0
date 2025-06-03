@@ -1,4 +1,4 @@
-import { GenresIds } from "../types/genre.types";
+import { GenreResponse, GenresIds } from "../types/genre.types";
 import { OrNull } from "../types/OrNull";
 
 export interface CastMember {
@@ -15,18 +15,25 @@ export interface CrewMember {
     job: string;
 }
 
-export interface Person {
+export interface PersonItem {
     id: number;
     name: string;
     profile_path: string;
+}
+
+export interface PersonDetails extends PersonItem {
     biography: string;
     birthday: string;
     place_of_birth: string;
 }
 
-export interface MovieDetails {
+interface ProductionCountry {
+    iso_3166_1: string;
+    name: string;
+};
+
+interface SharedMovieData {
     backdrop_path: OrNull<string>;
-    genre_ids: GenresIds;
     id: number;
     overview: string;
     poster_path: OrNull<string>;
@@ -36,6 +43,14 @@ export interface MovieDetails {
     vote_count: number;
 }
 
-export type TileEntity = MovieDetails | Person | CastMember | CrewMember;
+export interface MovieItem extends SharedMovieData {
+    genre_ids: GenresIds;
+}
+export interface MovieDetails extends SharedMovieData {
+    production_countries: ProductionCountry[];
+    genres: GenreResponse[];
+}
 
-export type PeopleOrMovies = MovieDetails[] | Person[];
+export type TileEntity = MovieItem | PersonItem | CastMember | CrewMember;
+
+export type PeopleOrMovies = MovieItem[] | PersonItem[];
