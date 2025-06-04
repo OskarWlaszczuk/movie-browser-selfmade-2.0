@@ -1,19 +1,15 @@
 import { ListPage } from "../index";
-import { useFetchApi } from "../../../common/hooks/useFetchApi";
 import { PopularPeopleApi } from "../../../common/aliases/interfaces/TMDBRList";
+import { useFetchPopularList } from "../../../common/hooks/useFetchPopularList";
 
 export const People = () => {
-
-    const {
-        status: popularPeopleStatus,
-        data: popularPeople
-    } = useFetchApi<PopularPeopleApi>({ queryKey: "popularPeople", url: "/popularPeople.json" });
+    const { popularList, popularListStatus } = useFetchPopularList<PopularPeopleApi>("/popularPeople.json");
 
     return (
         <ListPage
             title="Popular people"
-            list={popularPeople?.results}
-            fetchStatuses={[]}
+            list={popularList?.results}
+            fetchStatuses={[popularListStatus]}
         />
     );
 };
