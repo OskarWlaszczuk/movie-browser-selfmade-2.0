@@ -1,7 +1,7 @@
 import { MovieItem } from "./movie.types";
 import { PersonItem } from "./person.types";
 
-export interface PopularListApi<PopularListItemType> {
+interface PopularListApi<PopularListItemType> {
     page: number;
     results: PopularListItemType[];
     total_pages: number;
