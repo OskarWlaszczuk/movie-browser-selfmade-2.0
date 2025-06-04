@@ -1,5 +1,5 @@
-import { PopularMovieApi } from "../../../../common/aliases/interfaces/TMDBRList";
-import { useFetchPopularList } from "../../../../common/hooks/useFetchPopularList";
+import { PopularMovieApi } from "../../../../common/aliases/interfaces/popularListApi.types";
+import { useFetchPopularList } from "../../hooks/useFetchPopularList";
 import { useFetchGenres } from "../../../../common/hooks/useFetchGenres";
 import { ListPage } from "..";
 
