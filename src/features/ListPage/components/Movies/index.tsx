@@ -1,7 +1,7 @@
-import { ListPage } from "../index";
-import { PopularMovieApi } from "../../../common/aliases/interfaces/TMDBRList";
-import { useFetchPopularList } from "../../../common/hooks/useFetchPopularList";
-import { useFetchGenres } from "../../../common/hooks/useFetchGenres";
+import { PopularMovieApi } from "../../../../common/aliases/interfaces/TMDBRList";
+import { useFetchPopularList } from "../../../../common/hooks/useFetchPopularList";
+import { useFetchGenres } from "../../../../common/hooks/useFetchGenres";
+import { ListPage } from "..";
 
 export const Movies = () => {
     const { popularList, popularListStatus } = useFetchPopularList<PopularMovieApi>("/popularMovies.json");

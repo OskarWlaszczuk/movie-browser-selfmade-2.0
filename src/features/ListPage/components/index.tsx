@@ -1,10 +1,11 @@
-import { MovieItem } from "../../common/aliases/interfaces/movie.types";
-import { FetchStatus } from "../../common/aliases/types/FetchStatus";
-import { OrUndefined } from "../../common/aliases/types/OrUndefined";
-import { PeopleOrMovies } from "../../common/aliases/types/PeopleOrMovies";
-import { Main } from "../../common/components/Main";
-import { TilesListSection } from "../../common/components/TilesListSection";
-import { useCombinedFetchStatus } from "../../common/hooks/useCombinedFetchStatus";
+import { FetchStatus } from "../../../common/aliases/types/FetchStatus";
+import { OrUndefined } from "../../../common/aliases/types/OrUndefined";
+import { PeopleOrMovies } from "../../../common/aliases/types/PeopleOrMovies";
+import { MovieItem } from "../../../common/aliases/interfaces/movie.types";
+import { TilesListSection } from "../../../common/components/TilesListSection";
+import { Main } from "../../../common/components/Main";
+import { useCombinedFetchStatus } from "../../../common/hooks/useCombinedFetchStatus";
+
 
 interface ListPageProps {
     title: string;
