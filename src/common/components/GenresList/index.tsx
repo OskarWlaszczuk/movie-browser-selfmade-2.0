@@ -1,19 +1,15 @@
-import { GenreResponse, GenresIds } from "../../aliases/types/genre.types";
+import { GenresIds } from "../../aliases/types/genre.types";
 import { Genre, StyledGenres } from "./styled";
-import { useFetchApi } from "../../hooks/useFetchApi";
+import { useAppSelector } from "../../../reduxTypedHooks";
+import { selectGenresList } from "../../../genresSlice";
 
 interface GenresListProps {
     genresIds: GenresIds;
 }
 
 export const GenresList = ({ genresIds }: GenresListProps) => {
-    interface RawGenresApi {
-        genres: GenreResponse[]
-    }
-
-    const { status: genresStatus, data: genres } = useFetchApi<RawGenresApi>({ queryKey: "genres", url: "/genres.json" });
-
-    const extractedGenres = genresIds.map(id => genres?.genres?.find(genre => id === genre.id));
+    const genres = useAppSelector(selectGenresList);
+    const extractedGenres = genresIds.map(id => genres?.find(genre => id === genre.id));
     const isGenresIdsEmpty = genresIds.length > 0;
 
     return (
