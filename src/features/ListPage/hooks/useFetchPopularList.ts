@@ -1,5 +1,5 @@
-import { PopularMovieApi, PopularPeopleApi } from "../../../common/aliases/interfaces/popularListApi.types";
 import { useFetchApi } from "../../../common/hooks/useFetchApi";
+import { PopularMovieApi, PopularPeopleApi } from "../types/popularListApi.types";
 
 export const useFetchPopularList = <PopularListApiResponse extends PopularMovieApi | PopularPeopleApi>(url: string) => {
     const {
