@@ -1,11 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from "redux-saga"
 import { rootSaga } from './rootSaga';
+import { genresReducer } from '../genresSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
-    reducer: {},
+    reducer: {
+        genres: genresReducer,
+    },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(sagaMiddleware),
 });
