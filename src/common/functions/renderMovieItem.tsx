@@ -1,4 +1,4 @@
-import { MovieItem } from "../aliases/interfaces/Entities";
+import { MovieItem } from "../aliases/interfaces/movie.types";
 import { Tile } from "../components/Tile";
 import { getYear } from "./getYear";
 

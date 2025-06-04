@@ -1,5 +1,6 @@
 import { OrUndefined } from "../types/OrUndefined";
-import { CastMember, CrewMember, MovieItem } from "./Entities";
+import { MovieItem } from "./movie.types";
+import { CastMember, CrewMember } from "./person.types";
 
 interface TitleData {
     text: string;

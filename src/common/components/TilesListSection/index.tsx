@@ -2,7 +2,7 @@ import { TilesList } from "./styled";
 import { SectionHeader } from "../SectionHeader";
 import { renderVerticalTile } from "../../functions/renderVerticalTile";
 import { OrUndefined } from "../../aliases/types/OrUndefined";
-import { TileEntity } from "../../aliases/interfaces/Entities";
+import { TileEntity } from "../../aliases/interfaces/TileEntity";
 interface TitleData {
     text: string;
     isPageTitle: boolean;

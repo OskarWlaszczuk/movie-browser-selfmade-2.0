@@ -1,4 +1,5 @@
-import { CastMember, CrewMember, MovieItem } from "./Entities";
+import { MovieItem } from "./movie.types";
+import { CastMember, CrewMember } from "./person.types";
 
 export interface MovieCreditsApiResponse {
     cast: CastMember[];

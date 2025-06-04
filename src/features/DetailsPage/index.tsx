@@ -4,8 +4,9 @@ import { Main } from "../../common/components/Main";
 import { useCombinedFetchStatus } from "../../common/hooks/useCombinedFetchStatus";
 import { nanoid } from "@reduxjs/toolkit";
 import { TilesSectionData } from "../../common/aliases/interfaces/TilesSectionData";
-import { CastMember, CrewMember, MovieDetails, MovieItem, PersonDetails } from "../../common/aliases/interfaces/Entities";
 import { renderHorizontalTile } from "./renderHorizontalTile";
+import { CastMember, CrewMember, PersonDetails } from "../../common/aliases/interfaces/person.types";
+import { MovieDetails, MovieItem } from "../../common/aliases/interfaces/movie.types";
 
 type SectionDataUnion =
     | TilesSectionData<CrewMember>

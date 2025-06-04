@@ -1,4 +1,5 @@
-import { MovieDetails, PersonDetails } from "../../common/aliases/interfaces/Entities";
+import { MovieDetails } from "../../common/aliases/interfaces/movie.types";
+import { PersonDetails } from "../../common/aliases/interfaces/person.types";
 import { Tile } from "../../common/components/Tile";
 import { getYear } from "../../common/functions/getYear";
 

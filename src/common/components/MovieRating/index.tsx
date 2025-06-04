@@ -1,4 +1,4 @@
-import { MovieItem } from "../../aliases/interfaces/Entities";
+import { MovieItem } from "../../aliases/interfaces/movie.types";
 import { MetaData } from "../MetaData";
 import { RatingScore, StyledMovieRating, StyledStarIcon } from "./styled";
 

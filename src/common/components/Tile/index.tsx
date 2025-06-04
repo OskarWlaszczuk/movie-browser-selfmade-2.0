@@ -1,4 +1,5 @@
-import { MovieItem, PersonDetails } from "../../aliases/interfaces/Entities";
+import { MovieItem } from "../../aliases/interfaces/movie.types";
+import { PersonDetails } from "../../aliases/interfaces/person.types";
 import { GenresIds } from "../../aliases/types/genre.types";
 import { OrNull } from "../../aliases/types/OrNull";
 import { pictureWidths } from "../../constants/pictureConfigs";
@@ -7,7 +8,7 @@ import { GenresList } from "../GenresList";
 import { MetaData } from "../MetaData";
 import { MovieRating } from "../MovieRating";
 import { Picture } from "../Picture";
-import { HorizontalTile, InfoWrapper, Overview, StyledTile, Title } from "./styled";
+import {  InfoWrapper, Overview, StyledTile, Title } from "./styled";
 
 interface ProductionCountry {
     iso_3166_1: string;

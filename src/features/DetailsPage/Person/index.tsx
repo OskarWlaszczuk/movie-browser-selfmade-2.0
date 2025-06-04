@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
 import { DetailsPage } from "..";
 import { useFetchApi } from "../../../common/hooks/useFetchApi";
-import { PersonDetails } from "../../../common/aliases/interfaces/Entities";
 import { apiUrls } from "../../../common/constants/pictureConfigs";
 import { useCredits } from "../../../common/hooks/useCredits";
 import { PersonCreditsApiResponse } from "../../../common/aliases/interfaces/creditsApiResponses.types";
+import { PersonDetails } from "../../../common/aliases/interfaces/person.types";
 
 export const Person = () => {
     const { personId } = useParams();

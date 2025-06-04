@@ -1,7 +1,9 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { Tile } from "../components/Tile";
 import { getYear } from "./getYear";
-import { CastMember, CrewMember, MovieItem, TileEntity } from "../aliases/interfaces/Entities";
+import { TileEntity } from "../aliases/interfaces/TileEntity";
+import { MovieItem } from "../aliases/interfaces/movie.types";
+import { CastMember, CrewMember } from "../aliases/interfaces/person.types";
 
 export const renderVerticalTile = (entityData: TileEntity) => {
     const isMovie = (entityData: TileEntity): entityData is MovieItem => {
