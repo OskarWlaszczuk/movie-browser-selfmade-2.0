@@ -1,12 +1,12 @@
 import { OrUndefined } from "../types/OrUndefined";
-import { TileEntity } from "./Entities";
+import { CastMember, CrewMember, MovieItem } from "./Entities";
 
 interface TitleData {
     text: string;
     isPageTitle: boolean;
 }
 
-export interface TilesSectionData<ListItem extends TileEntity> {
+export interface TilesSectionData<ListItem extends MovieItem | CastMember | CrewMember> {
     list: OrUndefined<ListItem[]>;
     titleData: TitleData;
 }
