@@ -1,26 +1,21 @@
 import { useParams } from "react-router-dom"
 import { DetailsPage } from "../index"
-import { useFetchApi } from "../../../common/hooks/useFetchApi";
-import { apiUrls } from "../../../common/constants/pictureConfigs";
 import { useCredits } from "../../../common/hooks/useCredits";
 import { MovieCreditsApiResponse } from "../../../common/aliases/interfaces/creditsApiResponses.types";
 import { MovieDetails } from "../../../common/aliases/interfaces/movie.types";
+import { useFetchDetails } from "../../../common/hooks/useFetchDetails";
 
 export const Movie = () => {
     const { movieId } = useParams();
 
     const { creditsSectionsData, creditsStatus } = useCredits<MovieCreditsApiResponse>(movieId!, `movie/${movieId}/credits`);
-    const { status: movieStatus, data: movie } = useFetchApi<MovieDetails>({
-        queryKey: "movieDetails",
-        url: `${apiUrls.base}/movie/${movieId}`,
-        urlDependencies: [movieId!]
-    });
+    const { details, detailsStatus } = useFetchDetails<MovieDetails>(movieId!, `movie/${movieId}`);
 
     return (
         <DetailsPage
-            details={movie!}
+            details={details!}
             sectionsData={creditsSectionsData}
-            fetchStatuses={[creditsStatus, movieStatus]}
+            fetchStatuses={[creditsStatus, detailsStatus]}
         />
     );
 };
