@@ -1,7 +1,7 @@
-import { MovieCreditsApiResponse, PersonCreditsApiResponse } from "../aliases/interfaces/creditsApiResponses.types";
-import { TilesSectionData } from "../aliases/interfaces/TilesSectionData";
-import { apiUrls } from "../constants/pictureConfigs";
-import { useFetchApi } from "./useFetchApi";
+import { MovieCreditsApiResponse, PersonCreditsApiResponse } from "../types/creditsApiResponses.types";
+import { TilesSectionData } from "../../../common/aliases/interfaces/TilesSectionData";
+import { apiUrls } from "../../../common/constants/pictureConfigs";
+import { useFetchApi } from "../../../common/hooks/useFetchApi";
 
 export const useCredits = <CredistsApiResponse extends MovieCreditsApiResponse | PersonCreditsApiResponse>(entityId: string, endpoint: string) => {
     const { status: creditsStatus, data } = useFetchApi<CredistsApiResponse>({

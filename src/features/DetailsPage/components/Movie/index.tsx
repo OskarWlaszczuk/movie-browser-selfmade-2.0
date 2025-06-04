@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom"
-import { useCredits } from "../../../../common/hooks/useCredits";
-import { MovieCreditsApiResponse } from "../../../../common/aliases/interfaces/creditsApiResponses.types";
+import { useCredits } from "../../hooks/useCredits";
+import { MovieCreditsApiResponse } from "../../types/creditsApiResponses.types";
 import { MovieDetails } from "../../../../common/aliases/interfaces/movie.types";
-import { useFetchDetails } from "../../../../common/hooks/useFetchDetails";
+import { useFetchDetails } from "../../hooks/useFetchDetails";
 import { DetailsPage } from "..";
 
 export const Movie = () => {
