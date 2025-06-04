@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
+import { useCredits } from "../../../../common/hooks/useCredits";
+import { PersonCreditsApiResponse } from "../../../../common/aliases/interfaces/creditsApiResponses.types";
+import { PersonDetails } from "../../../../common/aliases/interfaces/person.types";
+import { useFetchDetails } from "../../../../common/hooks/useFetchDetails";
 import { DetailsPage } from "..";
-import { useCredits } from "../../../common/hooks/useCredits";
-import { PersonCreditsApiResponse } from "../../../common/aliases/interfaces/creditsApiResponses.types";
-import { PersonDetails } from "../../../common/aliases/interfaces/person.types";
-import { useFetchDetails } from "../../../common/hooks/useFetchDetails";
 
 export const Person = () => {
     const { personId } = useParams();

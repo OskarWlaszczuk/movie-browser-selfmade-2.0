@@ -3,8 +3,8 @@ import { Movies } from "../../features/ListPage/components/Movies";
 import { NavigationPanel } from "./components/NavigationPanel";
 import { routes } from "../../common/functions/routes";
 import { People } from "../../features/ListPage/components/People";
-import { Movie } from "../../features/DetailsPage/Movie";
-import { Person } from "../../features/DetailsPage/Person";
+import { Movie } from "../../features/DetailsPage/components/Movie";
+import { Person } from "../../features/DetailsPage/components/Person";
 
 export const App = () => {
   return (

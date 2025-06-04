@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom"
-import { DetailsPage } from "../index"
-import { useCredits } from "../../../common/hooks/useCredits";
-import { MovieCreditsApiResponse } from "../../../common/aliases/interfaces/creditsApiResponses.types";
-import { MovieDetails } from "../../../common/aliases/interfaces/movie.types";
-import { useFetchDetails } from "../../../common/hooks/useFetchDetails";
+import { useCredits } from "../../../../common/hooks/useCredits";
+import { MovieCreditsApiResponse } from "../../../../common/aliases/interfaces/creditsApiResponses.types";
+import { MovieDetails } from "../../../../common/aliases/interfaces/movie.types";
+import { useFetchDetails } from "../../../../common/hooks/useFetchDetails";
+import { DetailsPage } from "..";
 
 export const Movie = () => {
     const { movieId } = useParams();
