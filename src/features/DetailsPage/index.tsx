@@ -7,6 +7,7 @@ import { TilesSectionData } from "../../common/aliases/interfaces/TilesSectionDa
 import { renderHorizontalTile } from "./renderHorizontalTile";
 import { CastMember, CrewMember, PersonDetails } from "../../common/aliases/interfaces/person.types";
 import { MovieDetails, MovieItem } from "../../common/aliases/interfaces/movie.types";
+import { useFetchGenres } from "../../common/hooks/useFetchGenres";
 
 type SectionDataUnion =
     | TilesSectionData<CrewMember>
@@ -20,8 +21,8 @@ interface DetailsPageProps {
 }
 
 export const DetailsPage = ({ details, sectionsData, fetchStatuses }: DetailsPageProps) => {
-
-    const combinedFetchStatus = useCombinedFetchStatus(fetchStatuses);
+    const genresStatus = useFetchGenres();
+    const combinedFetchStatus = useCombinedFetchStatus([...fetchStatuses, genresStatus]);
 
     return (
         <>
