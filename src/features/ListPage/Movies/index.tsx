@@ -1,19 +1,15 @@
 import { ListPage } from "../index";
-import { useFetchApi } from "../../../common/hooks/useFetchApi";
 import { PopularMovieApi } from "../../../common/aliases/interfaces/TMDBRList";
+import { useFetchPopularList } from "../../../common/hooks/useFetchPopularList";
 
 export const Movies = () => {
-
-    const {
-        status: popularMoviesStatus,
-        data: popularMovies
-    } = useFetchApi<PopularMovieApi>({ queryKey: "popularMovies", url: "/popularMovies.json" });
+    const { popularList, popularListStatus } = useFetchPopularList<PopularMovieApi>("/popularMovies.json");
 
     return (
         <ListPage
             title="Popular movies"
-            list={popularMovies?.results}
-            fetchStatuses={[popularMoviesStatus]}
+            list={popularList?.results}
+            fetchStatuses={[popularListStatus]}
         />
     );
 };
