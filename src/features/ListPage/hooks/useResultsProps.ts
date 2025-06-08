@@ -18,11 +18,10 @@ export const useResultsProps = <ResultsList extends ListApiUnion>({ searchType }
         fetchCondition: !!search,
     });
 
-    const resultsList = resultsData?.results;
 
     const resultsProps: ResultsProps<ResultsList> = {
-        title: `Search for "${search}" (${resultsList?.length})`,
-        list: resultsList,
+        title: `Search for "${search}" (${resultsData?.total_results})`,
+        listData: resultsData,
         fetchStatuses: [resultsDataStatus]
     };
 
