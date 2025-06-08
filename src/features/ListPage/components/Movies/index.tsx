@@ -2,30 +2,20 @@ import { useFetchPopularList } from "../../hooks/useFetchPopularList";
 import { useFetchGenres } from "../../../../common/hooks/useFetchGenres";
 import { ListPage } from "..";
 import { MoviesListApi } from "../../types/listApi.types";
-import { useQueryParameter } from "../../../../common/hooks/useQueryParameter";
 import { useFetchResultsProps } from "../../hooks/useFetchResultsProps";
-import { MovieItem } from "../../../../common/aliases/interfaces/movie.types";
-import { ListPageProps } from "../../types/ListPageProps";
+import { useSelectListPageProps } from "../../hooks/useSelectListPageProps";
 
 export const Movies = () => {
-    const { search } = useQueryParameter();
-
     const resultsProps = useFetchResultsProps<MoviesListApi>({ searchType: "movie" });
     const popularListProps = useFetchPopularList<MoviesListApi>("/popularMovies.json");
     const genresStatus = useFetchGenres();
 
-    const selectListPageProps = (): ListPageProps<MovieItem[]> => (
-        !search ?
-            popularListProps :
-            resultsProps
-    );
-
-    const listPageProps = selectListPageProps();
+    const selectedListPageProps = useSelectListPageProps({ resultsProps, popularListProps });
 
     return (
         <>
             <ListPage
-                {...listPageProps}
+                {...selectedListPageProps}
             />
         </>
     );
