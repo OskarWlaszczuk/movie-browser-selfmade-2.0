@@ -19,7 +19,7 @@ export const usePopularListsProps = <PopularListApiResponse extends ListApiUnion
     const popularListTitle = `Popular ${pathname === routes.movies() ? "movies" : "people"}`;
     const popularListProps: PopularListProps<PopularListApiResponse> = {
         title: popularListTitle,
-        list: popularList?.results,
+        listData: popularList,
         fetchStatuses: [popularListStatus]
     };
 
