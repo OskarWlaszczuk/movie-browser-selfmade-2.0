@@ -15,7 +15,7 @@ export const MovieRating = ({ voteAverage, voteCount }: MovieRatingProps) => {
             {areVotesAvailable && (
                 <>
                     <StyledStarIcon />
-                    <RatingScore>{voteAverage.toFixed(1).replace('.', ',')}</RatingScore>
+                    <RatingScore>{voteAverage?.toFixed(1).replace('.', ',')}</RatingScore>
                 </>
             )}
             <MetaData>{areVotesAvailable ? `${voteCount} votes` : "No votes yet"}</MetaData>
