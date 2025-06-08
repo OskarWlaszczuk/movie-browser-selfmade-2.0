@@ -14,9 +14,15 @@ interface TilesListSectionProps {
 
 export const TilesListSection = ({ list, titleData }: TilesListSectionProps) => (
     <>
-        <SectionHeader text={titleData.text} setAsPageTitle={titleData.isPageTitle} />
-        <TilesList>
-            {list?.map((item) => renderVerticalTile(item))}
-        </TilesList>
+        {
+            (list && list.length > 0) && (
+                <>
+                    <SectionHeader text={titleData.text} setAsPageTitle={titleData.isPageTitle} />
+                    <TilesList>
+                        {list?.map((item) => renderVerticalTile(item))}
+                    </TilesList>
+                </>
+            )
+        }
     </>
 );
