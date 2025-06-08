@@ -1,12 +1,12 @@
 import { ListPage } from "..";
-import { useFetchPopularList } from "../../hooks/useFetchPopularList";
-import { useFetchResultsProps } from "../../hooks/useFetchResultsProps";
+import { usePopularListsProps } from "../../hooks/usePopularListsProps";
+import { useResultsProps } from "../../hooks/useResultsProps";
 import { useSelectListPageProps } from "../../hooks/useSelectListPageProps";
 import { PeopleListApi } from "../../types/listApi.types";
 
 export const People = () => {
-    const resultsProps = useFetchResultsProps<PeopleListApi>({ searchType: "person" });
-    const popularListProps = useFetchPopularList<PeopleListApi>("/popularPeople.json");
+    const resultsProps = useResultsProps<PeopleListApi>({ searchType: "person" });
+    const popularListProps = usePopularListsProps<PeopleListApi>("/popularPeople.json");
 
     const selectedListPageProps = useSelectListPageProps({ resultsProps, popularListProps });
 

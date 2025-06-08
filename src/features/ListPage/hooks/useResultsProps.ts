@@ -2,8 +2,11 @@ import { apiUrls } from "../../../common/constants/pictureConfigs";
 import { useFetchApi } from "../../../common/hooks/useFetchApi";
 import { useQueryParameter } from "../../../common/hooks/useQueryParameter";
 import { ListApiUnion } from "../types/listApi.types";
+import { ListPageProps } from "../types/ListPageProps";
 
-export const useFetchResults = <ResultsList extends ListApiUnion>({ searchType }: { searchType: "movie" | "person" }) => {
+type ResultsProps<ResultsList extends ListApiUnion> = ListPageProps<ResultsList["results"]>;
+
+export const useResultsProps = <ResultsList extends ListApiUnion>({ searchType }: { searchType: "movie" | "person" }): ResultsProps<ResultsList> => {
     const { search, pageNumber } = useQueryParameter();
 
     const searchUrl = `${apiUrls.base}/search/${searchType}?query=${search}&include_adult=false&language=en-US&page=${pageNumber}`;
@@ -15,5 +18,13 @@ export const useFetchResults = <ResultsList extends ListApiUnion>({ searchType }
         fetchCondition: !!search,
     });
 
-    return { resultsDataStatus, resultsData };
+    const resultsList = resultsData?.results;
+
+    const resultsProps: ResultsProps<ResultsList> = {
+        title: `Search for "${search}" (${resultsList?.length})`,
+        list: resultsList,
+        fetchStatuses: [resultsDataStatus]
+    };
+
+    return resultsProps;
 };

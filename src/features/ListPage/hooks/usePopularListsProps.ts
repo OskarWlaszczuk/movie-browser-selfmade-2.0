@@ -7,7 +7,7 @@ import { routes } from "../../../common/functions/routes";
 
 type PopularListProps<PopularListApiResponse extends ListApiUnion> = ListPageProps<PopularListApiResponse["results"]>;
 
-export const useFetchPopularList = <PopularListApiResponse extends ListApiUnion>(url: string): PopularListProps<PopularListApiResponse> => {
+export const usePopularListsProps = <PopularListApiResponse extends ListApiUnion>(url: string): PopularListProps<PopularListApiResponse> => {
     const { search } = useQueryParameter();
     const { pathname } = useLocation()
 
