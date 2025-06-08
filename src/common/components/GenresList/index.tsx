@@ -9,8 +9,8 @@ interface GenresListProps {
 
 export const GenresList = ({ genresIds }: GenresListProps) => {
     const genres = useAppSelector(selectGenresList);
-    const extractedGenres = genresIds.map(id => genres?.find(genre => id === genre.id));
-    const isGenresIdsEmpty = genresIds.length > 0;
+    const extractedGenres = genresIds?.map(id => genres?.find(genre => id === genre.id));
+    const isGenresIdsEmpty = genresIds?.length > 0;
 
     return (
         <>
