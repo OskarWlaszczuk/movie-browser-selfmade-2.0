@@ -11,20 +11,17 @@ export const Movies = () => {
     const { search } = useQueryParameter();
 
     const resultsProps = useFetchResultsProps<MoviesListApi>({ searchType: "movie" });
-    const { popularList, popularListStatus } = useFetchPopularList<MoviesListApi>("/popularMovies.json");
+    const popularListProps = useFetchPopularList<MoviesListApi>("/popularMovies.json");
     const genresStatus = useFetchGenres();
- 
+
     const selectListPageProps = (): ListPageProps<MovieItem[]> => (
         !search ?
-            {
-                title: "Popular movies",
-                list: popularList?.results,
-                fetchStatuses: [popularListStatus, genresStatus]
-            } :
+            popularListProps :
             resultsProps
     );
 
     const listPageProps = selectListPageProps();
+
     return (
         <>
             <ListPage
