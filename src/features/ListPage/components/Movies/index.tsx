@@ -1,44 +1,30 @@
 import { useFetchPopularList } from "../../hooks/useFetchPopularList";
 import { useFetchGenres } from "../../../../common/hooks/useFetchGenres";
 import { ListPage } from "..";
-import { ListApiUnion, MoviesListApi } from "../../types/listApi.types";
+import { MoviesListApi } from "../../types/listApi.types";
 import { useQueryParameter } from "../../../../common/hooks/useQueryParameter";
-import { useFetchApi } from "../../../../common/hooks/useFetchApi";
-import { apiUrls } from "../../../../common/constants/pictureConfigs";
-import { OrUndefined } from "../../../../common/aliases/types/OrUndefined";
-import { PeopleOrMovies } from "../../../../common/aliases/types/PeopleOrMovies";
-import { FetchStatus } from "../../../../common/aliases/types/FetchStatus";
-import { useFetchResults } from "../../hooks/useFetchResults";
+import { useFetchResultsProps } from "../../hooks/useFetchResultsProps";
+import { MovieItem } from "../../../../common/aliases/interfaces/movie.types";
+import { ListPageProps } from "../../types/ListPageProps";
 
 export const Movies = () => {
-    const { search, pageNumber } = useQueryParameter();
+    const { search } = useQueryParameter();
 
+    const resultsProps = useFetchResultsProps<MoviesListApi>({ searchType: "movie" });
     const { popularList, popularListStatus } = useFetchPopularList<MoviesListApi>("/popularMovies.json");
     const genresStatus = useFetchGenres();
-
-    const { resultsDataStatus, resultsData } = useFetchResults({ searchType: "movie" });
-    interface ListPageProps {
-        title: string;
-        list: OrUndefined<PeopleOrMovies>;
-        fetchStatuses: FetchStatus[]
-    }
-    const resultsList = resultsData?.results;
-
-    const getListPageProps = (): ListPageProps => (
+ 
+    const selectListPageProps = (): ListPageProps<MovieItem[]> => (
         !search ?
             {
                 title: "Popular movies",
                 list: popularList?.results,
                 fetchStatuses: [popularListStatus, genresStatus]
             } :
-            {
-                title: `Search for "${search}" (${resultsList?.length})`,
-                list: resultsList,
-                fetchStatuses: [resultsDataStatus]
-            }
+            resultsProps
     );
 
-    const listPageProps = getListPageProps();
+    const listPageProps = selectListPageProps();
     return (
         <>
             <ListPage
