@@ -11,11 +11,12 @@ export const Movies = () => {
     const genresStatus = useFetchGenres();
 
     const selectedListPageProps = useSelectListPageProps({ resultsProps, popularListProps });
+    const selectedListPagePropsWithGenresStatus = { ...selectedListPageProps, fetchStatuses: [...selectedListPageProps.fetchStatuses, genresStatus] };
 
     return (
         <>
             <ListPage
-                {...selectedListPageProps}
+                {...selectedListPagePropsWithGenresStatus}
             />
         </>
     );
