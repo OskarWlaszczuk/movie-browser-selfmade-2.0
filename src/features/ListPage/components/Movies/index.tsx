@@ -7,7 +7,7 @@ import { useSelectListPageProps } from "../../hooks/useSelectListPageProps";
 
 export const Movies = () => {
     const resultsProps = useResultsProps<MoviesListApi>({ searchType: "movie" });
-    const popularListProps = usePopularListsProps<MoviesListApi>("/popularMovies.json");
+    const popularListProps = usePopularListsProps<MoviesListApi>("movie/popular");
     const genresStatus = useFetchGenres();
 
     const selectedListPageProps = useSelectListPageProps({ resultsProps, popularListProps });
