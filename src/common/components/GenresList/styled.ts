@@ -15,9 +15,9 @@ export const Genre = styled.li`
     padding: 8px 16px;
     list-style: none;
     border-radius: 5px;
-    flex-basis: 30%;
     text-align: center;
     white-space: nowrap;
+    font-size:  ${({ theme }) => theme.fontSizes.s};
 
     @media (max-width: ${({ theme }) => theme.breakpoints.laptopXS}) {
         font-size: ${({ theme }) => theme.fontSizes.xs};
