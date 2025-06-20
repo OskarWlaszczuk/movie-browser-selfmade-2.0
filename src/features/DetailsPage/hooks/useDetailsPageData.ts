@@ -1,9 +1,6 @@
-import { DetailedMovieItem } from "../../../common/aliases/interfaces/movie.types";
-import { DetailedPersonItem } from "../../../common/aliases/interfaces/person.types";
 import { TileEntityId } from "../../../common/aliases/interfaces/TileEntity";
-import { MovieCreditsApiResponse, PersonCreditsApiResponse } from "../types/creditsApiResponses.types";
 import { useCredits } from "./useCredits";
-import { useFetchDetails } from "./useFetchDetails";
+import { useFetchEntityDetails } from "./useFetchEntityDetails";
 
 interface UseDetailsPageDataProps {
     id: TileEntityId;
@@ -11,13 +8,9 @@ interface UseDetailsPageDataProps {
     creditsEndpoint: string;
 }
 
-export const useDetailsPageData = <TDetails extends DetailedMovieItem | DetailedPersonItem, TCredits extends MovieCreditsApiResponse | PersonCreditsApiResponse>({
-    id,
-    detailsEndpoint,
-    creditsEndpoint,
-}: UseDetailsPageDataProps) => {
-    const { details, detailsStatus } = useFetchDetails<TDetails>(id, detailsEndpoint);
-    const { creditsSectionsData, creditsStatus } = useCredits<TCredits>(id, creditsEndpoint);
+export const useDetailsPageData = ({ id, detailsEndpoint, creditsEndpoint }: UseDetailsPageDataProps) => {
+    const { details, detailsStatus } = useFetchEntityDetails(id, detailsEndpoint);
+    const { creditsSectionsData, creditsStatus } = useCredits(id, creditsEndpoint);
 
     const detailsPageDataStatuses = [detailsStatus, creditsStatus];
 
