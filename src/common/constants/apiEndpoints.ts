@@ -1,11 +1,16 @@
 import { TileEntityId } from "../aliases/interfaces/TileEntity";
 
+const baseEntityEndpoints = {
+    movie: (movieId: TileEntityId) => `movie/${movieId}`,
+    person: (personId: TileEntityId) => `person/${personId}`,
+};
+
 export const creditsEndpoints = {
-    getPersonCredits: (personId: TileEntityId) => `person/${personId}/credits`,
-    getMovieCredits: (movieId: TileEntityId) => `movie/${movieId}/credits`,
+    getPersonCredits: (personId: TileEntityId) => `${baseEntityEndpoints.person(personId)}/credits`,
+    getMovieCredits: (movieId: TileEntityId) => `${baseEntityEndpoints.movie(movieId)}/credits`,
 };
 
 export const detailsEndpoints = {
-    getPersonDetails: (personId: TileEntityId) => `person/${personId}`,
-    getMovieDetails: (movieId: TileEntityId) => `movie/${movieId}`,
+    getPersonDetails: (personId: TileEntityId) => `${baseEntityEndpoints.person(personId)}`,
+    getMovieDetails: (movieId: TileEntityId) => `${baseEntityEndpoints.movie(movieId)}`,
 };
