@@ -6,7 +6,7 @@ import { PeopleListApi } from "../../types/listApi.types";
 
 export const People = () => {
     const resultsProps = useResultsProps<PeopleListApi>({ searchType: "person" });
-    const popularListProps = usePopularListsProps<PeopleListApi>("/popularPeople.json");
+    const popularListProps = usePopularListsProps<PeopleListApi>("person/popular");
 
     const selectedListPageProps = useSelectListPageProps({ resultsProps, popularListProps });
 
