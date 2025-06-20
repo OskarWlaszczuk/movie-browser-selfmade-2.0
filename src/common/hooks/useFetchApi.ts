@@ -2,15 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchFromAPI } from "../functions/fetchFromAPI";
 interface UseFetchApiInput {
     queryKey: string;
-    url: string;
+    endpoint: string;
     urlDependencies?: (string | number)[];
     fetchCondition?: boolean;
 }
 
-export const useFetchApi = <ResponseType,>({ queryKey, url, urlDependencies = [], fetchCondition = true }: UseFetchApiInput) => {
+export const useFetchApi = <ResponseType,>({ queryKey, endpoint, urlDependencies = [], fetchCondition = true }: UseFetchApiInput) => {
     const { status, data } = useQuery({
         queryKey: [queryKey, ...urlDependencies],
-        queryFn: () => fetchFromAPI<ResponseType>(url),
+        queryFn: () => fetchFromAPI<ResponseType>(endpoint),
         enabled: fetchCondition,
     });
 
