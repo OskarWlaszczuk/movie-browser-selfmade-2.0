@@ -1,4 +1,3 @@
-import { apiUrls } from "../../../common/constants/pictureConfigs";
 import { useFetchApi } from "../../../common/hooks/useFetchApi";
 import { useQueryParameter } from "../../../common/hooks/useQueryParameter";
 import { ListApiUnion } from "../types/listApi.types";
@@ -9,11 +8,11 @@ type ResultsProps<ResultsList extends ListApiUnion> = ListPageProps<ResultsList[
 export const useResultsProps = <ResultsList extends ListApiUnion>({ searchType }: { searchType: "movie" | "person" }): ResultsProps<ResultsList> => {
     const { search, pageNumber } = useQueryParameter();
 
-    const searchUrl = `${apiUrls.base}/search/${searchType}?query=${search}&include_adult=false&language=en-US&page=${pageNumber}`;
+    const searchUrl = `search/${searchType}?query=${search}&include_adult=false&language=en-US&page=${pageNumber}`;
 
     const { status: resultsDataStatus, data: resultsData } = useFetchApi<ResultsList>({
         queryKey: "results",
-        url: searchUrl,
+        endpoint: searchUrl,
         urlDependencies: [search, pageNumber],
         fetchCondition: !!search,
     });
