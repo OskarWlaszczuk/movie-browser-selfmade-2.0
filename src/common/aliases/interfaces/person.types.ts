@@ -13,11 +13,11 @@ export interface CrewMember extends BasePersonData{
     job: string;
 }
 
-export interface PersonItem extends BasePersonData{
+export interface SimplefiedPersonItem extends BasePersonData{
     profile_path: string;
 }
 
-export interface PersonDetails extends PersonItem {
+export interface DetailedPersonItem extends SimplefiedPersonItem {
     biography: string;
     birthday: string;
     place_of_birth: string;
