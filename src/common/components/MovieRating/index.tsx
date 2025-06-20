@@ -1,10 +1,10 @@
-import { MovieItem } from "../../aliases/interfaces/movie.types";
+import { SimplefiedMovieItem } from "../../aliases/interfaces/movie.types";
 import { MetaData } from "../MetaData";
 import { RatingScore, StyledMovieRating, StyledStarIcon } from "./styled";
 
 interface MovieRatingProps {
-    voteAverage: MovieItem["vote_average"];
-    voteCount: MovieItem["vote_count"];
+    voteAverage: SimplefiedMovieItem["vote_average"];
+    voteCount: SimplefiedMovieItem["vote_count"];
 }
 
 export const MovieRating = ({ voteAverage, voteCount }: MovieRatingProps) => {
