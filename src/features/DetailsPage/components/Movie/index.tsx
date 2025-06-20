@@ -4,7 +4,7 @@ import { MovieCreditsApiResponse } from "../../types/creditsApiResponses.types";
 import { DetailedMovieItem } from "../../../../common/aliases/interfaces/movie.types";
 import { useFetchDetails } from "../../hooks/useFetchDetails";
 import { DetailsPage } from "..";
-import { creditsEndpoints } from "../../../../common/constants/apiEndpoints";
+import { creditsEndpoints, detailsEndpoints } from "../../../../common/constants/apiEndpoints";
 
 export const Movie = () => {
     const { movieId } = useParams();
@@ -12,9 +12,13 @@ export const Movie = () => {
 
     const { creditsSectionsData, creditsStatus } = useCredits<MovieCreditsApiResponse>(
         numericMovieId,
-        creditsEndpoints.getMovieCredits(numericMovieId)
+        creditsEndpoints.getMovieCredits(numericMovieId),
     );
-    const { details, detailsStatus } = useFetchDetails<DetailedMovieItem>(numericMovieId!, `movie/${movieId}`);
+    
+    const { details, detailsStatus } = useFetchDetails<DetailedMovieItem>(
+        numericMovieId,
+        detailsEndpoints.getMovieDetails(numericMovieId),
+    );
 
     return (
         <DetailsPage
