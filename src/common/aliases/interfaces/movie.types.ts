@@ -17,11 +17,11 @@ interface SharedMovieData {
     vote_count: number;
 }
 
-export interface MovieItem extends SharedMovieData {
+export interface SimplefiedMovieItem extends SharedMovieData {
     genre_ids: GenresIds;
 }
 
-export interface MovieDetails extends SharedMovieData {
+export interface DetailedMovieItem extends SharedMovieData {
     production_countries: ProductionCountry[];
     genres: GenreResponse[];
 }

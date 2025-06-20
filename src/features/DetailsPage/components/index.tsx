@@ -1,7 +1,7 @@
 
 import { nanoid } from "@reduxjs/toolkit";
-import { MovieDetails, MovieItem } from "../../../common/aliases/interfaces/movie.types";
-import { CastMember, CrewMember, PersonDetails } from "../../../common/aliases/interfaces/person.types";
+import { DetailedMovieItem, SimplefiedMovieItem } from "../../../common/aliases/interfaces/movie.types";
+import { CastMember, CrewMember, DetailedPersonItem } from "../../../common/aliases/interfaces/person.types";
 import { TilesSectionData } from "../../../common/aliases/interfaces/TilesSectionData";
 import { FetchStatus } from "../../../common/aliases/types/FetchStatus";
 import { useCombinedFetchStatus } from "../../../common/hooks/useCombinedFetchStatus";
@@ -13,10 +13,10 @@ import { Main } from "../../../common/components/Main";
 type SectionDataUnion =
     | TilesSectionData<CrewMember>
     | TilesSectionData<CastMember>
-    | TilesSectionData<MovieItem>;
+    | TilesSectionData<SimplefiedMovieItem>;
 
 interface DetailsPageProps {
-    details: MovieDetails | PersonDetails;
+    details: DetailedMovieItem | DetailedPersonItem;
     sectionsData: SectionDataUnion[];
     fetchStatuses: FetchStatus[];
 }

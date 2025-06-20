@@ -1,4 +1,4 @@
-import { MovieItem } from "../aliases/interfaces/movie.types";
+import { SimplefiedMovieItem } from "../aliases/interfaces/movie.types";
 import { Tile } from "../components/Tile";
 import { getYear } from "./getYear";
 
@@ -10,7 +10,7 @@ export const renderMovieItem = ({
     title,
     release_date,
     poster_path
-}: MovieItem) => (
+}: SimplefiedMovieItem) => (
     <Tile
         key={id}
         id={id}

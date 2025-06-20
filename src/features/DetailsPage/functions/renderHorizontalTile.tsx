@@ -1,12 +1,12 @@
-import { MovieDetails } from "../../../common/aliases/interfaces/movie.types";
+import { DetailedMovieItem } from "../../../common/aliases/interfaces/movie.types";
 import { DetailedPersonItem } from "../../../common/aliases/interfaces/person.types";
 import { Tile } from "../../../common/components/Tile";
 import { getYear } from "../../../common/functions/getYear";
 
-type DetailsUnion = DetailedPersonItem | MovieDetails;
+type DetailsUnion = DetailedPersonItem | DetailedMovieItem;
 
 export const renderHorizontalTile = (details: DetailsUnion) => {
-    const isMovie = (details: DetailsUnion): details is MovieDetails => {
+    const isMovie = (details: DetailsUnion): details is DetailedMovieItem => {
         return details && "title" in details;
     };
 

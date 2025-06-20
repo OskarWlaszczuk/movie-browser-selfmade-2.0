@@ -1,4 +1,4 @@
-import { MovieItem } from "../../../common/aliases/interfaces/movie.types";
+import { SimplefiedMovieItem } from "../../../common/aliases/interfaces/movie.types";
 import { SimplefiedPersonItem } from "../../../common/aliases/interfaces/person.types";
 import { PeopleOrMovies } from "../../../common/aliases/types/PeopleOrMovies";
 
@@ -10,6 +10,6 @@ export interface ListApiResponse<ResultsType extends PeopleOrMovies> {
 }
 
 export type PeopleListApi = ListApiResponse<SimplefiedPersonItem[]>;
-export type MoviesListApi = ListApiResponse<MovieItem[]>;
+export type MoviesListApi = ListApiResponse<SimplefiedMovieItem[]>;
 
 export type ListApiUnion = PeopleListApi | MoviesListApi;

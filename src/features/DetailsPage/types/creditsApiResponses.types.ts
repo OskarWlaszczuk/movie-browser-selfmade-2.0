@@ -1,4 +1,4 @@
-import { MovieItem } from "../../../common/aliases/interfaces/movie.types";
+import { SimplefiedMovieItem } from "../../../common/aliases/interfaces/movie.types";
 import { CastMember, CrewMember } from "../../../common/aliases/interfaces/person.types";
 
 export interface MovieCreditsApiResponse {
@@ -7,6 +7,6 @@ export interface MovieCreditsApiResponse {
 }
 
 export interface PersonCreditsApiResponse {
-    cast: MovieItem[];
-    crew: MovieItem[];
+    cast: SimplefiedMovieItem[];
+    crew: SimplefiedMovieItem[];
 }
