@@ -1,6 +1,6 @@
-import { MovieItem } from "./movie.types";
-import { CastMember, CrewMember, PersonItem } from "./person.types";
+import { SimplefiedMovieItem } from "./movie.types";
+import { CastMember, CrewMember, SimplefiedPersonItem } from "./person.types";
 
-export type TileEntity = MovieItem | PersonItem | CastMember | CrewMember;
+export type TileEntity = SimplefiedMovieItem | SimplefiedPersonItem | CastMember | CrewMember;
 
-export type TileEntityId = TileEntity["id"]
+export type TileEntityId = TileEntity["id"];
