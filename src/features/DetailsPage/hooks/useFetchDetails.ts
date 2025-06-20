@@ -1,12 +1,9 @@
-import { DetailedMovieItem } from "../../../common/aliases/interfaces/movie.types";
-import { DetailedPersonItem } from "../../../common/aliases/interfaces/person.types";
 import { TileEntityId } from "../../../common/aliases/interfaces/TileEntity";
+import { DetailedEntityItem } from "../../../common/aliases/types/DetailedEntityItem";
 import { useFetchApi } from "../../../common/hooks/useFetchApi";
 
-type DetailedEntityItem = DetailedMovieItem | DetailedPersonItem;
-
-export const useFetchDetails = <Details extends DetailedEntityItem>(entityId: TileEntityId, endpoint: string) => {
-    const { status: detailsStatus, data: details } = useFetchApi<Details>({
+export const useFetchDetails = (entityId: TileEntityId, endpoint: string) => {
+    const { status: detailsStatus, data: details } = useFetchApi<DetailedEntityItem>({
         queryKey: "details",
         endpoint,
         urlDependencies: [entityId!]
