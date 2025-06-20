@@ -16,13 +16,9 @@ interface DetailsPageProps {
 export const DetailsPage = ({ id, creditsEndpoint, detailsEndpoint }: DetailsPageProps) => {
     const genresStatus = useFetchGenres();
 
-    const {
-        details,
-        creditsSectionsData,
-        detailsPageDataStatuses,
-    } = useDetailsPageData({ id, creditsEndpoint, detailsEndpoint })
-
+    const { details, creditsSectionsData, detailsPageDataStatuses } = useDetailsPageData({ id, creditsEndpoint, detailsEndpoint });
     const combinedFetchStatus = useCombinedFetchStatus([...detailsPageDataStatuses, genresStatus]);
+
     return (
         <>
             <Main
