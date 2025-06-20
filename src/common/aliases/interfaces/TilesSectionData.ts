@@ -1,5 +1,5 @@
 import { OrUndefined } from "../types/OrUndefined";
-import { MovieItem } from "./movie.types";
+import { SimplefiedMovieItem } from "./movie.types";
 import { CastMember, CrewMember } from "./person.types";
 
 interface TitleData {
@@ -7,7 +7,7 @@ interface TitleData {
     isPageTitle: boolean;
 }
 
-export interface TilesSectionData<ListItem extends MovieItem | CastMember | CrewMember> {
+export interface TilesSectionData<ListItem extends SimplefiedMovieItem | CastMember | CrewMember> {
     list: OrUndefined<ListItem[]>;
     titleData: TitleData;
 }
