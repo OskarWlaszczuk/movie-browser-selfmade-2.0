@@ -11,7 +11,7 @@ interface GenresApiResponse {
 function* fetchGenresHandler(): SagaIterator {
     try {
         const typedFetch = fetchFromAPI<GenresApiResponse>;
-        const genresList: GenresApiResponse = yield call(typedFetch, "/genres.json");
+        const genresList: GenresApiResponse = yield call(typedFetch, "genre/movie/list");
         yield put(setFetchedGenres(genresList.genres));
     } catch {
         yield put(handleGenresFailed());
