@@ -1,12 +1,10 @@
-import { MovieCreditsApiResponse, PersonCreditsApiResponse } from "../types/creditsApiResponses.types";
+import { CreditsType} from "../types/credits.types";
 import { TilesSectionData } from "../../../common/aliases/interfaces/TilesSectionData";
 import { useFetchApi } from "../../../common/hooks/useFetchApi";
 import { TileEntityId } from "../../../common/aliases/interfaces/TileEntity";
 
-type CreditsResponse = MovieCreditsApiResponse | PersonCreditsApiResponse;
-
-export const useCredits = <CredistsApiResponse extends CreditsResponse>(entityId: TileEntityId, endpoint: string) => {
-    const { status: creditsStatus, data } = useFetchApi<CredistsApiResponse>({
+export const useCredits = (entityId: TileEntityId, endpoint: string) => {
+    const { status: creditsStatus, data } = useFetchApi<CreditsType>({
         queryKey: "credits",
         endpoint,
         urlDependencies: [entityId!]
@@ -15,8 +13,8 @@ export const useCredits = <CredistsApiResponse extends CreditsResponse>(entityId
     const cast = data?.cast;
     const crew = data?.crew;
 
-    type SingleCastMember = CredistsApiResponse['cast'][number];
-    type SingleCrewMember = CredistsApiResponse['crew'][number];
+    type SingleCastMember = CreditsType['cast'][number];
+    type SingleCrewMember = CreditsType['crew'][number];
 
     type CastSectionData = TilesSectionData<SingleCastMember>;
     type CrewSectionData = TilesSectionData<SingleCrewMember>;
