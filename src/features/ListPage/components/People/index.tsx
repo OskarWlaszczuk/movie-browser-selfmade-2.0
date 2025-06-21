@@ -1,18 +1,10 @@
 import { ListPage } from "..";
-import { usePopularListsProps } from "../../hooks/usePopularListsProps";
-import { useResultsProps } from "../../hooks/useResultsProps";
-import { useSelectListPageProps } from "../../hooks/useSelectListPageProps";
-import { PeopleListApi } from "../../types/listApi.types";
+import { popularListsEndpoints } from "../../../../common/constants/apiEndpoints";
 
-export const People = () => {
-    const resultsProps = useResultsProps<PeopleListApi>({ searchType: "person" });
-    const popularListProps = usePopularListsProps<PeopleListApi>("person/popular");
-
-    const selectedListPageProps = useSelectListPageProps({ resultsProps, popularListProps });
-
-    return (
-        <>
-            <ListPage {...selectedListPageProps} />
-        </>
-    );
-};
+export const People = () => (
+    <>
+        <ListPage searchEntity="person"
+            popularListEndpoint={popularListsEndpoints.persons}
+        />
+    </>
+);
