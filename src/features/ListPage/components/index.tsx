@@ -1,20 +1,31 @@
-import { PeopleOrMovies } from "../../../common/aliases/types/PeopleOrMovies";
 import { TilesListSection } from "../../../common/components/TilesListSection";
 import { Main } from "../../../common/components/Main";
 import { useCombinedFetchStatus } from "../../../common/hooks/useCombinedFetchStatus";
-import { ListPageProps } from "../types/ListPageProps";
 import { Pagination } from "./Pagination";
+import { useListSectionProps } from "../hooks/useListSectionProps";
+import { popularListsEndpoints } from "../../../common/constants/apiEndpoints";
+import { useFetchGenres } from "../../../common/hooks/useFetchGenres";
 
-export const ListPage = <ListType extends PeopleOrMovies>({ title, listData, fetchStatuses }: ListPageProps<ListType>) => {
-    const combinedFetchStatus = useCombinedFetchStatus(fetchStatuses);
+type PopularListsEndpoint = typeof popularListsEndpoints[keyof typeof popularListsEndpoints];
+
+interface ListPageProps {
+    searchEntity: "movie" | "person";
+    popularListEndpoint: PopularListsEndpoint
+}
+
+export const ListPage = ({ searchEntity, popularListEndpoint }: ListPageProps) => {
+    const genresStatus = useFetchGenres();
+
+    const selectedListSectionData = useListSectionProps({ searchEntity, popularListEndpoint });
+    const combinedFetchStatus = useCombinedFetchStatus([...selectedListSectionData.fetchStatuses, genresStatus]);
 
     return (
         <>
             <Main
                 content={
                     <>
-                        <TilesListSection list={listData?.results} titleData={{ isPageTitle: true, text: title }} />
-                        <Pagination totaPages={listData?.total_pages} />
+                        <TilesListSection list={selectedListSectionData?.listData?.results} titleData={{ isPageTitle: true, text: selectedListSectionData.title }} />
+                        <Pagination totaPages={selectedListSectionData?.listData?.total_pages} />
                     </>
                 }
                 combinedFetchStatus={combinedFetchStatus}
