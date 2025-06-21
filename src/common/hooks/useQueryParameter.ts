@@ -1,7 +1,8 @@
 import { useLocation } from "react-router-dom";
 import { QUERY_PARAM_KEYS } from "../constants/QUERY_PARAM_KEYS";
+import { SearchQueryParams } from "../aliases/interfaces/SearchQueryParams";
 
-export const useQueryParameter = () => {
+export const useQueryParameter = (): SearchQueryParams => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
 
