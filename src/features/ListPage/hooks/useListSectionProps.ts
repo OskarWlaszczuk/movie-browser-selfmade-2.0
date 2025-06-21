@@ -1,6 +1,6 @@
+import { SearchQueryParams } from "../../../common/aliases/interfaces/SearchQueryParams";
 import { EntityType } from "../../../common/aliases/types/EntityType";
 import { popularListsEndpoints } from "../../../common/constants/apiEndpoints";
-import { useQueryParameter } from "../../../common/hooks/useQueryParameter";
 import { usePopularListsProps } from "./usePopularListsProps";
 import { useResultsListProps } from "./useResultsProps";
 
@@ -9,11 +9,11 @@ type PopularListsEndpoint = typeof popularListsEndpoints[keyof typeof popularLis
 interface UseListSectionPropsInput {
     entityType: EntityType
     popularListEndpoint: PopularListsEndpoint
+    queryParams: SearchQueryParams;
+
 }
 
-export const useListSectionProps = ({ entityType, popularListEndpoint }: UseListSectionPropsInput) => {
-    const queryParams = useQueryParameter();
-
+export const useListSectionProps = ({ entityType, popularListEndpoint, queryParams }: UseListSectionPropsInput) => {
     const resultsListProps = useResultsListProps({ entityType, queryParams });
     const popularListProps = usePopularListsProps({ popularListEndpoint, queryParams });
 
