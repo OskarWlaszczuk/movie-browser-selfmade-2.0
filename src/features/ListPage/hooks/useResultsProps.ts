@@ -20,6 +20,7 @@ export const useResultsListProps = ({ entityType, queryParams }: UseResultsListP
         endpoint: getSearchEndpoint({ entityType, ...queryParams }),
         urlDependencies: [search, pageNumber],
         fetchCondition: !!search,
+        fetchDelayInSec: 1,
     });
 
     const resultsListProps: ResultsProps = {
