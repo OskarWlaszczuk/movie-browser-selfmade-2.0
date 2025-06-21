@@ -1,3 +1,6 @@
+import { SearchQueryParams } from "../../../common/aliases/interfaces/SearchQueryParams";
+import { EntityType } from "../../../common/aliases/types/EntityType";
+import { getSearchEndpoint } from "../../../common/constants/apiEndpoints";
 import { useFetchApi } from "../../../common/hooks/useFetchApi";
 import { ListApiUnion } from "../types/listApi.types";
 import { ListData } from "../types/ListData";
@@ -5,21 +8,16 @@ import { ListData } from "../types/ListData";
 type ResultsProps = ListData<ListApiUnion["results"]>;
 
 interface UseResultsListPropsInput {
-    searchEntity: "movie" | "person";
-    queryParams: {
-        search: string;
-        pageNumber: number;
-    };
+    entityType: EntityType;
+    queryParams: SearchQueryParams;
 }
 
-export const useResultsListProps = ({ searchEntity, queryParams }: UseResultsListPropsInput): ResultsProps => {
+export const useResultsListProps = ({ entityType, queryParams }: UseResultsListPropsInput): ResultsProps => {
     const { search, pageNumber } = queryParams;
-
-    const searchUrl = `search/${searchEntity}?query=${search}&include_adult=false&language=en-US&page=${pageNumber}`;
 
     const { status: resultsDataStatus, data: resultsData } = useFetchApi<ListApiUnion>({
         queryKey: "results",
-        endpoint: searchUrl,
+        endpoint: getSearchEndpoint({ entityType, ...queryParams }),
         urlDependencies: [search, pageNumber],
         fetchCondition: !!search,
     });
