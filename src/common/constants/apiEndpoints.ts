@@ -1,9 +1,19 @@
+import { SearchQueryParams } from "../aliases/interfaces/SearchQueryParams";
 import { TileEntityId } from "../aliases/interfaces/TileEntity";
+import { EntityType } from "../aliases/types/EntityType";
 
 const baseEntityEndpoints = {
     getMovie: (movieId: TileEntityId) => `movie/${movieId}`,
     getPerson: (personId: TileEntityId) => `person/${personId}`,
 };
+
+interface GetSearchEndpointProps extends SearchQueryParams {
+    entityType: EntityType;
+}
+
+export const getSearchEndpoint = ({ search, pageNumber, entityType }: GetSearchEndpointProps) => (
+    `search/${entityType}?query=${search}&include_adult=false&language=en-US&page=${pageNumber}`
+);
 
 export const creditsEndpoints = {
     getPersonCredits: (personId: TileEntityId) => `${baseEntityEndpoints.getPerson(personId)}/credits`,
