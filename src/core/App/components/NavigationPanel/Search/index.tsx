@@ -3,7 +3,7 @@ import { SearchPanel, StyledSearchIcon, Input } from "./styled";
 import { routes } from "../../../../../common/functions/routes";
 import { useReplaceQueryParameter } from "../../../../../common/hooks/useReplaceQueryParameter";
 import { QUERY_PARAM_KEYS } from "../../../../../common/constants/QUERY_PARAM_KEYS";
-import { QueryParams } from "../../../../../common/aliases/interfaces/QueryParams";
+import { QueryParam } from "../../../../../common/aliases/interfaces/QueryParam";
 import { useQueryParameter } from "../../../../../common/hooks/useQueryParameter";
 
 export const Search = () => {
@@ -13,7 +13,7 @@ export const Search = () => {
     const replaceQueryParameter = useReplaceQueryParameter();
 
     const onInputChange = async ({ target }: { target: HTMLInputElement }) => {
-        const queryParamsList: QueryParams[] = [
+        const queryParamsList: QueryParam[] = [
             {
                 key: QUERY_PARAM_KEYS.SEARCH,
                 value: target.value,
