@@ -1,28 +1,34 @@
 import { useFetchApi } from "../../../common/hooks/useFetchApi";
-import { useQueryParameter } from "../../../common/hooks/useQueryParameter";
 import { ListApiUnion } from "../types/listApi.types";
-import { ListPageProps } from "../types/ListPageProps";
+import { ListData } from "../types/ListData";
 
-type ResultsProps<ResultsList extends ListApiUnion> = ListPageProps<ResultsList["results"]>;
+type ResultsProps = ListData<ListApiUnion["results"]>;
 
-export const useResultsProps = <ResultsList extends ListApiUnion>({ searchType }: { searchType: "movie" | "person" }): ResultsProps<ResultsList> => {
-    const { search, pageNumber } = useQueryParameter();
+interface UseResultsListPropsInput {
+    searchEntity: "movie" | "person";
+    queryParams: {
+        search: string;
+        pageNumber: number;
+    };
+}
 
-    const searchUrl = `search/${searchType}?query=${search}&include_adult=false&language=en-US&page=${pageNumber}`;
+export const useResultsListProps = ({ searchEntity, queryParams }: UseResultsListPropsInput): ResultsProps => {
+    const { search, pageNumber } = queryParams;
 
-    const { status: resultsDataStatus, data: resultsData } = useFetchApi<ResultsList>({
+    const searchUrl = `search/${searchEntity}?query=${search}&include_adult=false&language=en-US&page=${pageNumber}`;
+
+    const { status: resultsDataStatus, data: resultsData } = useFetchApi<ListApiUnion>({
         queryKey: "results",
         endpoint: searchUrl,
         urlDependencies: [search, pageNumber],
         fetchCondition: !!search,
     });
 
-
-    const resultsProps: ResultsProps<ResultsList> = {
+    const resultsListProps: ResultsProps = {
         title: `Search for "${search}" (${resultsData?.total_results})`,
         listData: resultsData,
         fetchStatuses: [resultsDataStatus]
     };
 
-    return resultsProps;
+    return resultsListProps;
 };
