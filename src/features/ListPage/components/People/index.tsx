@@ -3,7 +3,7 @@ import { popularListsEndpoints } from "../../../../common/constants/apiEndpoints
 
 export const People = () => (
     <>
-        <ListPage searchEntity="person"
+        <ListPage entityType="person"
             popularListEndpoint={popularListsEndpoints.persons}
         />
     </>

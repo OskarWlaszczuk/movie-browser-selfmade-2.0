@@ -5,18 +5,19 @@ import { Pagination } from "./Pagination";
 import { useListSectionProps } from "../hooks/useListSectionProps";
 import { popularListsEndpoints } from "../../../common/constants/apiEndpoints";
 import { useFetchGenres } from "../../../common/hooks/useFetchGenres";
+import { EntityType } from "../../../common/aliases/types/EntityType";
 
 type PopularListsEndpoint = typeof popularListsEndpoints[keyof typeof popularListsEndpoints];
 
 interface ListPageProps {
-    searchEntity: "movie" | "person";
+    entityType:EntityType;
     popularListEndpoint: PopularListsEndpoint
 }
 
-export const ListPage = ({ searchEntity, popularListEndpoint }: ListPageProps) => {
+export const ListPage = ({ entityType, popularListEndpoint }: ListPageProps) => {
     const genresStatus = useFetchGenres();
 
-    const selectedListSectionData = useListSectionProps({ searchEntity, popularListEndpoint });
+    const selectedListSectionData = useListSectionProps({ entityType, popularListEndpoint });
     const combinedFetchStatus = useCombinedFetchStatus([...selectedListSectionData.fetchStatuses, genresStatus]);
 
     return (
