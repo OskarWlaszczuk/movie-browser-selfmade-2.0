@@ -7,8 +7,8 @@ import { popularListsEndpoints } from "../../../common/constants/apiEndpoints";
 import { useFetchGenres } from "../../../common/hooks/useFetchGenres";
 import { EntityType } from "../../../common/aliases/types/EntityType";
 import { useQueryParameter } from "../../../common/hooks/useQueryParameter";
-import { ListPageLoadingText } from "./ListPageLoadingText";
 import { ListPageNoResults } from "./ListPageNoResults";
+import { SectionHeader } from "../../../common/components/SectionHeader";
 
 type PopularListsEndpoint = typeof popularListsEndpoints[keyof typeof popularListsEndpoints];
 
@@ -39,7 +39,7 @@ export const ListPage = ({ entityType, popularListEndpoint }: ListPageProps) => 
         <>
             <Main
                 combinedFetchStatus={combinedFetchStatus}
-                extraLoaderContent={<ListPageLoadingText search={queryParams.search} />}
+                extraLoaderContent={<SectionHeader text={`Search results for ${queryParams.search}`} setAsPageTitle />}
                 content={content}
             />
         </>
