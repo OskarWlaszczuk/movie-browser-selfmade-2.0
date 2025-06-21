@@ -4,11 +4,12 @@ import { StyledPicture } from "./styled";
 import { getInvalidPictureUrl } from "./utilis/getInvalidPictureUrl";
 import { Placeholder } from "./Placeholder";
 import { OrNull } from "../../aliases/types/OrNull";
+import { EntityType } from "../../aliases/types/EntityType";
 
 interface PictureProps {
     picturePath: OrNull<string>;
     pictureWidth: PictureWidth;
-    entityType: "movie" | "person";
+    entityType: EntityType;
     entityName: string;
 }
 
