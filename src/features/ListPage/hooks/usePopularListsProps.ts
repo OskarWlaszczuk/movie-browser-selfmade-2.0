@@ -4,16 +4,14 @@ import { ListApiUnion } from "../types/listApi.types";
 import { ListData } from "../types/ListData";
 import { routes } from "../../../common/functions/routes";
 import { popularListsEndpoints } from "../../../common/constants/apiEndpoints";
+import { SearchQueryParams } from "../../../common/aliases/interfaces/SearchQueryParams";
 
 type PopularListProps = ListData<ListApiUnion["results"]>;
 type PopularListsEndpoint = typeof popularListsEndpoints[keyof typeof popularListsEndpoints];
 
 interface UsePopularListsPropsInput {
     popularListEndpoint: PopularListsEndpoint;
-    queryParams: {
-        search: string;
-        pageNumber: number;
-    };
+    queryParams: SearchQueryParams;
 }
 
 export const usePopularListsProps = ({ popularListEndpoint, queryParams }: UsePopularListsPropsInput): PopularListProps => {
