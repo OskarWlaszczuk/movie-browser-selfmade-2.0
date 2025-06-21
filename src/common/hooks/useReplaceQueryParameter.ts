@@ -1,12 +1,12 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { QueryParams } from "../aliases/interfaces/QueryParams";
+import { QueryParam } from "../aliases/interfaces/QueryParam";
 
 export const useReplaceQueryParameter = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
 
-    const replaceQueryParameter = (queryParamsList: QueryParams[]) => {
+    const replaceQueryParameter = (queryParamsList: QueryParam[]) => {
         const searchParams = new URLSearchParams(location.search);      
         const isSearchEmpty = !queryParamsList[0].value;
 
