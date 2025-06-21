@@ -5,7 +5,6 @@ export const useReplaceQueryParameter = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-
     const replaceQueryParameter = (queryParamsList: QueryParam[]) => {
         const searchParams = new URLSearchParams(location.search);      
         const isSearchEmpty = !queryParamsList[0].value;
