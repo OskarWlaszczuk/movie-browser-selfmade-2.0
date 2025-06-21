@@ -1,22 +1,16 @@
-import { OrUndefined } from "../../../../common/aliases/types/OrUndefined";
 import { QUERY_PARAM_KEYS } from "../../../../common/constants/QUERY_PARAM_KEYS";
 import { useQueryParameter } from "../../../../common/hooks/useQueryParameter";
 import { useReplaceQueryParameter } from "../../../../common/hooks/useReplaceQueryParameter";
-import { ListApiUnion } from "../../types/listApi.types"
 import { PaginationButtonData } from "./types/PaginationButtonData";
 import { PaginationButtonGroup } from "./components/PaginationButtonGroup";
 import { PageIndicator, PageNumber } from "./styled";
 
-interface PaginationProps {
-    totaPages: OrUndefined<ListApiUnion["total_pages"]>;
-}
-
-export const Pagination = ({ totaPages }: PaginationProps) => {
+export const Pagination = () => {
     const replaceQueryParameter = useReplaceQueryParameter();
     const { pageNumber } = useQueryParameter();
 
     const isFirstPage = pageNumber === 1;
-    const isLastPage = pageNumber === totaPages;
+    const isLastPage = pageNumber === 500;
 
     const paginationBackButtons: PaginationButtonData[] = [
         {
@@ -49,18 +43,17 @@ export const Pagination = ({ totaPages }: PaginationProps) => {
         {
             clickHandler: () => replaceQueryParameter([{
                 key: QUERY_PARAM_KEYS.PAGE,
-                value: totaPages!,
+                value: 500!,
             }]),
             label: "Last",
             disabledCondition: isLastPage,
         },
     ];
 
-
     return (
         <>
             <PaginationButtonGroup buttons={paginationBackButtons} />
-            <PageIndicator>Page <PageNumber>{pageNumber} </PageNumber>of<PageNumber> {totaPages}</PageNumber></PageIndicator>
+            <PageIndicator>Page <PageNumber>{pageNumber} </PageNumber>of<PageNumber> {500}</PageNumber></PageIndicator>
             <PaginationButtonGroup buttons={paginationForwordButtons} />
         </>
     );
