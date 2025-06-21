@@ -1,25 +1,35 @@
 import { useLocation } from "react-router-dom";
 import { useFetchApi } from "../../../common/hooks/useFetchApi";
-import { useQueryParameter } from "../../../common/hooks/useQueryParameter";
 import { ListApiUnion } from "../types/listApi.types";
-import { ListPageProps } from "../types/ListPageProps";
+import { ListData } from "../types/ListData";
 import { routes } from "../../../common/functions/routes";
 import { popularListsEndpoints } from "../../../common/constants/apiEndpoints";
 
-type PopularListProps<PopularListApiResponse extends ListApiUnion> = ListPageProps<PopularListApiResponse["results"]>;
+type PopularListProps = ListData<ListApiUnion["results"]>;
 type PopularListsEndpoint = typeof popularListsEndpoints[keyof typeof popularListsEndpoints];
 
-export const usePopularListsProps = <PopularListApiResponse extends ListApiUnion>(popularListEndpoint: PopularListsEndpoint): PopularListProps<PopularListApiResponse> => {
-    const { search } = useQueryParameter();
+interface UsePopularListsPropsInput {
+    popularListEndpoint: PopularListsEndpoint;
+    queryParams: {
+        search: string;
+        pageNumber: number;
+    };
+}
+
+export const usePopularListsProps = ({ popularListEndpoint, queryParams }: UsePopularListsPropsInput): PopularListProps => {
     const { pathname } = useLocation()
 
     const {
         status: popularListStatus,
         data: popularList
-    } = useFetchApi<PopularListApiResponse>({ queryKey: "popularList", endpoint: popularListEndpoint, fetchCondition: !search });
+    } = useFetchApi<ListApiUnion>({
+        queryKey: "popularList",
+        endpoint: popularListEndpoint,
+        fetchCondition: !queryParams.search
+    });
 
     const popularListTitle = `Popular ${pathname === routes.movies() ? "movies" : "people"}`;
-    const popularListProps: PopularListProps<PopularListApiResponse> = {
+    const popularListProps: PopularListProps = {
         title: popularListTitle,
         listData: popularList,
         fetchStatuses: [popularListStatus]
