@@ -1,3 +1,4 @@
+import { nanoid } from "@reduxjs/toolkit";
 import { routes } from "../../../../common/functions/routes"
 import { Search } from "./Search";
 import { AppTitle, NavItem, NavItemsList, StyledNavPanel, StyledAppLogo, NavPanelInner } from "./styled"
@@ -19,8 +20,8 @@ export const NavigationPanel = () => {
                 </header>
                 <NavItemsList>
                     {
-                        navItems.map(({ label, path }, index) => (
-                            <NavItem key={index} to={path}>{label}</NavItem>
+                        navItems.map(({ label, path }) => (
+                            <NavItem key={nanoid()} to={path}>{label}</NavItem>
                         ))
                     }
                 </NavItemsList>
