@@ -37,7 +37,10 @@ export const Main = ({ content, bannerContent, combinedFetchStatus, extraLoaderC
             );
 
         case FETCH_STATUSES.ERROR:
-            return <ErrorMessage status={errorStatus} />;
+            return <ErrorMessage message="Details not found" />;
+
+        case FETCH_STATUSES.PAUSED:
+            return <ErrorMessage message="Please check your network connection and try again" />;
 
         default:
             return <>Initial</>;
