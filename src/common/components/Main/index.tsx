@@ -1,17 +1,19 @@
-import { ReactElement } from "react";
+import { ReactNode } from "react";
 import { FetchStatus } from "../../aliases/types/FetchStatus";
 import { FETCH_STATUSES } from "../../constants/FETCH_STATUSES";
 import { MainContent, MainSection } from "./styled";
 import { Loader } from "../Loader";
+import { ErrorMessage } from "../ErrorMessage";
 
 interface MainProps {
-    content: ReactElement;
-    extraLoaderContent?: ReactElement;
+    content: ReactNode;
+    extraLoaderContent?: ReactNode;
     combinedFetchStatus: FetchStatus;
-    bannerContent?: ReactElement;
+    bannerContent?: ReactNode;
+    errorStatus?: any;
 };
 
-export const Main = ({ content, bannerContent, combinedFetchStatus, extraLoaderContent }: MainProps) => {
+export const Main = ({ content, bannerContent, combinedFetchStatus, extraLoaderContent, errorStatus }: MainProps) => {
     //Ustawić poprawne elementy zwracane w razie ładowania/błędu/initial
     switch (combinedFetchStatus) {
         case FETCH_STATUSES.SUCCESS:
@@ -35,7 +37,7 @@ export const Main = ({ content, bannerContent, combinedFetchStatus, extraLoaderC
             );
 
         case FETCH_STATUSES.ERROR:
-            return <>Błąd</>;
+            return <ErrorMessage status={errorStatus} />;
 
         default:
             return <>Initial</>;
