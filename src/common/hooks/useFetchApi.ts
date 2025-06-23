@@ -8,6 +8,15 @@ interface UseFetchApiInput {
     fetchDelayInSec?: number;
 }
 
+const fetchApi = <ResponseType>(fetchDelayInSec: number, endpoint: string) => (
+    new Promise<ResponseType>((resolve) => {
+        setTimeout(async () => {
+            const result = await fetchFromAPI<ResponseType>(endpoint);
+            resolve(result);
+        }, fetchDelayInSec * 1000);
+    })
+);
+
 export const useFetchApi = <ResponseType,>({
     queryKey,
     endpoint,
@@ -17,13 +26,7 @@ export const useFetchApi = <ResponseType,>({
 }: UseFetchApiInput) => {
     const { status, data } = useQuery({
         queryKey: [queryKey, ...urlDependencies],
-        queryFn: () =>
-            new Promise<ResponseType>((resolve) => {
-                setTimeout(async () => {
-                    const result = await fetchFromAPI<ResponseType>(endpoint);
-                    resolve(result);
-                }, fetchDelayInSec * 1000);
-            }),
+        queryFn: () => fetchApi<ResponseType>(fetchDelayInSec, endpoint),
         enabled: fetchCondition,
     });
 
