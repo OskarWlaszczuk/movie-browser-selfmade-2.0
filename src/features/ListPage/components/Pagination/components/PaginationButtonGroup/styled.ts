@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { ReactComponent as NextPageIcon } from "../../NextPageIcon.svg"
-import { ReactComponent as PreviousPageIcon } from "../../PreviousPageIcon.svg"
+import { ReactComponent as PaginationIcon } from "../../PreviousPageIcon.svg"
 
 export const PaginationButtonsContainer = styled.div`
     display: flex;
@@ -27,14 +26,18 @@ export const PaginationButtons = styled.button`
 
 `;
 
-export const StyledNextPageIcon = styled(NextPageIcon)`
+interface StyledPaginationIconProps {
+    $isButtonDisabled: boolean;
+}
+
+export const StyledPreviousPageIcon = styled(PaginationIcon) <StyledPaginationIconProps>`
     path {
-        fill: ${({ theme }) => theme.colors.scienceBlue};
+        fill: ${({ theme, $isButtonDisabled }) =>
+        $isButtonDisabled ? theme.colors.waterloo : theme.colors.scienceBlue
+    };
     }
 `;
 
-export const StyledPreviousPageIcon = styled(PreviousPageIcon)`
-    path {
-        fill: ${({ theme }) => theme.colors.waterloo};
-    }
+export const StyledNextPageIcon = styled(StyledPreviousPageIcon)`
+    transform: scaleX(-1);
 `;
