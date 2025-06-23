@@ -10,10 +10,10 @@ interface MainProps {
     extraLoaderContent?: ReactNode;
     combinedFetchStatus: FetchStatus;
     bannerContent?: ReactNode;
-    errorStatus?: any;
+    errorMessage: string;
 };
 
-export const Main = ({ content, bannerContent, combinedFetchStatus, extraLoaderContent, errorStatus }: MainProps) => {
+export const Main = ({ content, bannerContent, combinedFetchStatus, extraLoaderContent, errorMessage }: MainProps) => {
     //Ustawić poprawne elementy zwracane w razie ładowania/błędu/initial
     switch (combinedFetchStatus) {
         case FETCH_STATUSES.SUCCESS:
@@ -37,7 +37,7 @@ export const Main = ({ content, bannerContent, combinedFetchStatus, extraLoaderC
             );
 
         case FETCH_STATUSES.ERROR:
-            return <ErrorMessage message="Details not found" />;
+            return <ErrorMessage message={errorMessage} />;
 
         case FETCH_STATUSES.PAUSED:
             return <ErrorMessage message="Please check your network connection and try again" />;
