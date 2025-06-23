@@ -2,7 +2,11 @@ import styled from "styled-components";
 import { ReactComponent as NextPageIcon } from "../../NextPageIcon.svg"
 import { ReactComponent as PreviousPageIcon } from "../../PreviousPageIcon.svg"
 
-export const PaginationButton = styled.button`
+export const PaginationButtonsContainer = styled.div`
+    display: flex;
+`;
+
+export const PaginationButtons = styled.button`
     font-size: ${({ theme }) => theme.fontSizes.s};
     font-weight: ${({ theme }) => theme.fontWeights.regular};
     background-color: ${({ theme }) => theme.colors.pattensBlue};
