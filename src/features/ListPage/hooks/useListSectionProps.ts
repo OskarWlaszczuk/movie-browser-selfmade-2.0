@@ -1,21 +1,27 @@
 import { SearchQueryParams } from "../../../common/aliases/interfaces/SearchQueryParams";
 import { EntityType } from "../../../common/aliases/types/EntityType";
-import { popularListsEndpoints } from "../../../common/constants/apiEndpoints";
 import { usePopularListsProps } from "./usePopularListsProps";
 import { useResultsListProps } from "./useResultsProps";
-
-type PopularListsEndpoint = typeof popularListsEndpoints[keyof typeof popularListsEndpoints];
-
 interface UseListSectionPropsInput {
     entityType: EntityType
-    popularListEndpoint: PopularListsEndpoint
+    popularListEndpoint: string
     queryParams: SearchQueryParams;
-
 }
 
 export const useListSectionProps = ({ entityType, popularListEndpoint, queryParams }: UseListSectionPropsInput) => {
-    const resultsListProps = useResultsListProps({ entityType, queryParams });
-    const popularListProps = usePopularListsProps({ popularListEndpoint, queryParams });
+    const selectQueryParam = entityType === "movie" ? "movies" : "people";
+
+    const resultsListProps = useResultsListProps({
+        entityType,
+        queryParams,
+        queryKeyParam: selectQueryParam
+    });
+    
+    const popularListProps = usePopularListsProps({
+        popularListEndpoint,
+        queryParams,
+        queryKeyParam: selectQueryParam
+    });
 
     return (
         !queryParams.search ?
