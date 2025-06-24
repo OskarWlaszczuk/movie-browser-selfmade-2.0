@@ -10,13 +10,14 @@ type ResultsProps = ListData<ListApiUnion["results"]>;
 interface UseResultsListPropsInput {
     entityType: EntityType;
     queryParams: SearchQueryParams;
+    queryKeyParam: "movies" | "people"
 }
 
-export const useResultsListProps = ({ entityType, queryParams }: UseResultsListPropsInput): ResultsProps => {
+export const useResultsListProps = ({ entityType, queryParams, queryKeyParam }: UseResultsListPropsInput): ResultsProps => {
     const { search, pageNumber } = queryParams;
 
-    const { status: resultsDataStatus, data: resultsData } = useFetchApi<ListApiUnion>({
-        queryKey: "results",
+    const { status: resultsDataStatus, data: resultsData, isPaused: isResultsPaused } = useFetchApi<ListApiUnion>({
+        queryKey: `${queryKeyParam} results`,
         endpoint: getSearchEndpoint({ entityType, ...queryParams }),
         urlDependencies: [search, pageNumber],
         fetchCondition: !!search,
@@ -26,7 +27,8 @@ export const useResultsListProps = ({ entityType, queryParams }: UseResultsListP
     const resultsListProps: ResultsProps = {
         title: `Search for "${search}" (${resultsData?.total_results})`,
         listData: resultsData,
-        fetchStatuses: [resultsDataStatus]
+        fetchStatuses: [resultsDataStatus],
+        pausedFlags: [isResultsPaused]
     };
 
     return resultsListProps;
