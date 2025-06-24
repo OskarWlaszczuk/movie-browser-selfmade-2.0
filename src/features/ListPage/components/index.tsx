@@ -8,6 +8,7 @@ import { EntityType } from "../../../common/aliases/types/EntityType";
 import { useQueryParameter } from "../../../common/hooks/useQueryParameter";
 import { ListPageNoResults } from "./ListPageNoResults";
 import { SectionHeader } from "../../../common/components/SectionHeader";
+
 interface ListPageProps {
     entityType: EntityType;
     popularListEndpoint: string
@@ -15,10 +16,15 @@ interface ListPageProps {
 
 export const ListPage = ({ entityType, popularListEndpoint }: ListPageProps) => {
     const genresStatus = useFetchGenres();
+    
     const queryParams = useQueryParameter();
 
     const selectedListSectionData = useListSectionProps({ entityType, popularListEndpoint, queryParams });
-    const combinedFetchStatus = useCombinedFetchStatus([...selectedListSectionData.fetchStatuses, genresStatus]);
+
+    const combinedFetchStatus = useCombinedFetchStatus(
+        [...selectedListSectionData.fetchStatuses, genresStatus],
+        selectedListSectionData.pausedFlags
+    );
 
     const isNoResults = selectedListSectionData.listData?.total_results === 0;
     const content = (
@@ -40,6 +46,7 @@ export const ListPage = ({ entityType, popularListEndpoint }: ListPageProps) => 
                     )
                 }
                 content={content}
+                errorMessage="List not found"
             />
         </>
     );
