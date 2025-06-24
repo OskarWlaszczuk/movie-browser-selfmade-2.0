@@ -3,34 +3,36 @@ import { useFetchApi } from "../../../common/hooks/useFetchApi";
 import { ListApiUnion } from "../types/listApi.types";
 import { ListData } from "../types/ListData";
 import { routes } from "../../../common/functions/routes";
-import { popularListsEndpoints } from "../../../common/constants/apiEndpoints";
 import { SearchQueryParams } from "../../../common/aliases/interfaces/SearchQueryParams";
 
 type PopularListProps = ListData<ListApiUnion["results"]>;
-type PopularListsEndpoint = typeof popularListsEndpoints[keyof typeof popularListsEndpoints];
 
 interface UsePopularListsPropsInput {
-    popularListEndpoint: PopularListsEndpoint;
+    popularListEndpoint: string;
     queryParams: SearchQueryParams;
+    queryKeyParam: "movies" | "people"
 }
 
-export const usePopularListsProps = ({ popularListEndpoint, queryParams }: UsePopularListsPropsInput): PopularListProps => {
+export const usePopularListsProps = ({ popularListEndpoint, queryParams, queryKeyParam }: UsePopularListsPropsInput): PopularListProps => {
     const { pathname } = useLocation()
 
     const {
         status: popularListStatus,
-        data: popularList
+        data: popularList,
+        isPaused: isPopularListPaused,
     } = useFetchApi<ListApiUnion>({
-        queryKey: "popularList",
+        queryKey: `Popular ${queryKeyParam}`,
         endpoint: popularListEndpoint,
-        fetchCondition: !queryParams.search
+        fetchCondition: !queryParams.search,
+        urlDependencies: [queryParams.pageNumber, queryParams.search]
     });
 
     const popularListTitle = `Popular ${pathname === routes.movies() ? "movies" : "people"}`;
     const popularListProps: PopularListProps = {
         title: popularListTitle,
         listData: popularList,
-        fetchStatuses: [popularListStatus]
+        fetchStatuses: [popularListStatus],
+        pausedFlags: [isPopularListPaused],
     };
 
     return popularListProps;
