@@ -13,8 +13,8 @@ export const App = () => {
       <Routes>
         <Route path={routes.movies()} element={<Movies />} />
         <Route path={routes.people()} element={<People />} />
-        <Route path="/movies/:movieId" element={<Movie />} />
-        <Route path="/people/:personId" element={<Person />} />
+        <Route path="/movies/:id" element={<Movie />} />
+        <Route path="/people/:id" element={<Person />} />
         <Route path="*" element={<Navigate to={routes.homepage()} />} />
       </Routes>
     </HashRouter>
