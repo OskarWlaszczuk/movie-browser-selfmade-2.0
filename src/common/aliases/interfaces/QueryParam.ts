@@ -1,6 +1,6 @@
-import { QUERY_PARAM_KEYS } from "../../constants/QUERY_PARAM_KEYS";
+import { URL_QUERY_PARAM_KEYS } from "../../constants/URL_QUERY_PARAM_KEYS";
 
 export interface QueryParam {
-    key: typeof QUERY_PARAM_KEYS[keyof typeof QUERY_PARAM_KEYS];
+    key: typeof URL_QUERY_PARAM_KEYS[keyof typeof URL_QUERY_PARAM_KEYS];
     value: string | number;
 }
