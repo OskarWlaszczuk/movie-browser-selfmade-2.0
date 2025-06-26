@@ -1,0 +1,1 @@
+export const getURLPath = (pathname: string) => pathname.split("/")[1];
