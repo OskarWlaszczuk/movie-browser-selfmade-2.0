@@ -6,12 +6,13 @@ import { TilesListSection } from "../../../common/components/TilesListSection";
 import { Main } from "../../../common/components/Main";
 import { useDetailsPageData } from "../hooks/useDetailsPageData";
 import { entitiesDetailsEndpoints } from "../../../common/constants/apiEndpoints";
+import { useCreditsSections } from "../hooks/useCreditsSections";
 type EntityDetailsEndpoints = typeof entitiesDetailsEndpoints[keyof typeof entitiesDetailsEndpoints];
 interface EntityDetailsProps {
-    endpointEntityTpe: EntityDetailsEndpoints;
+    endpointEntityType: EntityDetailsEndpoints;
 }
 
-export const EntityDetails = ({ endpointEntityTpe }: EntityDetailsProps) => {
+export const EntityDetails = ({ endpointEntityType }: EntityDetailsProps) => {
     const genresStatus = useFetchGenres();
 
     const {
@@ -19,7 +20,9 @@ export const EntityDetails = ({ endpointEntityTpe }: EntityDetailsProps) => {
         entityCredits,
         detailsPageDataStatuses,
         detailsPausedFlags,
-    } = useDetailsPageData(endpointEntityTpe);
+    } = useDetailsPageData(endpointEntityType);
+
+    const creditsSectionsData = useCreditsSections(entityCredits);
 
     const combinedFetchStatus = useCombinedFetchStatus([...detailsPageDataStatuses, genresStatus], detailsPausedFlags);
 
@@ -29,11 +32,11 @@ export const EntityDetails = ({ endpointEntityTpe }: EntityDetailsProps) => {
                 content={
                     <>
                         {renderHorizontalTile(entityDetails!)}
-                        {/* {
+                        {
                             creditsSectionsData.map(sectionData => (
                                 <TilesListSection key={nanoid()} {...sectionData} />
                             ))
-                        } */}
+                        }
                     </>
                 }
                 combinedFetchStatus={combinedFetchStatus}
