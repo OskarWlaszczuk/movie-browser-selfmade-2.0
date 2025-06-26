@@ -1,34 +1,33 @@
 import { useLocation } from "react-router-dom";
 import { SearchPanel, StyledSearchIcon, Input } from "./styled";
-import { routes } from "../../../../../common/functions/routes";
 import { useReplaceQueryParameter } from "../../../../../common/hooks/useReplaceQueryParameter";
-import { QUERY_PARAM_KEYS } from "../../../../../common/constants/QUERY_PARAM_KEYS";
+import { URL_QUERY_PARAM_KEYS } from "../../../../../common/constants/URL_QUERY_PARAM_KEYS";
 import { QueryParam } from "../../../../../common/aliases/interfaces/QueryParam";
-import { useQueryParameter } from "../../../../../common/hooks/useQueryParameter";
+import { useURLQueryParams } from "../../../../../common/hooks/useURLQueryParams";
+import { getURLPath } from "../../../../../common/functions/getURLPath";
 
 export const Search = () => {
     const { pathname } = useLocation();
-    const searchCategory = pathname === routes.movies() ? "movies" : "people";
-
+    const { search } = useURLQueryParams();
     const replaceQueryParameter = useReplaceQueryParameter();
 
-    const onInputChange = async ({ target }: { target: HTMLInputElement }) => {
+    const searchEntityType = getURLPath(pathname);
+
+    const onInputChange = ({ target }: { target: HTMLInputElement }) => {
         const queryParamsList: QueryParam[] = [
             {
-                key: QUERY_PARAM_KEYS.SEARCH,
+                key: URL_QUERY_PARAM_KEYS.SEARCH,
                 value: target.value,
             },
             {
-                key: QUERY_PARAM_KEYS.PAGE,
+                key: URL_QUERY_PARAM_KEYS.PAGE,
                 value: 1,
             },
         ];
 
         replaceQueryParameter(queryParamsList);
+
     };
-
-    const { search } = useQueryParameter();
-
 
     return (
         <SearchPanel>
@@ -36,7 +35,7 @@ export const Search = () => {
             <Input
                 type="text"
                 name="search"
-                placeholder={`Search for ${searchCategory}..`}
+                placeholder={`Search for ${searchEntityType}..`}
                 onChange={onInputChange}
                 value={search}
             />
