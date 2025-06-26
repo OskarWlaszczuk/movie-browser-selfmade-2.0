@@ -1,13 +1,15 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { QueryParam } from "../aliases/interfaces/QueryParam";
+import { getURLPath } from "../functions/getURLPath";
 
 export const useReplaceQueryParameter = () => {
     const navigate = useNavigate();
-    const location = useLocation();
+    const { pathname, search } = useLocation();
 
     const replaceQueryParameter = (queryParamsList: QueryParam[]) => {
-        const searchParams = new URLSearchParams(location.search);      
+        const searchParams = new URLSearchParams(search);
         const isSearchEmpty = !queryParamsList[0].value;
+        const basePath = `${getURLPath(pathname)}/`;
 
         isSearchEmpty ?
             queryParamsList.forEach(({ key }) => {
@@ -17,7 +19,7 @@ export const useReplaceQueryParameter = () => {
                 searchParams.set(key, value.toString())
             });
 
-        navigate(`${location.pathname}?${searchParams.toString()}`);
+        navigate(`${basePath}?${searchParams.toString()}`);
     };
 
     return replaceQueryParameter;
