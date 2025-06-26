@@ -1,12 +1,11 @@
-import { nanoid } from "@reduxjs/toolkit";
 import { useCombinedFetchStatus } from "../../../common/hooks/useCombinedFetchStatus";
 import { useFetchGenres } from "../../../common/hooks/useFetchGenres";
 import { renderHorizontalTile } from "../functions/renderHorizontalTile";
-import { TilesListSection } from "../../../common/components/TilesListSection";
 import { Main } from "../../../common/components/Main";
 import { useDetailsPageData } from "../hooks/useDetailsPageData";
 import { entitiesDetailsEndpoints } from "../../../common/constants/apiEndpoints";
-import { useCreditsSections } from "../hooks/useCreditsSections";
+import { Credits } from "./Credits";
+
 type EntityDetailsEndpoints = typeof entitiesDetailsEndpoints[keyof typeof entitiesDetailsEndpoints];
 interface EntityDetailsProps {
     endpointEntityType: EntityDetailsEndpoints;
@@ -22,8 +21,6 @@ export const EntityDetails = ({ endpointEntityType }: EntityDetailsProps) => {
         detailsPausedFlags,
     } = useDetailsPageData(endpointEntityType);
 
-    const creditsSectionsData = useCreditsSections(entityCredits);
-
     const combinedFetchStatus = useCombinedFetchStatus([...detailsPageDataStatuses, genresStatus], detailsPausedFlags);
 
     return (
@@ -32,11 +29,7 @@ export const EntityDetails = ({ endpointEntityType }: EntityDetailsProps) => {
                 content={
                     <>
                         {renderHorizontalTile(entityDetails!)}
-                        {
-                            creditsSectionsData.map(sectionData => (
-                                <TilesListSection key={nanoid()} {...sectionData} />
-                            ))
-                        }
+                        <Credits credists={entityCredits} />
                     </>
                 }
                 combinedFetchStatus={combinedFetchStatus}
