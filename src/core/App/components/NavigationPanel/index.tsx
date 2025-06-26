@@ -1,7 +1,14 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { routes } from "../../../../common/functions/routes"
 import { Search } from "./Search";
-import { AppTitle, NavItem, NavItemsList, StyledNavPanel, StyledAppLogo, NavPanelInner } from "./styled"
+import {
+    AppTitle,
+    NavItem,
+    NavItemsList,
+    StyledNavPanel,
+    NavPanelInner,
+    StyledAppLogo
+} from "./styled"
 
 export const NavigationPanel = () => {
     const navItems = [
