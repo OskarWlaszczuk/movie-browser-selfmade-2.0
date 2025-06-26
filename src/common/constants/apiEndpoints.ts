@@ -1,13 +1,13 @@
-import { SearchQueryParams } from "../aliases/interfaces/SearchQueryParams";
+import { URLQueryParams } from "../aliases/interfaces/URLSearchParams";
 import { TileEntityId } from "../aliases/interfaces/TileEntity";
-import { EntityType } from "../aliases/types/EntityType";
+import { EntityType } from "../aliases/types/entityTypes.types";
 
 const baseEntityEndpoints = {
     getMovie: (movieId: TileEntityId) => `movie/${movieId}`,
     getPerson: (personId: TileEntityId) => `person/${personId}`,
 };
 
-interface GetSearchEndpointProps extends SearchQueryParams {
+interface GetSearchEndpointProps extends URLQueryParams {
     entityType: EntityType;
 }
 
@@ -26,6 +26,21 @@ export const detailsEndpoints = {
 };
 
 export const popularListsEndpoints = {
-    persons: "person/popular",
+    getPeople: (pageNumber: URLQueryParams["pageNumber"]) => `person/popular?page=${pageNumber}`,
+    getMovies: (pageNumber: URLQueryParams["pageNumber"]) => `movie/popular?page=${pageNumber}`,
+};
+
+export const popularEntityListEndpoints = {
+    people: "person/popular",
     movies: "movie/popular",
+} as const;
+
+export const searchEntityListEndpoints = {
+    person: "search/person",
+    movie: "search/movie",
+} as const;
+
+export const entitiesDetailsEndpoints = {
+    person: "person/",
+    movie: "movie/",
 } as const;
