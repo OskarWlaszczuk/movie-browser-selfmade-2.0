@@ -12,20 +12,22 @@ const areStatusesMatching = (
         fetchStatuses.some(fetchState => fetchState === targetStatus)
 );
 
-export const useCombinedFetchStatus = (fetchStatuses: FetchStatus[]): FetchStatus => {
-    const { PENDING, ERROR, SUCCESS } = FETCH_STATUSES;
+export const useCombinedFetchStatus = (fetchStatuses: FetchStatus[], pausedFlags: boolean[]): FetchStatus => {
+    const { PENDING, ERROR, SUCCESS, PAUSED } = FETCH_STATUSES;
     const [combinedFetchStatus, setCombinedFetchStatus] = useState<FetchStatus>(PENDING);
 
     useEffect(() => {
         const isLoading = areStatusesMatching(fetchStatuses, PENDING);
         const isFailed = areStatusesMatching(fetchStatuses, ERROR);
         const isSuccess = areStatusesMatching(fetchStatuses, SUCCESS, true);
+        const isAnyPaused = pausedFlags.some(isPaused => isPaused === true);
 
-        if (isLoading) setCombinedFetchStatus(PENDING);
+        if (isAnyPaused && isLoading) setCombinedFetchStatus(PAUSED)
+        if (isLoading && !isAnyPaused) setCombinedFetchStatus(PENDING);
         if (isFailed) setCombinedFetchStatus(ERROR);
         if (isSuccess) setCombinedFetchStatus(SUCCESS);
 
-    }, [fetchStatuses, PENDING, ERROR, SUCCESS]);
+    }, [fetchStatuses, PENDING, ERROR, SUCCESS, PAUSED, pausedFlags]);
 
     return combinedFetchStatus;
 };
