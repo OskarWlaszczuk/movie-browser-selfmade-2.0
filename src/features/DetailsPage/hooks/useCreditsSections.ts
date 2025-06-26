@@ -1,5 +1,6 @@
 import { CreditsType } from "../types/credits.types";
 import { TilesSectionData } from "../../../common/aliases/interfaces/TilesSectionData";
+import { OrUndefined } from "../../../common/aliases/types/OrUndefined";
 
 type SingleCastMember = CreditsType['cast'][number];
 type SingleCrewMember = CreditsType['crew'][number];
@@ -7,7 +8,7 @@ type SingleCrewMember = CreditsType['crew'][number];
 type CastSectionData = TilesSectionData<SingleCastMember>;
 type CrewSectionData = TilesSectionData<SingleCrewMember>;
 
-export const useCreditsSections = (credits: CreditsType) => {
+export const useCreditsSections = (credits: OrUndefined<CreditsType>) => {
     const cast = credits?.cast;
     const crew = credits?.crew;
 
@@ -29,5 +30,5 @@ export const useCreditsSections = (credits: CreditsType) => {
     type CreditsSectionsData = [CastSectionData, CrewSectionData];
     const creditsSectionsData: CreditsSectionsData = [castSectionData, crewSectionData];
 
-    return { creditsSectionsData };
+    return creditsSectionsData;
 };
