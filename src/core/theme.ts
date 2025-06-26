@@ -41,3 +41,9 @@ export const theme = {
         bold: 700,
     },
 } as const;
+
+export const createTileTheme = (horizontalLayout?: boolean) => ({
+  tileLayout: {
+    horizontal: horizontalLayout,
+  },
+});

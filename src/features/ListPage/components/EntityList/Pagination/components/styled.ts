@@ -3,6 +3,8 @@ import styled from "styled-components";
 export const PaginationContainer = styled.section`
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 24px;
 `;
 
 export const PageIndicator = styled.div`

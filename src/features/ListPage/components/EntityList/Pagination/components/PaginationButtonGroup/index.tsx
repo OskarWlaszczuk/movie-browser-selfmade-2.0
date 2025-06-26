@@ -1,5 +1,5 @@
 import { PaginationButtonData } from "../../types/PaginationButtonData";
-import { PaginationButtons, PaginationButtonsContainer } from "./styled";
+import { PaginationButton, PaginationButtonsContainer } from "./styled";
 import { nanoid } from "@reduxjs/toolkit";
 
 type PaginationButtonGroupProps = {
@@ -9,9 +9,9 @@ type PaginationButtonGroupProps = {
 export const PaginationButtonGroup = ({ buttons }: PaginationButtonGroupProps) => (
     <PaginationButtonsContainer>
         {buttons.map(({ clickHandler, label, disabledCondition }) => (
-            <PaginationButtons key={nanoid()} onClick={clickHandler} disabled={disabledCondition}>
+            <PaginationButton key={nanoid()} onClick={clickHandler} disabled={disabledCondition}>
                 {label}
-            </PaginationButtons>
+            </PaginationButton>
         ))}
     </PaginationButtonsContainer>
 );

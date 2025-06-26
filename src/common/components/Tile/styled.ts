@@ -5,11 +5,9 @@ interface StyledTileProps {
     $horizontalLayout?: boolean;
 }
 
-const sharedHorizontalLayoutStyles = css`
-    grid-template-columns: repeat(2, 1fr);
-    align-items: start;
-`;
-
+interface TitleProps {
+    $horizontalLayout?: boolean;
+}
 
 export const HorizontalTile = styled.article`
     color: ${({ theme }) => theme.colors.black};
@@ -18,7 +16,6 @@ export const HorizontalTile = styled.article`
     display: flex;
     
 `;
-
 
 export const StyledTile = styled(NavLink) <StyledTileProps>`
     color: ${({ theme }) => theme.colors.black};
@@ -33,6 +30,7 @@ export const StyledTile = styled(NavLink) <StyledTileProps>`
     ;
     grid-template-columns: 100%;
     grid-template-rows: min-content;
+    /* grid-template-rows: auto 1fr; */
     grid-gap: 12px;
     border-radius: 5px;
     box-shadow: 0px 0px 7px -1px #5a575747;
@@ -44,7 +42,8 @@ export const StyledTile = styled(NavLink) <StyledTileProps>`
             "picture movieRating"
             "picture ..."
         ;
-        ${sharedHorizontalLayoutStyles}
+        grid-template-columns: repeat(2, 1fr);
+        align-items: start;
     }
 
     &:hover{
@@ -52,12 +51,20 @@ export const StyledTile = styled(NavLink) <StyledTileProps>`
     }
 
     ${({ $horizontalLayout }) => $horizontalLayout && css`
-        ${sharedHorizontalLayoutStyles}
+        grid-template-columns: 312px;
         grid-template-areas: 
             "picture infoWrapper"
             "picture movieRating"
             "picture overview"
         ;
+
+        @media (max-width: ${({ theme }) => theme.breakpoints.laptopS}) {
+            grid-template-areas: 
+                "picture infoWrapper"
+                "picture movieRating"
+                "picture overview"
+            ;
+        }
     `}
 `;
 
@@ -68,16 +75,27 @@ export const InfoWrapper = styled.article`
     grid-area: infoWrapper;
 `;
 
-export const Title = styled.header`
+export const Title = styled.header<TitleProps>`
     font-weight: ${({ theme }) => theme.fontWeights.medium};
     font-size:  ${({ theme }) => theme.fontSizes.l};
     line-height: 130%;
+    word-break: break-word;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.laptopXS}) {
         font-size:  ${({ theme }) => theme.fontSizes.m};
     }
+
+${({ $horizontalLayout }) => $horizontalLayout && css`
+        font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+        font-size:  ${({ theme }) => theme.fontSizes.title};
+    `};
 `;
 
 export const Overview = styled.p`
     grid-area: overview;
+    font-size:  ${({ theme }) => theme.fontSizes.l};
 `
+
+export const DetailsWrapper = styled.div`
+    /* display: grid; */
+`;

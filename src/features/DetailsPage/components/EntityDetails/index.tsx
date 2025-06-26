@@ -1,9 +1,9 @@
-import { useCombinedFetchStatus } from "../../../common/hooks/useCombinedFetchStatus";
-import { useFetchGenres } from "../../../common/hooks/useFetchGenres";
-import { renderHorizontalTile } from "../functions/renderHorizontalTile";
-import { Main } from "../../../common/components/Main";
-import { useDetailsPageData } from "../hooks/useDetailsPageData";
-import { entitiesDetailsEndpoints } from "../../../common/constants/apiEndpoints";
+import { useCombinedFetchStatus } from "../../../../common/hooks/useCombinedFetchStatus";
+import { useFetchGenres } from "../../../../common/hooks/useFetchGenres";
+import { renderHorizontalTile } from "../../functions/renderHorizontalTile";
+import { Main } from "../../../../common/components/Main";
+import { useFetchDetailsPageData } from "../../hooks/useFetchDetailsPageData";
+import { entitiesDetailsEndpoints } from "../../../../common/constants/apiEndpoints";
 import { Credits } from "./Credits";
 
 type EntityDetailsEndpoints = typeof entitiesDetailsEndpoints[keyof typeof entitiesDetailsEndpoints];
@@ -19,7 +19,7 @@ export const EntityDetails = ({ endpointEntityType }: EntityDetailsProps) => {
         entityCredits,
         detailsPageDataStatuses,
         detailsPausedFlags,
-    } = useDetailsPageData(endpointEntityType);
+    } = useFetchDetailsPageData(endpointEntityType);
 
     const combinedFetchStatus = useCombinedFetchStatus([...detailsPageDataStatuses, genresStatus], detailsPausedFlags);
 

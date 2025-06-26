@@ -2,11 +2,11 @@ import { useParams } from "react-router-dom";
 import { entitiesDetailsEndpoints } from "../../../common/constants/apiEndpoints";
 import { useFetchApi } from "../../../common/hooks/useFetchApi";
 import { DetailedEntityItem } from "../../../common/aliases/types/DetailedEntityItem";
-import { CreditsType } from "../types/credits.types";
+import { CreditsTypeUnion } from "../types/credits.types";
 
 type EntityDetailsEndpoints = typeof entitiesDetailsEndpoints[keyof typeof entitiesDetailsEndpoints];
 
-export const useDetailsPageData = (endpointEntityType: EntityDetailsEndpoints) => {
+export const useFetchDetailsPageData = (endpointEntityType: EntityDetailsEndpoints) => {
     const { id } = useParams();
 
     const detailsEndpoint = `${endpointEntityType}${id}`;
@@ -28,7 +28,7 @@ export const useDetailsPageData = (endpointEntityType: EntityDetailsEndpoints) =
         status: entityCreditsStatus,
         data: entityCredits,
         isPaused: isEntityCreditsPaused
-    } = useFetchApi<CreditsType>({
+    } = useFetchApi<CreditsTypeUnion>({
         queryKey: "credits",
         endpoint: creditsEndpoint,
         urlDependencies: endpointDependecies,

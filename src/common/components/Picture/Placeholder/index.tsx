@@ -1,4 +1,4 @@
-import { EntityType } from "../../../aliases/types/EntityType";
+import { EntityType } from "../../../aliases/types/entityTypes.types";
 import { StyledMoviePlaceholder, StyledPersonPlaceholder, StyledPlaceholder } from "./styled"
 
 interface PlaceholderProps {

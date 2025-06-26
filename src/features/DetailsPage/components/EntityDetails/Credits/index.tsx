@@ -1,11 +1,11 @@
 import { nanoid } from "@reduxjs/toolkit";
-import { TilesListSection } from "../../../../common/components/TilesListSection";
-import { useCreditsSections } from "../../hooks/useCreditsSections";
-import { CreditsType } from "../../types/credits.types";
-import { OrUndefined } from "../../../../common/aliases/types/OrUndefined";
+import { TilesListSection } from "../../../../../common/components/TilesListSection";
+import { useCreditsSections } from "../../../hooks/useCreditsSections";
+import { CreditsTypeUnion } from "../../../types/credits.types";
+import { OrUndefined } from "../../../../../common/aliases/types/OrUndefined";
 
 interface CreditsProps {
-    credists: OrUndefined<CreditsType>;
+    credists: OrUndefined<CreditsTypeUnion>;
 }
 
 export const Credits = ({ credists }: CreditsProps) => {

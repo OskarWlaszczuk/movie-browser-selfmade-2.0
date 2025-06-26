@@ -4,7 +4,7 @@ import { StyledPicture } from "./styled";
 import { getInvalidPictureUrl } from "./utilis/getInvalidPictureUrl";
 import { Placeholder } from "./Placeholder";
 import { OrNull } from "../../aliases/types/OrNull";
-import { EntityType } from "../../aliases/types/EntityType";
+import { EntityType } from "../../aliases/types/entityTypes.types";
 
 interface PictureProps {
     picturePath: OrNull<string>;

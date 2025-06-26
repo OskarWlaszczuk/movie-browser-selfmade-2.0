@@ -1,19 +1,27 @@
-import { SearchQueryParams } from "../../../../../common/aliases/interfaces/SearchQueryParams";
-import { QUERY_PARAM_KEYS } from "../../../../../common/constants/QUERY_PARAM_KEYS";
-import { useReplaceQueryParameter } from "../../../../../common/hooks/useReplaceQueryParameter";
+import { OrUndefined } from "../../../../../../common/aliases/types/OrUndefined";
+import { URL_QUERY_PARAM_KEYS } from "../../../../../../common/constants/URL_QUERY_PARAM_KEYS";
+import { useReplaceQueryParameter } from "../../../../../../common/hooks/useReplaceQueryParameter";
+import { MoviesList, PeopleList } from "../../../../types/entityList.types";
 import { StyledNextPageIcon, StyledPreviousPageIcon } from "../components/PaginationButtonGroup/styled";
 import { PaginationButtonData } from "../types/PaginationButtonData";
 
-export const usePaginationButtons = (pageNumber: SearchQueryParams["pageNumber"]) => {
+type ListType = PeopleList | MoviesList;
+
+
+export const usePaginationButtons = (
+    currentPage: OrUndefined<ListType["page"]>,
+    totalPages: OrUndefined<ListType["total_pages"]>
+) => {
+    
     const replaceQueryParameter = useReplaceQueryParameter();
-    const totalPages = 500;
-    const isFirstPage = pageNumber === 1;
-    const isLastPage = pageNumber === totalPages;
+
+    const isFirstPage = currentPage === 1;
+    const isLastPage = currentPage === totalPages;
 
     const paginationBackButtons: PaginationButtonData[] = [
         {
             clickHandler: () => replaceQueryParameter([{
-                key: QUERY_PARAM_KEYS.PAGE,
+                key: URL_QUERY_PARAM_KEYS.PAGE,
                 value: 1,
             }]),
             label: <><StyledPreviousPageIcon $isButtonDisabled={isFirstPage} /> <span>First</span></>,
@@ -21,8 +29,8 @@ export const usePaginationButtons = (pageNumber: SearchQueryParams["pageNumber"]
         },
         {
             clickHandler: () => replaceQueryParameter([{
-                key: QUERY_PARAM_KEYS.PAGE,
-                value: isFirstPage ? pageNumber : pageNumber! - 1
+                key: URL_QUERY_PARAM_KEYS.PAGE,
+                value: isFirstPage ? currentPage : currentPage! - 1
             }]),
             label: <><StyledPreviousPageIcon $isButtonDisabled={isFirstPage} /> <span>Previous</span></>,
             disabledCondition: isFirstPage,
@@ -32,15 +40,15 @@ export const usePaginationButtons = (pageNumber: SearchQueryParams["pageNumber"]
     const paginationForwordButtons: PaginationButtonData[] = [
         {
             clickHandler: () => replaceQueryParameter([{
-                key: QUERY_PARAM_KEYS.PAGE,
-                value: isLastPage ? pageNumber : pageNumber! + 1
+                key: URL_QUERY_PARAM_KEYS.PAGE,
+                value: isLastPage ? currentPage! : currentPage! + 1
             }]),
             label: <><span>Next</span> <StyledNextPageIcon $isButtonDisabled={isLastPage} /></>,
             disabledCondition: isLastPage,
         },
         {
             clickHandler: () => replaceQueryParameter([{
-                key: QUERY_PARAM_KEYS.PAGE,
+                key: URL_QUERY_PARAM_KEYS.PAGE,
                 value: totalPages!,
             }]),
             label: <><span>Last</span> <StyledNextPageIcon $isButtonDisabled={isLastPage} /></>,

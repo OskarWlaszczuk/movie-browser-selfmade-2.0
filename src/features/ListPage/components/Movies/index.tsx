@@ -1,11 +1,9 @@
-import { ListPage } from "..";
-import { popularListsEndpoints } from "../../../../common/constants/apiEndpoints";
+import { EntityList } from "../EntityList";
 
 export const Movies = () => (
-    <>
-        <ListPage
-            entityType="movie"
-            popularListEndpoint={popularListsEndpoints.movies}
-        />
-    </>
+    <EntityList
+        popularListEndpoint="movie/popular"
+        searchEndpoint="search/movie"
+        entityListType="movies"
+    />
 );

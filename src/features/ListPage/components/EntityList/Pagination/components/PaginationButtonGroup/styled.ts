@@ -1,11 +1,12 @@
 import styled from "styled-components";
-import { ReactComponent as PaginationIcon } from "../../PreviousPageIcon.svg"
+import { ReactComponent as PaginationIcon } from "../../icons/PaginationIcon.svg"
 
 export const PaginationButtonsContainer = styled.div`
     display: flex;
+    gap: 12px;
 `;
 
-export const PaginationButtons = styled.button`
+export const PaginationButton = styled.button`
     font-size: ${({ theme }) => theme.fontSizes.s};
     font-weight: ${({ theme }) => theme.fontWeights.regular};
     background-color: ${({ theme }) => theme.colors.pattensBlue};
@@ -15,6 +16,7 @@ export const PaginationButtons = styled.button`
     display: flex;
     justify-content:center;
     gap: 8px;
+    padding: 8px 16px;
 
     &:disabled {
         background-color: ${({ theme }) => theme.colors.mystic};

@@ -1,5 +1,7 @@
+import { ReactElement } from "react";
+
 export interface PaginationButtonData {
     clickHandler: () => void;
-    label: string;
+    label: ReactElement;
     disabledCondition: boolean;
 }
