@@ -5,18 +5,22 @@ import { renderHorizontalTile } from "../functions/renderHorizontalTile";
 import { TilesListSection } from "../../../common/components/TilesListSection";
 import { Main } from "../../../common/components/Main";
 import { useDetailsPageData } from "../hooks/useDetailsPageData";
-import { TileEntityId } from "../../../common/aliases/interfaces/TileEntity";
-
+import { entitiesDetailsEndpoints } from "../../../common/constants/apiEndpoints";
+type EntityDetailsEndpoints = typeof entitiesDetailsEndpoints[keyof typeof entitiesDetailsEndpoints];
 interface EntityDetailsProps {
-    id: TileEntityId;
-    detailsEndpoint: string;
-    creditsEndpoint: string;
+    endpointEntityTpe: EntityDetailsEndpoints;
 }
 
-export const EntityDetails = ({ id, creditsEndpoint, detailsEndpoint }: EntityDetailsProps) => {
+export const EntityDetails = ({ endpointEntityTpe }: EntityDetailsProps) => {
     const genresStatus = useFetchGenres();
 
-    const { details, creditsSectionsData, detailsPageDataStatuses, detailsPausedFlags } = useDetailsPageData({ id, creditsEndpoint, detailsEndpoint });
+    const {
+        entityDetails,
+        entityCredits,
+        detailsPageDataStatuses,
+        detailsPausedFlags,
+    } = useDetailsPageData(endpointEntityTpe);
+
     const combinedFetchStatus = useCombinedFetchStatus([...detailsPageDataStatuses, genresStatus], detailsPausedFlags);
 
     return (
@@ -24,12 +28,12 @@ export const EntityDetails = ({ id, creditsEndpoint, detailsEndpoint }: EntityDe
             <Main
                 content={
                     <>
-                        {renderHorizontalTile(details!)}
-                        {
+                        {renderHorizontalTile(entityDetails!)}
+                        {/* {
                             creditsSectionsData.map(sectionData => (
                                 <TilesListSection key={nanoid()} {...sectionData} />
                             ))
-                        }
+                        } */}
                     </>
                 }
                 combinedFetchStatus={combinedFetchStatus}
