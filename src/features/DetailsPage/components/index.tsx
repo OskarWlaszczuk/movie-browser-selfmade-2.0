@@ -7,13 +7,13 @@ import { Main } from "../../../common/components/Main";
 import { useDetailsPageData } from "../hooks/useDetailsPageData";
 import { TileEntityId } from "../../../common/aliases/interfaces/TileEntity";
 
-interface DetailsPageProps {
+interface EntityDetailsProps {
     id: TileEntityId;
     detailsEndpoint: string;
     creditsEndpoint: string;
 }
 
-export const DetailsPage = ({ id, creditsEndpoint, detailsEndpoint }: DetailsPageProps) => {
+export const EntityDetails = ({ id, creditsEndpoint, detailsEndpoint }: EntityDetailsProps) => {
     const genresStatus = useFetchGenres();
 
     const { details, creditsSectionsData, detailsPageDataStatuses, detailsPausedFlags } = useDetailsPageData({ id, creditsEndpoint, detailsEndpoint });
