@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchFromAPI } from "../functions/fetchFromAPI";
+import { AxiosError } from "axios";
 interface UseFetchApiInput {
     queryKey: string;
     endpoint: string;
@@ -9,10 +10,14 @@ interface UseFetchApiInput {
 }
 
 const fetchApi = <ResponseType>(fetchDelayInSec: number, endpoint: string) => (
-    new Promise<ResponseType>((resolve) => {
+    new Promise<ResponseType>((resolve, reject) => {
         setTimeout(async () => {
-            const result = await fetchFromAPI<ResponseType>(endpoint);
-            resolve(result);
+            try {
+                const result = await fetchFromAPI<ResponseType>(endpoint);
+                resolve(result);
+            } catch (error) {
+                reject(error)
+            }
         }, fetchDelayInSec * 1000);
     })
 );
@@ -24,11 +29,12 @@ export const useFetchApi = <ResponseType,>({
     fetchCondition = true,
     fetchDelayInSec = 0,
 }: UseFetchApiInput) => {
-    const { status, data } = useQuery({
-        queryKey: [queryKey, ...urlDependencies],
+
+    const { status, data, isPaused } = useQuery<ResponseType, AxiosError>({
+        queryKey: [queryKey, ...urlDependencies, endpoint, fetchDelayInSec],
         queryFn: () => fetchApi<ResponseType>(fetchDelayInSec, endpoint),
         enabled: fetchCondition,
     });
 
-    return { status, data };
+    return { status, data, isPaused };
 };
