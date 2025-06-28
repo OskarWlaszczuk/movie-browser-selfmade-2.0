@@ -2,23 +2,23 @@ import { ReactNode } from "react";
 import { FetchStatus } from "../../aliases/types/FetchStatus";
 import { FETCH_STATUSES } from "../../constants/FETCH_STATUSES";
 import { MainContent, MainSection } from "./styled";
-import { ErrorMessage } from "../ErrorMessage";
-import { Loader } from "../Loader";
+import { ErrorMessage } from "./ErrorMessage";
+import { Loader } from "./Loader";
 
 interface MainProps {
     errorMessage: string;
-    content: ReactNode;
+    successContent: ReactNode;
     combinedFetchStatus: FetchStatus;
     extraLoaderContent?: ReactNode;
     bannerContent?: ReactNode;
 };
 
-export const Main = ({ content, bannerContent, combinedFetchStatus, extraLoaderContent, errorMessage }: MainProps) => {
+export const Main = ({ successContent, bannerContent, combinedFetchStatus, extraLoaderContent, errorMessage }: MainProps) => {
 
     const selectContentByStatus = () => {
         switch (combinedFetchStatus) {
             case FETCH_STATUSES.SUCCESS:
-                return content
+                return successContent
 
             case FETCH_STATUSES.PENDING:
                 return (
