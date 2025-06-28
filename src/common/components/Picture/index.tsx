@@ -1,5 +1,4 @@
 import { apiUrls, PictureWidth } from "../../constants/pictureConfigs";
-import { buildPictureUrl } from "./utilis/buildPictureUrl";
 import { StyledPicture } from "./styled";
 import { Placeholder } from "./Placeholder";
 import { OrNull } from "../../aliases/types/OrNull";
@@ -13,7 +12,7 @@ interface PictureProps {
 }
 
 export const Picture = ({ picturePath, pictureWidth, entityType, entityName }: PictureProps) => {
-    const pictureSrc = buildPictureUrl(picturePath, pictureWidth);
+    const pictureSrc = `${apiUrls.image}${pictureWidth}${picturePath}`;
     const pictureAlt = `${entityType}: ${entityName}`;
 
     const invalidPictureUrl = `${apiUrls.image}${pictureWidth}null`;
