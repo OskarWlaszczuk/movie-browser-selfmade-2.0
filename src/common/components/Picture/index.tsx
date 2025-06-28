@@ -12,19 +12,14 @@ interface PictureProps {
 }
 
 export const Picture = ({ picturePath, pictureWidth, entityType, entityName }: PictureProps) => {
-    const pictureSrc = `${apiUrls.image}${pictureWidth}${picturePath}`;
     const pictureAlt = `${entityType}: ${entityName}`;
 
-    const invalidPictureUrl = `${apiUrls.image}${pictureWidth}null`;
-    const isValidImageUrl = pictureSrc !== invalidPictureUrl;
-
-    const pictureElement = (
-        isValidImageUrl ?
-            <StyledPicture src={pictureSrc} alt={pictureAlt} /> :
-            <Placeholder entityType={entityType} />
-    );
+    const pictureUrl = `${apiUrls.image}${pictureWidth}${picturePath || null}`;
+    const isValidImageUrl = picturePath !== null;
 
     return (
-        <>  {pictureElement}</>
+        isValidImageUrl ?
+            <StyledPicture src={pictureUrl} alt={pictureAlt} /> :
+            <Placeholder entityType={entityType} />
     );
 };
