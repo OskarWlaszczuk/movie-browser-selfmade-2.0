@@ -1,18 +1,12 @@
 import { CreditsTypeUnion } from "../types/credits.types";
-import { TilesSectionData } from "../../../common/aliases/interfaces/TilesSectionData";
+import { TilesListSectionProps } from "../../../common/aliases/interfaces/TilesListSectionProps";
 import { OrUndefined } from "../../../common/aliases/types/OrUndefined";
-
-type SingleCastMember = CreditsTypeUnion['cast'][number];
-type SingleCrewMember = CreditsTypeUnion['crew'][number];
-
-type CastSectionData = TilesSectionData<SingleCastMember>;
-type CrewSectionData = TilesSectionData<SingleCrewMember>;
 
 export const useCreditsSections = (credits: OrUndefined<CreditsTypeUnion>) => {
     const cast = credits?.cast;
     const crew = credits?.crew;
 
-    const castSectionData: CastSectionData = {
+    const castSectionData: TilesListSectionProps = {
         list: cast,
         titleData: {
             text: "cast",
@@ -20,15 +14,15 @@ export const useCreditsSections = (credits: OrUndefined<CreditsTypeUnion>) => {
         },
     };
 
-    const crewSectionData: CrewSectionData = {
+    const crewSectionData: TilesListSectionProps = {
         list: crew,
         titleData: {
             text: "Crew",
             isPageTitle: false,
         },
     };
-    type CreditsSectionsData = [CastSectionData, CrewSectionData];
-    const creditsSectionsData: CreditsSectionsData = [castSectionData, crewSectionData];
+
+    const creditsSectionsData: TilesListSectionProps[] = [castSectionData, crewSectionData];
 
     return creditsSectionsData;
 };
