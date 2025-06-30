@@ -2,9 +2,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FetchStatus } from "./common/aliases/types/FetchStatus";
 import { FETCH_STATUSES } from "./common/constants/FETCH_STATUSES";
 import { RootState } from "./core/store";
-import { GenreResponse } from "./common/aliases/types/genre.types";
+import { Genre } from "./common/aliases/types/genre.types";
 interface GenresState {
-    list: GenreResponse[] | [];
+    list: Genre[] | [];
     status: FetchStatus;
 }
 
@@ -20,7 +20,7 @@ const genresSlice = createSlice({
         fetchGenres: (state) => {
             state.status = FETCH_STATUSES.PENDING;
         },
-        setFetchedGenres: (state, { payload }: PayloadAction<GenreResponse[]>) => {
+        setFetchedGenres: (state, { payload }: PayloadAction<Genre[]>) => {
             state.status = FETCH_STATUSES.SUCCESS;
             state.list = payload;
         },
