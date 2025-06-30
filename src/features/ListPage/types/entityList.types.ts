@@ -1,8 +1,7 @@
 import { SimplefiedMovieItem } from "../../../common/aliases/interfaces/movie.types";
 import { SimplefiedPersonItem } from "../../../common/aliases/interfaces/person.types";
-import { PeopleOrMovies } from "../../../common/aliases/types/PeopleOrMovies";
 
-export interface EntityList<ResultsType extends PeopleOrMovies> {
+export interface EntityList<ResultsType extends SimplefiedMovieItem[] | SimplefiedPersonItem[]> {
     page: number;
     results: ResultsType;
     total_pages: number;
