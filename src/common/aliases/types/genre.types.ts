@@ -1,8 +1,6 @@
-const genresIds = [28, 12, 16, 35, 80, 99, 18, 10751, 14, 36, 27, 10402, 9648, 10749, 878, 10770, 53, 10752, 37] as const;
-
-export type GenreId = typeof genresIds[number];
+type GenreId = number;
 export type GenresIds = GenreId[];
-export interface GenreResponse {
+export interface Genre {
     id: GenreId,
     name: string;
 }
