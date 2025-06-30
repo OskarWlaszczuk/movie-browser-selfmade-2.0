@@ -1,17 +1,13 @@
-import { GenreResponse, GenresIds } from "../types/genre.types";
+import { Genre, GenresIds } from "../types/genre.types";
+import { OrEmpty } from "../types/OrEmpty";
 import { OrNull } from "../types/OrNull";
-
-interface ProductionCountry {
-    iso_3166_1: string;
-    name: string;
-}
-
-interface SharedMovieData {
+import { ProductionCountry } from "./ProductionCountry";
+import { SharedTileEntityData } from "./SharedTileEntityData";
+interface SharedMovieData extends SharedTileEntityData {
     backdrop_path: OrNull<string>;
-    id: number;
-    overview: string;
+    overview: OrNull<string>;
     poster_path: OrNull<string>;
-    release_date: string;
+    release_date: OrNull<string>;
     title: string;
     vote_average: number;
     vote_count: number;
@@ -22,6 +18,6 @@ export interface SimplefiedMovieItem extends SharedMovieData {
 }
 
 export interface DetailedMovieItem extends SharedMovieData {
-    production_countries: ProductionCountry[];
-    genres: GenreResponse[];
+    production_countries: OrEmpty<ProductionCountry[]>;
+    genres: OrEmpty<Genre[]>;
 }
