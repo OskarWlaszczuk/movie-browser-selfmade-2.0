@@ -1,15 +1,13 @@
 import { useParams } from "react-router-dom";
-import { entitiesDetailsEndpoints } from "../../../common/constants/apiEndpoints";
 import { useFetchApi } from "../../../common/hooks/useFetchApi";
-import { DetailedEntityItem } from "../../../common/aliases/types/DetailedEntityItem";
 import { CreditsTypeUnion } from "../types/credits.types";
+import { ApiEntityPathSegment } from "../../../common/aliases/types/apiEndpointPaths.types.ts";
+import { DetailedEntityItem } from "../../../common/aliases/types/DetailedEntityItem";
 
-type EntityDetailsEndpoints = typeof entitiesDetailsEndpoints[keyof typeof entitiesDetailsEndpoints];
-
-export const useFetchDetailsPageData = (endpointEntityType: EntityDetailsEndpoints) => {
+export const useFetchDetailsPageData = (entityPathSegment: ApiEntityPathSegment) => {
     const { id } = useParams();
 
-    const detailsEndpoint = `${endpointEntityType}${id}`;
+    const detailsEndpoint = `${entityPathSegment}${id}`;
     const creditsEndpoint = `${detailsEndpoint}/credits`;
 
     const endpointDependecies = [id!];
