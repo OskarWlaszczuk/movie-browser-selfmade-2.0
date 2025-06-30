@@ -18,10 +18,12 @@ export const usePaginationButtons = (
     const isFirstPage = currentPage === 1;
     const isLastPage = currentPage === totalPages;
 
+const pageKeySearchParam = URL_QUERY_PARAM_KEYS.PAGE;
+
     const paginationBackButtons: PaginationButtonData[] = [
         {
             clickHandler: () => replaceQueryParameter([{
-                key: URL_QUERY_PARAM_KEYS.PAGE,
+                key: pageKeySearchParam,
                 value: 1,
             }]),
             label: <><StyledPreviousPageIcon $isButtonDisabled={isFirstPage} /> <span>First</span></>,
@@ -29,7 +31,7 @@ export const usePaginationButtons = (
         },
         {
             clickHandler: () => replaceQueryParameter([{
-                key: URL_QUERY_PARAM_KEYS.PAGE,
+                key: pageKeySearchParam,
                 value: isFirstPage ? currentPage : currentPage! - 1
             }]),
             label: <><StyledPreviousPageIcon $isButtonDisabled={isFirstPage} /> <span>Previous</span></>,
@@ -40,7 +42,7 @@ export const usePaginationButtons = (
     const paginationForwordButtons: PaginationButtonData[] = [
         {
             clickHandler: () => replaceQueryParameter([{
-                key: URL_QUERY_PARAM_KEYS.PAGE,
+                key: pageKeySearchParam,
                 value: isLastPage ? currentPage! : currentPage! + 1
             }]),
             label: <><span>Next</span> <StyledNextPageIcon $isButtonDisabled={isLastPage} /></>,
@@ -48,7 +50,7 @@ export const usePaginationButtons = (
         },
         {
             clickHandler: () => replaceQueryParameter([{
-                key: URL_QUERY_PARAM_KEYS.PAGE,
+                key: pageKeySearchParam,
                 value: totalPages!,
             }]),
             label: <><span>Last</span> <StyledNextPageIcon $isButtonDisabled={isLastPage} /></>,
