@@ -4,6 +4,7 @@ import { SharedTileEntityData } from "../../../aliases/interfaces/SharedTileEnti
 import { TileEntity } from "../../../aliases/interfaces/TileEntity";
 import { TileProps } from "../../../aliases/interfaces/TileProps";
 import { entitiesSingularTypes } from "../../../constants/entityTypes";
+import { entityTypeGuards } from "../../../functions/entityTypeGuards";
 import { getYear } from "../../../functions/getYear";
 import { detailsRoutes } from "../../../functions/routes";
 import { MetaData } from "../../MetaData";
@@ -36,16 +37,7 @@ export const getTilePropsConfigs = () => {
 
     const tilePropsConfigs: TilePropsConfigs = [
         {
-            typeGuard: (item): item is SimplefiedMovieItem => (
-                (!!item) && (
-                    Object.keys(item).length > 1 &&
-                    !("production_countries" in item) &&
-                    !("genres" in item) &&
-                    !("department" in item) &&
-                    !("character" in item) &&
-                    ("genre_ids" in item)
-                )
-            ),
+            typeGuard: entityTypeGuards.isSimplefiedMovieItem,
             tileProps: (item) => ({
                 title: item.title,
                 picturePath: item.poster_path,
@@ -67,15 +59,7 @@ export const getTilePropsConfigs = () => {
             }),
         },
         {
-            typeGuard: (item): item is SimplefiedPersonItem => (
-                (!!item) && (
-                    Object.keys(item).length > 1 &&
-                    !("character" in item) &&
-                    !("job" in item) &&
-                    ("name" in item) &&
-                    ("profile_path" in item)
-                )
-            ),
+            typeGuard: entityTypeGuards.isSimplefiedPersonItem,
             tileProps: (item) => ({
                 title: item.name,
                 picturePath: item.profile_path,
@@ -84,7 +68,7 @@ export const getTilePropsConfigs = () => {
             }),
         },
         {
-            typeGuard: (item): item is MovieCastMember => !!item && "character" in item && !("genre_ids" in item),
+            typeGuard: entityTypeGuards.isMovieCastMember,
             tileProps: (item) => ({
                 title: item.name,
                 picturePath: item.profile_path,
@@ -96,7 +80,7 @@ export const getTilePropsConfigs = () => {
             }),
         },
         {
-            typeGuard: (item): item is MovieCrewMember => !!item && "job" in item,
+            typeGuard: entityTypeGuards.isMovieCrewMember,
             tileProps: (item) => ({
                 title: item.name,
                 picturePath: item.profile_path,
@@ -108,7 +92,7 @@ export const getTilePropsConfigs = () => {
             }),
         },
         {
-            typeGuard: (item): item is PersonCastMovieItem => !!item && "character" && "genre_ids" in item,
+            typeGuard: entityTypeGuards.isPersonCastMovieItem,
             tileProps: (item) => ({
                 title: item.title,
                 picturePath: item.poster_path,
@@ -131,7 +115,7 @@ export const getTilePropsConfigs = () => {
             }),
         },
         {
-            typeGuard: (item): item is PersonCrewMovieItem => !!item && "department" in item,
+            typeGuard: entityTypeGuards.isPersonCrewMovieItem,
             tileProps: (item) => ({
                 title: item.title,
                 picturePath: item.poster_path,
