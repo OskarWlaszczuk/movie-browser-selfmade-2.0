@@ -2,14 +2,16 @@ import { DetailedMovieItem } from "../../../../../common/aliases/interfaces/movi
 import { DetailedPersonItem } from "../../../../../common/aliases/interfaces/person.types";
 import { DetailedEntityItem } from "../../../../../common/aliases/types/DetailedEntityItem";
 import { OrUndefined } from "../../../../../common/aliases/types/OrUndefined";
-import { Tile, TileProps } from "../../../../../common/components/Tile";
+import { Tile } from "../../../../../common/components/Tile";
 import { MovieRating } from "../../../../../common/components/Tile/MovieRating";
 import { MovieEntriesSection } from "../../../../../common/components/TilesListSection/VerticalTile/MovieEntriesSection";
 import { entitiesSingularTypes } from "../../../../../common/constants/entityTypes";
 import { getYear } from "../../../../../common/functions/getYear";
 import { EntityDescription } from "./EntityDescription";
-import { MovieInfoSection } from "./MovieInfoSection";
 import { DetailedPersonInfoSection } from "./DetailedPersonInfoSection";
+import { MetaData } from "../../../../../common/components/MetaData";
+import { GenresList } from "../../../../../common/components/Tile/GenresList";
+import { TileProps } from "../../../../../common/aliases/interfaces/TileProps";
 
 interface HorizontalTileProps {
     entityDetails: OrUndefined<DetailedEntityItem>;
@@ -35,12 +37,9 @@ export const HorizontalTile = ({ entityDetails }: HorizontalTileProps) => {
                 picturePath: item.poster_path,
                 infoContent: (
                     <>
-                        <MovieInfoSection
-                            movieItem={item}
-                            genresIds={item.genres?.map(({ id }) => id)}
-                            extraContent={<MovieEntriesSection detailedMovieItem={item} />}
-                            subTitle={getYear(item?.release_date)}
-                        />
+                        <MetaData>{getYear(item?.release_date)}</MetaData>
+                        <MovieEntriesSection detailedMovieItem={item} />
+                        <GenresList genresIds={item.genres?.map(({ id }) => id)} />
                         <MovieRating
                             voteAverage={item?.vote_average}
                             voteCount={item?.vote_count}
