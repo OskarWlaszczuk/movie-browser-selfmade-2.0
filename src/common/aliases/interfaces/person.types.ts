@@ -6,11 +6,11 @@ interface BasePersonData extends SharedTileEntityData {
     profile_path: OrNull<string>;
 }
 
-export interface CastMember extends BasePersonData {
+export interface MovieCastMember extends BasePersonData {
     character: string;
 }
 
-export interface CrewMember extends BasePersonData {
+export interface MovieCrewMember extends BasePersonData {
     job: string;
 }
 
