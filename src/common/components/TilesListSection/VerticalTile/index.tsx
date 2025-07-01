@@ -1,11 +1,25 @@
-import { Tile2, TileProps2 } from "../../Tile";
+import { Tile, TileProps } from "../../Tile";
 import { TileEntity } from "../../../aliases/interfaces/TileEntity";
-import { SimplefiedMovieItem } from "../../../aliases/interfaces/movie.types";
-import { CastMember, CrewMember, SimplefiedPersonItem } from "../../../aliases/interfaces/person.types";
+import {
+    PersonCastMovieItem,
+    PersonCrewMovieItem,
+    SimplefiedMovieItem
+} from "../../../aliases/interfaces/movie.types";
+import {
+    MovieCastMember,
+    MovieCrewMember,
+    SimplefiedPersonItem
+} from "../../../aliases/interfaces/person.types";
 import { entitiesSingularTypes } from "../../../constants/entityTypes";
 import { OrUndefined } from "../../../aliases/types/OrUndefined";
 import { detailsRoutes } from "../../../functions/routes";
 import { SharedTileEntityData } from "../../../aliases/interfaces/SharedTileEntityData";
+import {
+    MovieInfoSection
+} from "../../../../features/DetailsPage/components/EntityDetails/HorizontalTile/MovieInfoSection";
+import { getYear } from "../../../functions/getYear";
+import { MetaData } from "../../MetaData";
+import { MovieRating } from "../../Tile/MovieRating";
 
 interface VerticalTileProps {
     tileEntity: OrUndefined<TileEntity>;
@@ -15,29 +29,56 @@ export const VerticalTile = ({ tileEntity }: VerticalTileProps) => {
 
     type TilePropsConfig<ItemType extends TileEntity> = {
         typeGuard: (item: TileEntity) => item is ItemType;
-        tileProps: (item: ItemType) => TileProps2;
+        tileProps: (item: ItemType) => TileProps;
     };
 
     type TilePropsConfigs = [
         TilePropsConfig<SimplefiedMovieItem>,
         TilePropsConfig<SimplefiedPersonItem>,
-        TilePropsConfig<CastMember>,
-        TilePropsConfig<CrewMember>,
+        TilePropsConfig<MovieCastMember>,
+        TilePropsConfig<MovieCrewMember>,
+        TilePropsConfig<PersonCastMovieItem>,
+        TilePropsConfig<PersonCrewMovieItem>,
     ];
 
     const getPersonRoute = (id: SharedTileEntityData["id"]) => detailsRoutes.personDetails(id);
     const getMovieRoute = (id: SharedTileEntityData["id"]) => detailsRoutes.movieDetails(id);
 
+    const sharedMovieEntityProps: Pick<TileProps, "useTwoColumnsLayout"> = {
+        useTwoColumnsLayout: true,
+    };
+
     const tilePropsConfigs: TilePropsConfigs = [
         {
-            typeGuard: (item): item is SimplefiedMovieItem => !!item && "genre_ids" in item,
+            typeGuard: (item): item is SimplefiedMovieItem => (
+                (!!item) && (
+                    Object.keys(item).length > 1 &&
+                    !("production_countries" in item) &&
+                    !("genres" in item) &&
+                    !("department" in item) &&
+                    !("character" in item) &&
+                    ("genre_ids" in item)
+                )
+            ),
             tileProps: (item) => ({
                 title: item.title,
                 picturePath: item.poster_path,
-                detailsPath: getMovieRoute(item.id),
-                // subTitleContent: <MovieInfoSection detailedMovieItem={item} />,
-                // extraContent: <EntityOverview description={item.overview} />,
+                detailsRoutePath: getMovieRoute(item.id),
+                infoContent: (
+                    <MovieInfoSection
+                        movieItem={item}
+                        genresIds={item.genre_ids}
+                        subTitle={getYear(item?.release_date)}
+                    />
+                ),
+                extraContent: (
+                    <MovieRating
+                        voteAverage={item?.vote_average}
+                        voteCount={item?.vote_count}
+                    />
+                ),
                 entityType: entitiesSingularTypes.MOVIE,
+                ...sharedMovieEntityProps,
             }),
         },
         {
@@ -53,34 +94,79 @@ export const VerticalTile = ({ tileEntity }: VerticalTileProps) => {
             tileProps: (item) => ({
                 title: item.name,
                 picturePath: item.profile_path,
-                detailsPath: getPersonRoute(item.id),
-
-                // subTitleContent: <PersonInforSection detailedPersonItem={item} />,
-                // extraContent: <EntityOverview description={item.biography} />,
+                detailsRoutePath: getPersonRoute(item.id),
                 entityType: entitiesSingularTypes.PERSON,
             }),
         },
         {
-            typeGuard: (item): item is CastMember => !!item && "character" in item,
+            typeGuard: (item): item is MovieCastMember => !!item && "character" in item && !("genre_ids" in item),
             tileProps: (item) => ({
                 title: item.name,
                 picturePath: item.profile_path,
-                detailsPath: getPersonRoute(item.id),
-
-                // subTitleContent: <MovieInfoSection detailedMovieItem={item} />,
-                // extraContent: <EntityOverview description={item.overview} />,
+                detailsRoutePath: getPersonRoute(item.id),
+                infoContent: (
+                    <MetaData>{item.character}</MetaData>
+                ),
                 entityType: entitiesSingularTypes.PERSON,
             }),
         },
         {
-            typeGuard: (item): item is CrewMember => !!item && "job" in item,
+            typeGuard: (item): item is MovieCrewMember => !!item && "job" in item,
             tileProps: (item) => ({
                 title: item.name,
                 picturePath: item.profile_path,
-                detailsPath: getPersonRoute(item.id),
-                // subTitleContent: <MovieInfoSection detailedMovieItem={item} />,
-                // extraContent: <EntityOverview description={item.overview} />,
+                detailsRoutePath: getPersonRoute(item.id),
+                infoContent: (
+                    <MetaData>{item.job}</MetaData>
+                ),
                 entityType: entitiesSingularTypes.PERSON,
+            }),
+        },
+        {
+            typeGuard: (item): item is PersonCastMovieItem => !!item && "character" && "genre_ids" in item,
+            tileProps: (item) => ({
+                title: item.title,
+                picturePath: item.poster_path,
+                detailsRoutePath: getMovieRoute(item.id),
+                infoContent: (
+                    <MovieInfoSection
+                        movieItem={item}
+                        genresIds={item.genre_ids}
+                        subTitle={`${item.character} (${getYear(item?.release_date)})`}
+                    />
+                ),
+                extraContent: (
+                    <MovieRating
+                        voteAverage={item?.vote_average}
+                        voteCount={item?.vote_count}
+                    />
+                ),
+                entityType: entitiesSingularTypes.MOVIE,
+                ...sharedMovieEntityProps,
+
+            }),
+        },
+        {
+            typeGuard: (item): item is PersonCrewMovieItem => !!item && "department" in item,
+            tileProps: (item) => ({
+                title: item.title,
+                picturePath: item.poster_path,
+                detailsRoutePath: getMovieRoute(item.id),
+                infoContent: (
+                    <MovieInfoSection
+                        movieItem={item}
+                        genresIds={item.genre_ids}
+                        subTitle={`${item.department} (${getYear(item?.release_date)})`}
+                    />
+                ),
+                extraContent: (
+                    <MovieRating
+                        voteAverage={item?.vote_average}
+                        voteCount={item?.vote_count}
+                    />
+                ),
+                entityType: entitiesSingularTypes.MOVIE,
+                ...sharedMovieEntityProps,
             }),
         },
     ];
@@ -91,10 +177,5 @@ export const VerticalTile = ({ tileEntity }: VerticalTileProps) => {
         )?.tileProps(tileEntity as any)
     );
 
-    return (
-        <Tile2
-            {...verticalTileProps!}
-
-        />
-    );
+    return <Tile {...verticalTileProps!} />
 };
