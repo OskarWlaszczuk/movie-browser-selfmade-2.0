@@ -21,3 +21,11 @@ export interface DetailedMovieItem extends SharedMovieData {
     production_countries: OrEmpty<ProductionCountry[]>;
     genres: OrEmpty<Genre[]>;
 }
+
+export interface PersonCastMovieItem extends SharedMovieData, SimplefiedMovieItem {
+    character: string;
+}
+
+export interface PersonCrewMovieItem extends SharedMovieData, SimplefiedMovieItem {
+    department: string;
+}
