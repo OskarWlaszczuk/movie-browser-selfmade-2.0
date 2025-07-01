@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 
 interface StyledTileProps {
     $horizontalLayout?: boolean;
+    $twoColumns?: boolean;
 }
 
 interface TitleProps {
@@ -14,7 +15,6 @@ export const HorizontalTile = styled.article`
     background-color: ${({ theme }) => theme.colors.white};
     padding: 16px;
     display: flex;
-    
 `;
 
 export const StyledTile = styled(NavLink) <StyledTileProps>`
@@ -26,43 +26,39 @@ export const StyledTile = styled(NavLink) <StyledTileProps>`
     grid-template-areas: 
         "picture"
         "infoWrapper"
-        "movieRating"
+        "extraContent"
     ;
     grid-template-columns: 100%;
     grid-template-rows: min-content;
-    /* grid-template-rows: auto 1fr; */
+    grid-template-rows: auto 1fr;
     grid-gap: 12px;
     border-radius: 5px;
     box-shadow: 0px 0px 7px -1px #5a575747;
     text-decoration: none;
 
-    @media (max-width: ${({ theme }) => theme.breakpoints.laptopS}) {
-        grid-template-areas: 
-            "picture infoWrapper"
-            "picture movieRating"
-            "picture ..."
-        ;
-        grid-template-columns: repeat(2, 1fr);
-        align-items: start;
-    }
-
     &:hover{
         scale: 103%
     }
+
+  ${({ $twoColumns }) => $twoColumns && css`
+        @media (max-width: ${({ theme }) => theme.breakpoints.laptopS}) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    `};
 
     ${({ $horizontalLayout }) => $horizontalLayout && css`
         grid-template-columns: 312px;
         grid-template-areas: 
             "picture infoWrapper"
-            "picture movieRating"
-            "picture overview"
+            "picture infoWrapper"
+            "picture extraContent"
         ;
 
         @media (max-width: ${({ theme }) => theme.breakpoints.laptopS}) {
             grid-template-areas: 
                 "picture infoWrapper"
-                "picture movieRating"
-                "picture overview"
+                "picture infoWrapper"
+                "overview extraContent"
             ;
         }
     `}
@@ -91,10 +87,13 @@ ${({ $horizontalLayout }) => $horizontalLayout && css`
     `};
 `;
 
-export const Overview = styled.p`
-    grid-area: overview;
-    font-size:  ${({ theme }) => theme.fontSizes.l};
-`
+export const ExtraContentWrapper = styled.div`
+    grid-area: extraContent;
+`;
+
+// export const Overview = styled.p`
+//     font-size:  ${({ theme }) => theme.fontSizes.l};
+// `
 
 export const DetailsWrapper = styled.div`
     /* display: grid; */
