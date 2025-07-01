@@ -1,9 +1,15 @@
 import { OrUndefined } from "../types/OrUndefined";
-import { SimplefiedMovieItem } from "./movie.types";
-import { CastMember, CrewMember, SimplefiedPersonItem } from "./person.types";
+import { PersonCastMovieItem, PersonCrewMovieItem, SimplefiedMovieItem } from "./movie.types";
+import { MovieCastMember, MovieCrewMember, SimplefiedPersonItem } from "./person.types";
 
 export interface TilesListSectionProps {
-    list: OrUndefined<SimplefiedMovieItem[] | SimplefiedPersonItem[] | CastMember[] | CrewMember[]>;
+    list: OrUndefined<
+        SimplefiedMovieItem[] |
+        SimplefiedPersonItem[] |
+        MovieCastMember[] | MovieCrewMember[] |
+        PersonCastMovieItem[] |
+        PersonCrewMovieItem[]
+    >;
     titleData: {
         text: string;
         isPageTitle: boolean;
