@@ -9,7 +9,6 @@ export const useURLQueryParams = () => {
         [key]: searchParams.get(key),
     }))
 
-    console.log(obje)
     const pageNumber = Number(searchParams.get(URL_QUERY_PARAM_KEYS.PAGE) || 1);
     const search = searchParams.get(URL_QUERY_PARAM_KEYS.SEARCH) || "";
 
