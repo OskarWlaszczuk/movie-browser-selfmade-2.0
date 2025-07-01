@@ -1,20 +1,14 @@
 import { Tile } from "../../Tile";
 import { TileEntity } from "../../../aliases/interfaces/TileEntity";
 import { OrUndefined } from "../../../aliases/types/OrUndefined";
-import { getTilePropsConfigs } from "./getTilePropsConfigs";
+import { selectVerticalTileProps } from "./selectVerticalTileProps";
 
 interface VerticalTileProps {
     tileEntity: OrUndefined<TileEntity>;
 }
 
 export const VerticalTile = ({ tileEntity }: VerticalTileProps) => {
-    const tilePropsConfigs = getTilePropsConfigs();
-
-    const verticalTileProps = (
-        tilePropsConfigs.find(
-            ({ typeGuard }) => typeGuard(tileEntity!) === true
-        )?.tileProps(tileEntity as any)
-    );
+    const verticalTileProps = selectVerticalTileProps(tileEntity);
 
     return <Tile {...verticalTileProps!} />
 };

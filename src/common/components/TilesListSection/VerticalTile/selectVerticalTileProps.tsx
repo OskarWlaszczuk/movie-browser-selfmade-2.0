@@ -1,8 +1,8 @@
 import { PersonCastMovieItem, PersonCrewMovieItem, SimplefiedMovieItem } from "../../../aliases/interfaces/movie.types";
 import { MovieCastMember, MovieCrewMember, SimplefiedPersonItem } from "../../../aliases/interfaces/person.types";
-import { SharedTileEntityData } from "../../../aliases/interfaces/SharedTileEntityData";
-import { TileEntity } from "../../../aliases/interfaces/TileEntity";
+import { MovieEntity, PersonEntity, TileEntity } from "../../../aliases/interfaces/TileEntity";
 import { TileProps } from "../../../aliases/interfaces/TileProps";
+import { OrUndefined } from "../../../aliases/types/OrUndefined";
 import { entitiesSingularTypes } from "../../../constants/entityTypes";
 import { entityTypeGuards } from "../../../functions/entityTypeGuards";
 import { getYear } from "../../../functions/getYear";
@@ -25,23 +25,38 @@ type TilePropsConfigs = [
     TilePropsConfig<PersonCrewMovieItem>,
 ];
 
+export const selectVerticalTileProps = (tileEntity: OrUndefined<TileEntity>) => {
 
-export const getTilePropsConfigs = () => {
+    type BaseTileProps = Pick<
+        TileProps,
+        "useTwoColumnsLayout" |
+        "picturePath" |
+        "title" |
+        "detailsRoutePath" |
+        "entityType"
+    >
 
-    const getPersonRoute = (id: SharedTileEntityData["id"]) => detailsRoutes.personDetails(id);
-    const getMovieRoute = (id: SharedTileEntityData["id"]) => detailsRoutes.movieDetails(id);
-
-    const sharedMovieEntityProps: Pick<TileProps, "useTwoColumnsLayout"> = {
+    const getBaseMovieEntityProps = (movieEntity: MovieEntity): BaseTileProps => ({
         useTwoColumnsLayout: true,
-    };
+        picturePath: movieEntity.poster_path,
+        title: movieEntity.title,
+        detailsRoutePath: detailsRoutes.movieDetails(movieEntity.id),
+        entityType: entitiesSingularTypes.MOVIE,
+    });
+
+    const getBasePersonEntityProps = (personEntity: PersonEntity): BaseTileProps => ({
+        useTwoColumnsLayout: true,
+        picturePath: personEntity.profile_path,
+        title: personEntity.name,
+        detailsRoutePath: detailsRoutes.personDetails(personEntity.id),
+        entityType: entitiesSingularTypes.PERSON,
+    });
 
     const tilePropsConfigs: TilePropsConfigs = [
         {
             typeGuard: entityTypeGuards.isSimplefiedMovieItem,
             tileProps: (item) => ({
-                title: item.title,
-                picturePath: item.poster_path,
-                detailsRoutePath: getMovieRoute(item.id),
+                ...getBaseMovieEntityProps(item),
                 infoContent: (
                     <>
                         <MetaData>{getYear(item?.release_date)}</MetaData>
@@ -54,49 +69,36 @@ export const getTilePropsConfigs = () => {
                         voteCount={item?.vote_count}
                     />
                 ),
-                entityType: entitiesSingularTypes.MOVIE,
-                ...sharedMovieEntityProps,
             }),
         },
         {
             typeGuard: entityTypeGuards.isSimplefiedPersonItem,
             tileProps: (item) => ({
-                title: item.name,
-                picturePath: item.profile_path,
-                detailsRoutePath: getPersonRoute(item.id),
-                entityType: entitiesSingularTypes.PERSON,
+                ...getBasePersonEntityProps(item)
             }),
         },
         {
             typeGuard: entityTypeGuards.isMovieCastMember,
             tileProps: (item) => ({
-                title: item.name,
-                picturePath: item.profile_path,
-                detailsRoutePath: getPersonRoute(item.id),
+                ...getBasePersonEntityProps(item),
                 infoContent: (
                     <MetaData>{item.character}</MetaData>
                 ),
-                entityType: entitiesSingularTypes.PERSON,
             }),
         },
         {
             typeGuard: entityTypeGuards.isMovieCrewMember,
             tileProps: (item) => ({
-                title: item.name,
-                picturePath: item.profile_path,
-                detailsRoutePath: getPersonRoute(item.id),
+                ...getBasePersonEntityProps(item),
                 infoContent: (
                     <MetaData>{item.job}</MetaData>
                 ),
-                entityType: entitiesSingularTypes.PERSON,
             }),
         },
         {
             typeGuard: entityTypeGuards.isPersonCastMovieItem,
             tileProps: (item) => ({
-                title: item.title,
-                picturePath: item.poster_path,
-                detailsRoutePath: getMovieRoute(item.id),
+                ...getBaseMovieEntityProps(item),
                 infoContent: (
                     <>
                         <MetaData>{`${item.character} (${getYear(item?.release_date)})`}</MetaData>
@@ -109,17 +111,13 @@ export const getTilePropsConfigs = () => {
                         voteCount={item?.vote_count}
                     />
                 ),
-                entityType: entitiesSingularTypes.MOVIE,
-                ...sharedMovieEntityProps,
 
             }),
         },
         {
             typeGuard: entityTypeGuards.isPersonCrewMovieItem,
             tileProps: (item) => ({
-                title: item.title,
-                picturePath: item.poster_path,
-                detailsRoutePath: getMovieRoute(item.id),
+                ...getBaseMovieEntityProps(item),
                 infoContent: (
                     <>
                         <MetaData>{`${item.department} (${getYear(item?.release_date)})`}</MetaData>
@@ -132,11 +130,11 @@ export const getTilePropsConfigs = () => {
                         voteCount={item?.vote_count}
                     />
                 ),
-                entityType: entitiesSingularTypes.MOVIE,
-                ...sharedMovieEntityProps,
             }),
         },
     ];
 
-    return tilePropsConfigs;
+    return (
+        tilePropsConfigs.find(({ typeGuard }) => typeGuard(tileEntity!) === true)?.tileProps(tileEntity as any)
+    );
 };
