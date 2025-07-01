@@ -1,5 +1,6 @@
+import { apiEntityPathSegments } from "../../../../common/constants/apiEndpointPaths";
 import { EntityDetails } from "../EntityDetails";
 
 export const Person = () => (
-    <EntityDetails endpointEntityType="person/" />
+    <EntityDetails entityPathSegment={apiEntityPathSegments.person} />
 );
