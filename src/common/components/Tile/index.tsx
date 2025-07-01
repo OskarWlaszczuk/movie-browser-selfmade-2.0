@@ -1,21 +1,7 @@
+import { TileProps } from "../../aliases/interfaces/TileProps";
 import { pictureWidths } from "../../constants/pictureConfigs";
 import { Picture } from "../Picture";
 import { DetailsWrapper, ExtraContentWrapper, InfoWrapper, StyledTile, Title } from "./styled";
-import { ReactNode } from "react";
-import { EntitySingularType } from "../../aliases/types/entityTypes.types";
-import { OrUndefined } from "../../aliases/types/OrUndefined";
-import { PicturePath } from "../../aliases/types/PicturePath";
-
-export interface TileProps {
-    picturePath: PicturePath;
-    title: OrUndefined<string>;
-    entityType: EntitySingularType;
-    detailsRoutePath?: string;
-    infoContent?: ReactNode;
-    extraContent?: ReactNode;
-    useHorizontalLayout?: boolean;
-    useTwoColumnsLayout?: boolean;
-};
 
 export const Tile = ({
     detailsRoutePath,
