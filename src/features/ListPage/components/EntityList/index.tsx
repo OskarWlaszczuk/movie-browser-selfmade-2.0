@@ -1,5 +1,5 @@
-import { PopularEntityListEndpoint, SearchEntityEndpoint } from "../../../../common/aliases/types/endpointsPaths.types";
-import { EntityListType } from "../../../../common/aliases/types/entityTypes.types";
+import { ApiPopularEndpointPath, ApiSearchEndpointPath } from "../../../../common/aliases/types/apiEndpointPaths.types.ts";
+import { EntityPluralType } from "../../../../common/aliases/types/entityTypes.types";
 import { Main } from "../../../../common/components/Main";
 import { SectionHeader } from "../../../../common/components/SectionHeader";
 import { useCombinedFetchStatus } from "../../../../common/hooks/useCombinedFetchStatus";
@@ -11,30 +11,30 @@ import { NoResultsMessage } from "./ListPageNoResults";
 import { ListSection } from "./ListSection";
 
 interface EntityListProps {
-    popularListEndpoint: PopularEntityListEndpoint;
-    searchEndpoint: SearchEntityEndpoint;
-    entityListType: EntityListType;
+    popularListApiPath: ApiPopularEndpointPath;
+    searchApiPath: ApiSearchEndpointPath;
+    entityPluralType: EntityPluralType;
 }
 
-export const EntityList = ({ popularListEndpoint, searchEndpoint, entityListType }: EntityListProps) => {
+export const EntityList = ({ popularListApiPath, searchApiPath, entityPluralType }: EntityListProps) => {
     const genresStatus = useFetchGenres();
-    const urlQueryParams = useURLQueryParams();
 
+    const urlQueryParams = useURLQueryParams();
     const debouncedSearch = useSearchDebounce(urlQueryParams.search, 1000);
     const isSearchResultsDisplay = !!debouncedSearch;
 
     const popularListQuery = useFetchEntityList({
-        entityListEndpoint: popularListEndpoint,
-        entityListName: entityListType,
+        listEndpointPath: popularListApiPath,
+        entityListName: entityPluralType,
         endpointQueryParams: {
-            page: urlQueryParams.pageNumber
+            page: urlQueryParams.pageNumber,
         },
         fetchCondition: !isSearchResultsDisplay,
     });
 
     const searchResultsQuery = useFetchEntityList({
-        entityListEndpoint: searchEndpoint,
-        entityListName: entityListType,
+        listEndpointPath: searchApiPath,
+        entityListName: entityPluralType,
         endpointQueryParams: {
             page: urlQueryParams.pageNumber,
             query: urlQueryParams.search,
@@ -53,7 +53,7 @@ export const EntityList = ({ popularListEndpoint, searchEndpoint, entityListType
     const currentSectionTitle = (
         isSearchResultsDisplay ?
             `Search results for ${urlQueryParams.search} (${currentListData?.total_results})` :
-            `Popular ${entityListType}`
+            `Popular ${entityPluralType}`
     );
 
     const view = (
@@ -74,7 +74,7 @@ export const EntityList = ({ popularListEndpoint, searchEndpoint, entityListType
                         <SectionHeader text={`Search results for ${urlQueryParams.search}`} setAsPageTitle />
                     )
                 }
-                content={view}
+                successContent={view}
                 errorMessage="List not found"
             />
         </>
