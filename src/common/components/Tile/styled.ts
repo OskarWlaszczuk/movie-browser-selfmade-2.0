@@ -10,13 +10,6 @@ interface TitleProps {
     $horizontalLayout?: boolean;
 }
 
-export const HorizontalTile = styled.article`
-    color: ${({ theme }) => theme.colors.black};
-    background-color: ${({ theme }) => theme.colors.white};
-    padding: 16px;
-    display: flex;
-`;
-
 export const StyledTile = styled(NavLink) <StyledTileProps>`
     color: ${({ theme }) => theme.colors.black};
     background-color: ${({ theme }) => theme.colors.white};
@@ -40,8 +33,12 @@ export const StyledTile = styled(NavLink) <StyledTileProps>`
         scale: 103%
     }
 
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobileS}) {
+        padding: 8px;
+    }
+
   ${({ $twoColumns }) => $twoColumns && css`
-        @media (max-width: ${({ theme }) => theme.breakpoints.laptopS}) {
+        @media (max-width: ${({ theme }) => theme.breakpoints.mobileM}) {
             grid-template-columns: repeat(2, 1fr);
         }
     `};
@@ -91,10 +88,6 @@ export const ExtraContentWrapper = styled.div`
     grid-area: extraContent;
 `;
 
-// export const Overview = styled.p`
-//     font-size:  ${({ theme }) => theme.fontSizes.l};
-// `
-
 export const DetailsWrapper = styled.div`
-    /* display: grid; */
+
 `;
