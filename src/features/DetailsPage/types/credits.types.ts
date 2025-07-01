@@ -1,14 +1,14 @@
-import { SimplefiedMovieItem } from "../../../common/aliases/interfaces/movie.types";
-import { CastMember, CrewMember } from "../../../common/aliases/interfaces/person.types";
+import { PersonCastMovieItem, PersonCrewMovieItem } from "../../../common/aliases/interfaces/movie.types";
+import { MovieCastMember, MovieCrewMember } from "../../../common/aliases/interfaces/person.types";
 
 interface MovieCredits {
-    cast: CastMember[];
-    crew: CrewMember[];
+    cast: MovieCastMember[];
+    crew: MovieCrewMember[];
 }
 
 interface PersonCredits {
-    cast: SimplefiedMovieItem[];
-    crew: SimplefiedMovieItem[];
+    cast: PersonCastMovieItem[];
+    crew: PersonCrewMovieItem[];
 }
 
 export type CreditsTypeUnion = MovieCredits | PersonCredits;
