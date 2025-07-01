@@ -1,8 +1,8 @@
-import { EntityType } from "../../../aliases/types/entityTypes.types";
+import { EntitySingularType } from "../../../aliases/types/entityTypes.types";
 import { StyledMoviePlaceholder, StyledPersonPlaceholder, StyledPlaceholder } from "./styled"
 
 interface PlaceholderProps {
-    entityType: EntityType;
+    entityType: EntitySingularType;
 }
 
 export const Placeholder = ({ entityType }: PlaceholderProps) => {

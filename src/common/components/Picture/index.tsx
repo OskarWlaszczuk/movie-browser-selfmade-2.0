@@ -1,20 +1,21 @@
 import { apiUrls, PictureWidth } from "../../constants/pictureConfigs";
 import { StyledPicture } from "./styled";
 import { Placeholder } from "./Placeholder";
-import { OrNull } from "../../aliases/types/OrNull";
 import { EntitySingularType } from "../../aliases/types/entityTypes.types";
+import { PicturePath } from "../../aliases/types/PicturePath";
+import { OrUndefined } from "../../aliases/types/OrUndefined";
 
 interface PictureProps {
-    picturePath: OrNull<string>;
+    picturePath: PicturePath;
     pictureWidth: PictureWidth;
     entityType: EntitySingularType;
-    entityName: string;
+    entityName: OrUndefined<string>;
 }
 
 export const Picture = ({ picturePath, pictureWidth, entityType, entityName }: PictureProps) => {
     const pictureAlt = `${entityType}: ${entityName}`;
 
-    const pictureUrl = `${apiUrls.image}${pictureWidth}${picturePath || null}`;
+    const pictureUrl = `${apiUrls.image}${pictureWidth}/${picturePath}`;
     const isValidImageUrl = picturePath !== null;
 
     return (

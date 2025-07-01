@@ -1,7 +1,4 @@
-import { EntityId } from "@reduxjs/toolkit";
-import { TileEntityId } from "../aliases/interfaces/TileEntity";
-
-const detailsRoutes = {
+export const detailsRoutes = {
     movieDetails: (id: number) => `/movies/${id}`,
     personDetails: (id: number) => `/people/${id}`,
 }
@@ -12,7 +9,7 @@ const listRoutes = {
 }
 
 export const routes = {
-    homepage: (): "/movies" => "/movies",
+    homepage: (): "/movies/" => "/movies/",
     movies: (): "/movies" => "/movies",
     people: (): "/people" => "/people",
     movieDetails: (id: number) => `/movies/${id}`,

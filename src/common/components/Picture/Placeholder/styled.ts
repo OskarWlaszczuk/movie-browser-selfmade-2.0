@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { ReactComponent as MoviePlaceholder } from "../Icons/MoviePlaceholder.svg";
-import { ReactComponent as PersonPlaceholder } from "../Icons/PersonPlaceholder.svg";
+import { ReactComponent as MoviePlaceholder } from "../svgs/MoviePlaceholder.svg";
+import { ReactComponent as PersonPlaceholder } from "../svgs/PersonPlaceholder.svg";
 
 export const StyledPlaceholder = styled.div`
     display: flex;
