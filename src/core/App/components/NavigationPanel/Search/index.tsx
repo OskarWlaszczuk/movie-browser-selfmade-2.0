@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import { SearchPanel, StyledSearchIcon, Input } from "./styled";
 import { useReplaceQueryParameter } from "../../../../../common/hooks/useReplaceQueryParameter";
 import { URL_QUERY_PARAM_KEYS } from "../../../../../common/constants/URL_QUERY_PARAM_KEYS";
-import { QueryParam } from "../../../../../common/aliases/interfaces/QueryParam";
+import { UrlQueryKeyValuePair } from "../../../../../common/aliases/interfaces/UrlQueryKeyValuePair";
 import { useURLQueryParams } from "../../../../../common/hooks/useURLQueryParams";
 import { getURLPath } from "../../../../../common/functions/getURLPath";
 
@@ -14,7 +14,7 @@ export const Search = () => {
     const searchEntityType = getURLPath(pathname);
 
     const onInputChange = ({ target }: { target: HTMLInputElement }) => {
-        const queryParamsList: QueryParam[] = [
+        const queryParamsList: UrlQueryKeyValuePair[] = [
             {
                 key: URL_QUERY_PARAM_KEYS.SEARCH,
                 value: target.value,
