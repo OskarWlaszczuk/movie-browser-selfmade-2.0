@@ -1,39 +1,42 @@
 import { useQuery } from "@tanstack/react-query";
-import { EntityListEndpoint } from "../../../common/aliases/types/endpointsPaths.types";
-import { EntityListType } from "../../../common/aliases/types/entityTypes.types";
+import { EntityPluralType } from "../../../common/aliases/types/entityTypes.types";
 import { fetchFromAPI } from "../../../common/functions/fetchFromAPI";
 import { EntityListUnion } from "../types/entityList.types";
 import { OrUndefined } from "../../../common/aliases/types/OrUndefined";
+import {
+    ApiPopularEndpointPath,
+    ApiSearchEndpointPath
+} from "../../../common/aliases/types/apiEndpointPaths.types.ts";
+import { FETCH_STATUSES } from "../../../common/constants/FETCH_STATUSES";
+
+interface EndpointQueryParams {
+    page: number;
+    query?: string;
+}
 
 interface UseFetchEntityListProps {
-    entityListEndpoint: EntityListEndpoint;
-    entityListName: EntityListType;
+    listEndpointPath: ApiSearchEndpointPath | ApiPopularEndpointPath;
+    entityListName: EntityPluralType;
     fetchCondition: boolean;
-    endpointQueryParams: {
-        page: number;
-        query?: string;
-    };
+    endpointQueryParams: EndpointQueryParams;
 }
 
 export interface EntityListQuery {
     data: OrUndefined<EntityListUnion>;
-    status: "error" | "success" | "pending"
+    status: typeof FETCH_STATUSES.ERROR | typeof FETCH_STATUSES.PENDING | typeof FETCH_STATUSES.SUCCESS;
     isPaused: boolean;
 }
 
 export const useFetchEntityList = ({
     entityListName,
-    entityListEndpoint,
+    listEndpointPath,
     endpointQueryParams,
     fetchCondition
 }: UseFetchEntityListProps): EntityListQuery => {
 
-    const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-
     const fecthEntityList = async () => {
-        // await sleep(2000); // opóźnienie np. 400ms
         const formattedSearchParams = new URLSearchParams(endpointQueryParams as any);
-        const endpoint = `${entityListEndpoint}?${formattedSearchParams}`;
+        const endpoint = `${listEndpointPath}?${formattedSearchParams}`;
         return await fetchFromAPI<EntityListUnion>(endpoint);
     };
 
