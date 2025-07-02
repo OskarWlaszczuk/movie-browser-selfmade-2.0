@@ -4,7 +4,7 @@ import { useCombinedFetchStatus } from "../../../../common/hooks/useCombinedFetc
 import { useFetchGenres } from "../../../../common/hooks/useFetchGenres";
 import { useURLQueryParams } from "../../../../common/hooks/useURLQueryParams";
 import { useSearchDebounce } from "../../hooks/useSearchDebounce";
-import { useSelectListView } from "../../hooks/useSelectListView.js";
+import { useSelectListView } from "../../hooks/useSelectListView";
 import { EntityListProps } from "../../types/EntityListProps.js";
 
 export const EntityList = (entityListProps: EntityListProps) => {
