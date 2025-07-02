@@ -9,7 +9,7 @@ export const useFetchDetailsPageData = (entityPathSegment: ApiEntityPathSegment)
 
     const detailsEndpoint = `${entityPathSegment}${id}`;
     const creditsEndpoint = `${detailsEndpoint}/credits`;
-
+    
     const endpointDependecies = [id!];
 
     const {
