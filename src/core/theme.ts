@@ -13,10 +13,12 @@ export const theme = {
         scienceBlue: "#0044CC",
     },
     breakpoints: {
-        mobileS: "320px",
-        mobileM: "480px",
-        mobileL: "600px",
-        mobileXL: "700px",
+        mobileXS: "320px",
+        mobileS: "400px",
+        mobileM: "500px",
+        mobileL: "535px",
+        mobileXL: "600px",
+        mobileXXL: "700px",
         tablesS: "768px",
         laptopXS: "880px",
         laptopS: "970px",
@@ -43,7 +45,7 @@ export const theme = {
 } as const;
 
 export const createTileTheme = (horizontalLayout?: boolean) => ({
-  tileLayout: {
-    horizontal: horizontalLayout,
-  },
+    tileLayout: {
+        horizontal: horizontalLayout,
+    },
 });
