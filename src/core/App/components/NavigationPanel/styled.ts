@@ -11,6 +11,10 @@ export const StyledNavPanel = styled.nav`
     background-color: ${({ theme }) => theme.colors.black};
     padding: 24px;
     gap: 24px;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobileS}) {
+        padding: 16px;
+    }
 `;
 
 export const NavPanelInner = styled.div`
@@ -67,7 +71,7 @@ export const AppTitle = styled(NavLink)`
     text-decoration: none;
     white-space: nowrap;
 
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobileXL}) {
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobileXXL}) {
         font-size: ${({ theme }) => theme.fontSizes.xs};
     }
 `;
