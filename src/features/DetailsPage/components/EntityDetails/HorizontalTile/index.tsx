@@ -9,9 +9,9 @@ import { entitiesSingularTypes } from "../../../../../common/constants/entityTyp
 import { getYear } from "../../../../../common/functions/getYear";
 import { EntityDescription } from "./EntityDescription";
 import { DetailedPersonInfoSection } from "./DetailedPersonInfoSection";
-import { MetaData } from "../../../../../common/components/MetaData";
 import { GenresList } from "../../../../../common/components/Tile/GenresList";
 import { TileProps } from "../../../../../common/aliases/interfaces/TileProps";
+import { MovieYear } from "./styled";
 
 interface HorizontalTileProps {
     entityDetails: OrUndefined<DetailedEntityItem>;
@@ -37,7 +37,7 @@ export const HorizontalTile = ({ entityDetails }: HorizontalTileProps) => {
                 picturePath: item.poster_path,
                 infoContent: (
                     <>
-                        <MetaData>{getYear(item?.release_date)}</MetaData>
+                        <MovieYear>{getYear(item?.release_date)}</MovieYear>
                         <MovieEntriesSection detailedMovieItem={item} />
                         <GenresList genresIds={item.genres?.map(({ id }) => id)} />
                         <MovieRating
