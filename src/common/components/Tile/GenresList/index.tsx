@@ -14,7 +14,6 @@ export const GenresList = ({ genresIds }: GenresListProps) => {
     const extractedGenres = genresIds?.map(id => genres?.find(genre => id === genre.id));
     const isNoGenres = !genresIds?.length;
 
-    console.log(extractedGenres);
     return (
         <>
             {
