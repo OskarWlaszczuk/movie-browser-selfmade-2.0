@@ -5,7 +5,7 @@ interface SharedProps {
     $horizontalLayout?: boolean;
 }
 
-interface StyledTileProps extends SharedProps {
+interface TileContainerProps extends SharedProps {
     $twoColumns?: boolean;
 }
 
@@ -19,7 +19,7 @@ const twoColumnsMobileLayout = css`
             ;
     grid-template-columns: repeat(2, 1fr);
 `;
-export const StyledTile = styled(NavLink) <StyledTileProps>`
+const tileStyles = css<TileContainerProps>`
     color: ${({ theme }) => theme.colors.black};
     background-color: ${({ theme }) => theme.colors.white};
     padding: 16px;
@@ -44,10 +44,9 @@ export const StyledTile = styled(NavLink) <StyledTileProps>`
         padding: 8px;
     }
 
-  ${({ $twoColumns }) => $twoColumns && css`
-
+    ${({ $twoColumns }) => $twoColumns && css`
         @media (max-width: ${({ theme }) => theme.breakpoints.mobileL}) {
-        ${twoColumnsMobileLayout}
+            ${twoColumnsMobileLayout}
         }
     `};
 
@@ -60,9 +59,17 @@ export const StyledTile = styled(NavLink) <StyledTileProps>`
         ;
 
         @media (max-width: ${({ theme }) => theme.breakpoints.mobileXL}) {
-          ${twoColumnsMobileLayout}
+            ${twoColumnsMobileLayout}
         }
     `}
+`;
+
+export const TileLinkContainer = styled(NavLink) <TileContainerProps>`
+    ${tileStyles}
+`;
+
+export const TileContainer = styled.article<TileContainerProps>`
+    ${tileStyles}
 `;
 
 export const InfoWrapper = styled.article`
