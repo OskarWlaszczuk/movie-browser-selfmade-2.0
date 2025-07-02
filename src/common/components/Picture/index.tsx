@@ -15,8 +15,8 @@ interface PictureProps {
 export const Picture = ({ picturePath, pictureWidth, entityType, entityName }: PictureProps) => {
     const pictureAlt = `${entityType}: ${entityName}`;
 
-    const pictureUrl = `${apiUrls.image}${pictureWidth}/${picturePath}`;
-    const isValidImageUrl = picturePath !== null;
+    const pictureUrl = `${apiUrls.image}${pictureWidth}${picturePath}`;
+    const isValidImageUrl = !!picturePath;
 
     return (
         isValidImageUrl ?
