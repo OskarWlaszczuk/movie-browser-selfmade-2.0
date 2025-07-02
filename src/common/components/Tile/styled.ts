@@ -1,15 +1,24 @@
 import { NavLink } from "react-router-dom";
 import styled, { css } from "styled-components";
 
-interface StyledTileProps {
+interface SharedProps {
     $horizontalLayout?: boolean;
+}
+
+interface StyledTileProps extends SharedProps {
     $twoColumns?: boolean;
 }
 
-interface TitleProps {
-    $horizontalLayout?: boolean;
-}
+type TitleProps = SharedProps;
 
+const twoColumnsMobileLayout = css`
+    grid-template-areas: 
+                "picture infoWrapper"
+                "picture infoWrapper"
+                "extraContent extraContent"
+            ;
+    grid-template-columns: repeat(2, 1fr);
+`;
 export const StyledTile = styled(NavLink) <StyledTileProps>`
     color: ${({ theme }) => theme.colors.black};
     background-color: ${({ theme }) => theme.colors.white};
@@ -21,8 +30,6 @@ export const StyledTile = styled(NavLink) <StyledTileProps>`
         "infoWrapper"
         "extraContent"
     ;
-    grid-template-columns: 100%;
-    grid-template-rows: min-content;
     grid-template-rows: auto 1fr;
     grid-gap: 12px;
     border-radius: 5px;
@@ -38,25 +45,22 @@ export const StyledTile = styled(NavLink) <StyledTileProps>`
     }
 
   ${({ $twoColumns }) => $twoColumns && css`
-        @media (max-width: ${({ theme }) => theme.breakpoints.mobileM}) {
-            grid-template-columns: repeat(2, 1fr);
+
+        @media (max-width: ${({ theme }) => theme.breakpoints.mobileL}) {
+        ${twoColumnsMobileLayout}
         }
     `};
 
     ${({ $horizontalLayout }) => $horizontalLayout && css`
-        grid-template-columns: 312px;
+        grid-template-columns: 0.7fr 2fr;
         grid-template-areas: 
-            "picture infoWrapper"
-            "picture infoWrapper"
-            "picture extraContent"
+            "picture infoWrapper infoWrapper"
+            "picture extraContent extraContent"
+            "picture extraContent extraContent" 
         ;
 
-        @media (max-width: ${({ theme }) => theme.breakpoints.laptopS}) {
-            grid-template-areas: 
-                "picture infoWrapper"
-                "picture infoWrapper"
-                "overview extraContent"
-            ;
+        @media (max-width: ${({ theme }) => theme.breakpoints.mobileXL}) {
+          ${twoColumnsMobileLayout}
         }
     `}
 `;
@@ -86,8 +90,5 @@ ${({ $horizontalLayout }) => $horizontalLayout && css`
 
 export const ExtraContentWrapper = styled.div`
     grid-area: extraContent;
-`;
-
-export const DetailsWrapper = styled.div`
-
+    word-break: break-all;
 `;
