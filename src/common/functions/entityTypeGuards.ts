@@ -10,7 +10,7 @@ import {
 } from "../aliases/interfaces/person.types";
 import { TileEntity } from "../aliases/interfaces/TileEntity";
 
-const isItemExists = (item: TileEntity) => Object.keys(item).length > 1 && !!item;
+const isItemExists = (item: TileEntity) => !!item;
 
 export const entityTypeGuards = {
     isSimplefiedMovieItem: (item: TileEntity): item is SimplefiedMovieItem => (
@@ -35,15 +35,18 @@ export const entityTypeGuards = {
     ),
     isMovieCrewMember: (item: TileEntity): item is MovieCrewMember => (
         isItemExists(item) &&
-        "job" in item
+        "job" &&
+        !("genre_ids" in item)
     ),
     isPersonCastMovieItem: (item: TileEntity): item is PersonCastMovieItem => (
         isItemExists(item) &&
-        "character" &&
-        "genre_ids" in item
+        "character"
+        in item
     ),
     isPersonCrewMovieItem: (item: TileEntity): item is PersonCrewMovieItem => (
         isItemExists(item) &&
-        "department" in item
+        "department" &&
+        "title" in item &&
+        !("character" in item)
     ),
 };
