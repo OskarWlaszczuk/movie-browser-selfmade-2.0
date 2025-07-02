@@ -1,5 +1,5 @@
 import { nanoid } from "@reduxjs/toolkit";
-import { routes } from "../../../../common/functions/routes"
+import { listRoutes } from "../../../../common/functions/routes"
 import { Search } from "./Search";
 import {
     AppTitle,
@@ -12,15 +12,15 @@ import {
 
 export const NavigationPanel = () => {
     const navItems = [
-        { label: 'Movies', path: routes.movies() },
-        { label: 'People', path: routes.people() },
+        { label: 'Movies', path: listRoutes.movies },
+        { label: 'People', path: listRoutes.people },
     ];
 
     return (
         <StyledNavPanel>
             <NavPanelInner>
                 <header>
-                    <AppTitle to={routes.homepage()}>
+                    <AppTitle to={listRoutes.movies}>
                         <StyledAppLogo />
                         <> Movie Browser</>
                     </AppTitle>
