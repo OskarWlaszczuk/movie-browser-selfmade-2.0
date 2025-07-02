@@ -5,7 +5,6 @@ import { OrUndefined } from "../../../common/aliases/types/OrUndefined";
 export const useCreditsSections = (credits: OrUndefined<CreditsTypeUnion>) => {
     const cast = credits?.cast;
     const crew = credits?.crew;
-
     const castSectionData: TilesListSectionProps = {
         list: cast,
         titleData: {
