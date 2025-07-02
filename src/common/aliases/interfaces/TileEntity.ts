@@ -8,3 +8,13 @@ export type TileEntity =
     MovieCrewMember |
     PersonCastMovieItem |
     PersonCrewMovieItem;
+
+export type PersonEntity =
+    SimplefiedPersonItem |
+    MovieCastMember |
+    MovieCrewMember;
+
+export type MovieEntity =
+    SimplefiedMovieItem |
+    PersonCastMovieItem |
+    PersonCrewMovieItem;
