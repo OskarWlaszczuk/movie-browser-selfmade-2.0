@@ -4,7 +4,8 @@ import { Picture } from "../Picture";
 import {
     ExtraContentWrapper,
     InfoWrapper,
-    StyledTile,
+    TileContainer,
+    TileLinkContainer,
     Title
 } from "./styled";
 
@@ -18,12 +19,9 @@ export const Tile = ({
     useHorizontalLayout,
     useTwoColumnsLayout,
 }: TileProps) => {
-    return (
-        <StyledTile
-            $horizontalLayout={useHorizontalLayout}
-            $twoColumns={useTwoColumnsLayout}
-            to={detailsRoutePath || ""}
-        >
+
+    const tileContent = (
+        <>
             <Picture
                 picturePath={picturePath}
                 pictureWidth={pictureWidths.tile}
@@ -41,6 +39,27 @@ export const Tile = ({
                     </ExtraContentWrapper>
                 )
             }
-        </StyledTile>
-    )
+        </>
+    );
+
+    const baseContainerProps = {
+        $horizontalLayout: useHorizontalLayout,
+        $twoColumns: useTwoColumnsLayout,
+    };
+
+    const tileElement = (
+        !detailsRoutePath ?
+            <>
+                <TileContainer {...baseContainerProps}>
+                    {tileContent}
+                </TileContainer>
+            </> :
+            <>
+                <TileLinkContainer  {...baseContainerProps} to={detailsRoutePath}>
+                    {tileContent}
+                </TileLinkContainer>
+            </>
+    );
+
+    return tileElement;
 };
