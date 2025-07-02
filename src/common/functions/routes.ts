@@ -1,21 +1,21 @@
-export const detailsRoutes = {
-    movieDetails: (id: number) => `/movies/${id}`,
-    personDetails: (id: number) => `/people/${id}`,
-}
+import { entitiesPluralTypes } from "../constants/entityTypes";
 
-const listRoutes = {
-    movies: (): "/movies" => "/movies",
-    people: (): "/people" => "/people",
-}
+export const detailsRoutes = (
+    Object.fromEntries(
+        Object.values(entitiesPluralTypes).map(entity => {
+            const method = (id: number) => `/${entity}/${id}`;
+            return [entity, method]
+        })
+    )
+);
 
-export const routes = {
-    homepage: (): "/movies/" => "/movies/",
-    movies: (): "/movies" => "/movies",
-    people: (): "/people" => "/people",
-    movieDetails: (id: number) => `/movies/${id}`,
-    personDetails: (id: number) => `/people/${id}`,
-};
-
+export const listRoutes = (
+    Object.fromEntries(
+        Object.values(entitiesPluralTypes).map(entity => (
+            [entity, `/${entity}`]
+        ))
+    )
+);
 
 export type DetailsRoutes = typeof detailsRoutes[keyof typeof detailsRoutes];
 export type ListRoutes = typeof listRoutes[keyof typeof listRoutes];
