@@ -32,7 +32,13 @@ type VerticalTileProps = Pick<
     "extraContent"
 >
 
-const getMovieInfoContent = (movie: MovieEntity, metaData: OrUndefined<ReactNode>, isMobileL: boolean) => ({
+interface GetMovieInfoContentProps {
+    movie: MovieEntity;
+    metaData: OrUndefined<ReactNode>;
+    isMobileL: boolean;
+}
+
+const getMovieInfoContent = ({ movie, metaData, isMobileL }: GetMovieInfoContentProps) => ({
     infoContent: (
         <>
             {metaData}
@@ -94,7 +100,13 @@ export const useSelectVerticalTileProps = (tileEntity: OrUndefined<TileEntity>) 
             typeGuard: entityTypeGuards.isSimplefiedMovieItem,
             tileProps: (item) => ({
                 ...getBaseMovieEntityProps(item, isMobileL),
-                ...getMovieInfoContent(item, <MetaData>{getYear(item?.release_date)}</MetaData>, isMobileL)
+                ...getMovieInfoContent({
+                    movie: item,
+                    isMobileL,
+                    metaData: (
+                        <MetaData>{getYear(item?.release_date)}</MetaData>
+                    )
+                }),
             }),
         },
         {
@@ -121,40 +133,52 @@ export const useSelectVerticalTileProps = (tileEntity: OrUndefined<TileEntity>) 
             typeGuard: entityTypeGuards.isPersonCastMovieItem,
             tileProps: (item) => ({
                 ...getBaseMovieEntityProps(item, isMobileL),
-                ...getMovieInfoContent(
-                    item,
-                    (item.character !== "" && item.release_date !== "") && (
-                        <MetaData>
-                            {item.character}{" "}
+                ...getMovieInfoContent({
+                    movie: item,
+                    isMobileL,
+                    metaData: (
+                        <>
                             {
-                                item.release_date && (
-                                    `(${getYear(item.release_date)})`
+                                (item.character !== "" && item.release_date !== "") && (
+                                    <MetaData>
+                                        {item.character}{" "}
+                                        {
+                                            item.release_date && (
+                                                `(${getYear(item.release_date)})`
+                                            )
+                                        }
+                                    </MetaData>
                                 )
                             }
-                        </MetaData>
-                    ),
-                    isMobileL
-                )
+                        </>
+                    )
+                }),
             }),
         },
         {
             typeGuard: entityTypeGuards.isPersonCrewMovieItem,
             tileProps: (item) => ({
                 ...getBaseMovieEntityProps(item, isMobileL),
-                ...getMovieInfoContent(
-                    item,
-                    (item.department !== "" && item.release_date !== "") && (
-                        <MetaData>
-                            {item.department}{" "}
+                ...getMovieInfoContent({
+                    movie: item,
+                    isMobileL,
+                    metaData: (
+                        <>
                             {
-                                item.release_date && (
-                                    `(${getYear(item.release_date)})`
+                                (item.department !== "" && item.release_date !== "") && (
+                                    <MetaData>
+                                        {item.department}{" "}
+                                        {
+                                            item.release_date && (
+                                                `(${getYear(item.release_date)})`
+                                            )
+                                        }
+                                    </MetaData>
                                 )
                             }
-                        </MetaData>
-                    ),
-                    isMobileL
-                ),
+                        </>
+                    )
+                }),
             }),
         },
     ];
