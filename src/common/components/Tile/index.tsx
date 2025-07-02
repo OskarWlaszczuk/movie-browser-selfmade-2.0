@@ -1,7 +1,12 @@
 import { TileProps } from "../../aliases/interfaces/TileProps";
 import { pictureWidths } from "../../constants/pictureConfigs";
 import { Picture } from "../Picture";
-import { DetailsWrapper, ExtraContentWrapper, InfoWrapper, StyledTile, Title } from "./styled";
+import {
+    ExtraContentWrapper,
+    InfoWrapper,
+    StyledTile,
+    Title
+} from "./styled";
 
 export const Tile = ({
     detailsRoutePath,
@@ -13,11 +18,10 @@ export const Tile = ({
     useHorizontalLayout,
     useTwoColumnsLayout,
 }: TileProps) => {
-
     return (
         <StyledTile
             $horizontalLayout={useHorizontalLayout}
-            $twoColumns={useTwoColumnsLayout || useHorizontalLayout}
+            $twoColumns={useTwoColumnsLayout}
             to={detailsRoutePath || ""}
         >
             <Picture
@@ -26,15 +30,17 @@ export const Tile = ({
                 entityType={entityType}
                 entityName={title}
             />
-            <DetailsWrapper>
-                <InfoWrapper>
-                    <Title $horizontalLayout={useHorizontalLayout}>{title}</Title>
-                    {infoContent}
-                </InfoWrapper>
-                <ExtraContentWrapper>
-                    {extraContent}
-                </ExtraContentWrapper>
-            </DetailsWrapper>
+            <InfoWrapper>
+                <Title $horizontalLayout={useHorizontalLayout}>{title}</Title>
+                {infoContent && infoContent}
+            </InfoWrapper>
+            {
+                extraContent && (
+                    <ExtraContentWrapper>
+                        {extraContent}
+                    </ExtraContentWrapper>
+                )
+            }
         </StyledTile>
-    );
+    )
 };
