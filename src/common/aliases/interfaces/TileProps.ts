@@ -11,5 +11,5 @@ export interface TileProps {
     infoContent?: ReactNode;
     extraContent?: ReactNode;
     useHorizontalLayout?: boolean;
-    useTwoColumnsLayout?: boolean;
+    useTwoColumnsMobileLayout?: boolean;
 };

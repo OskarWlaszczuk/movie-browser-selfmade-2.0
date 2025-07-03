@@ -6,7 +6,7 @@ interface SharedProps {
 }
 
 interface TileContainerProps extends SharedProps {
-    $twoColumns?: boolean;
+    $twoColumnsMobile?: boolean;
 }
 
 type TitleProps = SharedProps;
@@ -19,6 +19,9 @@ const twoColumnsMobileLayout = css`
             ;
     grid-template-columns: repeat(2, 1fr);
 `;
+
+
+
 const tileStyles = css<TileContainerProps>`
     color: ${({ theme }) => theme.colors.black};
     background-color: ${({ theme }) => theme.colors.white};
@@ -44,7 +47,7 @@ const tileStyles = css<TileContainerProps>`
         padding: 8px;
     }
 
-    ${({ $twoColumns }) => $twoColumns && css`
+    ${({ $twoColumnsMobile: $twoColumns }) => $twoColumns && css`
         @media (max-width: ${({ theme }) => theme.breakpoints.mobileL}) {
             ${twoColumnsMobileLayout}
         }
@@ -53,9 +56,9 @@ const tileStyles = css<TileContainerProps>`
     ${({ $horizontalLayout }) => $horizontalLayout && css`
         grid-template-columns: 0.7fr 2fr;
         grid-template-areas: 
-            "picture infoWrapper infoWrapper"
-            "picture extraContent extraContent"
-            "picture extraContent extraContent" 
+            "picture infoWrapper"
+            "picture extraContent"
+            "picture extraContent" 
         ;
 
         @media (max-width: ${({ theme }) => theme.breakpoints.mobileXL}) {

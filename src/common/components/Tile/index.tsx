@@ -17,7 +17,7 @@ export const Tile = ({
     extraContent,
     entityType,
     useHorizontalLayout,
-    useTwoColumnsLayout,
+    useTwoColumnsMobileLayout,
 }: TileProps) => {
 
     const tileContent = (
@@ -44,7 +44,7 @@ export const Tile = ({
 
     const baseContainerProps = {
         $horizontalLayout: useHorizontalLayout,
-        $twoColumns: useTwoColumnsLayout,
+        $twoColumnsMobile: useTwoColumnsMobileLayout,
     };
 
     const tileElement = (

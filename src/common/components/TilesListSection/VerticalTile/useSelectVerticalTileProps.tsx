@@ -24,7 +24,7 @@ import { ReactNode } from "react";
 
 type VerticalTileProps = Pick<
     TileProps,
-    "useTwoColumnsLayout" |
+    "useTwoColumnsMobileLayout" |
     "picturePath" |
     "title" |
     "detailsRoutePath" |
@@ -54,7 +54,7 @@ const getMovieInfoContent = ({ movie, metaData, isMobileL }: GetMovieInfoContent
 });
 
 const getBaseMovieEntityProps = (movieEntity: MovieEntity, isMobileL: boolean): VerticalTileProps => ({
-    useTwoColumnsLayout: true,
+    useTwoColumnsMobileLayout: true,
     picturePath: movieEntity.poster_path,
     title: movieEntity.title,
     detailsRoutePath: detailsRoutes.movies(movieEntity.id),
@@ -70,7 +70,7 @@ const getBaseMovieEntityProps = (movieEntity: MovieEntity, isMobileL: boolean): 
 });
 
 const getBasePersonEntityProps = (personEntity: PersonEntity): VerticalTileProps => ({
-    useTwoColumnsLayout: false,
+    useTwoColumnsMobileLayout: false,
     picturePath: personEntity.profile_path,
     title: personEntity.name,
     detailsRoutePath: detailsRoutes.people(personEntity.id),
