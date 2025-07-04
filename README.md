@@ -2,7 +2,7 @@
 
 **Movie Browser 2.0** is a web application for browsing movies and people related to the film industry. It uses data provided by [The Movie Database (TMDB)](https://developer.themoviedb.org/reference/intro/getting-started).
 
-**Check demo**, published od GitHubPages: https://oskarwlaszczuk.github.io/movie-browser-selfmade-2.0/
+**Check demo**, published on GitHubPages: https://oskarwlaszczuk.github.io/movie-browser-selfmade-2.0/
 
 ## About This Project
 
