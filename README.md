@@ -1,6 +1,6 @@
-# 🎬 Movie Browser
+# 🎬 Movie Browser 2.0
 
-**Movie Browser** is a web application for browsing movies and people related to the film industry. It uses data provided by [The Movie Database (TMDB)](https://developer.themoviedb.org/reference/intro/getting-started).
+**Movie Browser 2.0** is a web application for browsing movies and people related to the film industry. It uses data provided by [The Movie Database (TMDB)](https://developer.themoviedb.org/reference/intro/getting-started).
 
 ## About This Project
 
@@ -10,7 +10,7 @@ While the original project showcases the initial implementation and core codebas
 Both projects coexist to demonstrate the evolution of the application and to provide separate references for recruiters.
 
 
-## 🧭 Features
+## 🧭 Current Features
 
 - 🔍 Search for movies and people (actors, directors, etc.)
 - 🎥 Browse lists of popular movies and people
@@ -18,6 +18,17 @@ Both projects coexist to demonstrate the evolution of the application and to pro
   - For movies: description, release date, genres, cast and crew
   - For people: biography, filmography, birth date, etc.
 - ⚙️ TMDB API integration
+
+## Future Features
+
+The 2.0 version of Movie Browser is currently under development and will introduce several new features and visual improvements to enhance the user experience. Planned additions include:
+
+- **Tabbed Info Section** on the movie details page — dynamically switches between sub-sections like *Cast*, *Crew*, *Details*, *Genres*, and *Releases*.
+- **Collections Tab** — shows the cinematic universe or saga the movie belongs to, helping users explore related titles.
+- **Where to Watch** — integration of streaming availability, displaying platforms where the movie is available to watch online.
+- **Improved Ratings Section** — visually enhanced area for displaying audience scores and ratings.
+- **Movie Backdrop Banner** — adds a cinematic top banner image for a more immersive feel on detail pages.
+
 
 ## 🗂 App Structure
 
