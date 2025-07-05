@@ -22,28 +22,29 @@ import { MovieRating } from "../../Tile/MovieRating";
 import { theme } from "../../../../core/theme";
 import { ReactNode } from "react";
 
-type VerticalTileProps = Pick<
+type BaseVerticalTileProps = Pick<
     TileProps,
     "useTwoColumnsMobileLayout" |
     "picturePath" |
     "title" |
     "detailsRoutePath" |
     "entityType" |
-    "extraContent"
+    "extraContent" |
+    "useCenterText"
 >
 
 interface GetMovieInfoContentProps {
     movie: MovieEntity;
     metaData: OrUndefined<ReactNode>;
-    isMobileL: boolean;
+    istTabletM: boolean;
 }
 
-const getMovieInfoContent = ({ movie, metaData, isMobileL }: GetMovieInfoContentProps) => ({
+const getMovieInfoContent = ({ movie, metaData, istTabletM }: GetMovieInfoContentProps) => ({
     infoContent: (
         <>
             {metaData}
             <GenresList genresIds={movie.genre_ids} />
-            {isMobileL && (
+            {istTabletM && (
                 <MovieRating
                     voteAverage={movie?.vote_average}
                     voteCount={movie?.vote_count}
@@ -53,14 +54,14 @@ const getMovieInfoContent = ({ movie, metaData, isMobileL }: GetMovieInfoContent
     )
 });
 
-const getBaseMovieEntityProps = (movieEntity: MovieEntity, isMobileL: boolean): VerticalTileProps => ({
+const getBaseMovieEntityProps = (movieEntity: MovieEntity, istTabletM: boolean): BaseVerticalTileProps => ({
     useTwoColumnsMobileLayout: true,
     picturePath: movieEntity.poster_path,
     title: movieEntity.title,
     detailsRoutePath: detailsRoutes.movies(movieEntity.id),
     entityType: entitiesSingularTypes.MOVIE,
     extraContent: (
-        !isMobileL && (
+        !istTabletM && (
             <MovieRating
                 voteAverage={movieEntity?.vote_average}
                 voteCount={movieEntity?.vote_count}
@@ -69,17 +70,18 @@ const getBaseMovieEntityProps = (movieEntity: MovieEntity, isMobileL: boolean): 
     ),
 });
 
-const getBasePersonEntityProps = (personEntity: PersonEntity): VerticalTileProps => ({
+const getBasePersonEntityProps = (personEntity: PersonEntity): BaseVerticalTileProps => ({
     useTwoColumnsMobileLayout: false,
     picturePath: personEntity.profile_path,
     title: personEntity.name,
     detailsRoutePath: detailsRoutes.people(personEntity.id),
     entityType: entitiesSingularTypes.PERSON,
+    useCenterText: true,
 });
 
 
 export const useSelectVerticalTileProps = (tileEntity: OrUndefined<TileEntity>) => {
-    const isMobileL = useMediaQuery({ query: `(max-width:${theme.breakpoints.mobileL})` });
+    const istTabletM = useMediaQuery({ query: `(max-width:${theme.breakpoints.tabletM})` });
 
     type TilePropsConfig<ItemType extends TileEntity> = {
         typeGuard: (item: TileEntity) => item is ItemType;
@@ -99,10 +101,10 @@ export const useSelectVerticalTileProps = (tileEntity: OrUndefined<TileEntity>) 
         {
             typeGuard: entityTypeGuards.isSimplefiedMovieItem,
             tileProps: (item) => ({
-                ...getBaseMovieEntityProps(item, isMobileL),
+                ...getBaseMovieEntityProps(item, istTabletM),
                 ...getMovieInfoContent({
                     movie: item,
-                    isMobileL,
+                    istTabletM,
                     metaData: (
                         <MetaData>{getYear(item?.release_date)}</MetaData>
                     )
@@ -132,10 +134,10 @@ export const useSelectVerticalTileProps = (tileEntity: OrUndefined<TileEntity>) 
         {
             typeGuard: entityTypeGuards.isPersonCastMovieItem,
             tileProps: (item) => ({
-                ...getBaseMovieEntityProps(item, isMobileL),
+                ...getBaseMovieEntityProps(item, istTabletM),
                 ...getMovieInfoContent({
                     movie: item,
-                    isMobileL,
+                    istTabletM,
                     metaData: (
                         <>
                             {
@@ -158,10 +160,10 @@ export const useSelectVerticalTileProps = (tileEntity: OrUndefined<TileEntity>) 
         {
             typeGuard: entityTypeGuards.isPersonCrewMovieItem,
             tileProps: (item) => ({
-                ...getBaseMovieEntityProps(item, isMobileL),
+                ...getBaseMovieEntityProps(item, istTabletM),
                 ...getMovieInfoContent({
                     movie: item,
-                    isMobileL,
+                    istTabletM,
                     metaData: (
                         <>
                             {
