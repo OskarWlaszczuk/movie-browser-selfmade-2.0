@@ -18,6 +18,7 @@ export const Tile = ({
     entityType,
     useHorizontalLayout,
     useTwoColumnsMobileLayout,
+    useCenterText,
 }: TileProps) => {
 
     const tileContent = (
@@ -55,7 +56,10 @@ export const Tile = ({
                 </TileContainer>
             </> :
             <>
-                <TileLinkContainer  {...baseContainerProps} to={detailsRoutePath}>
+                <TileLinkContainer
+                    $centeredText={useCenterText}
+                    {...baseContainerProps} to={detailsRoutePath}
+                    >
                     {tileContent}
                 </TileLinkContainer>
             </>

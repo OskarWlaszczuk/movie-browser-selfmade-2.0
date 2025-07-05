@@ -13,16 +13,14 @@ type TitleProps = SharedProps;
 
 const twoColumnsMobileLayout = css`
     grid-template-areas: 
-                "picture infoWrapper"
-                "picture infoWrapper"
-                "extraContent extraContent"
-            ;
+        "picture infoWrapper"
+         "picture infoWrapper"
+        "extraContent extraContent"
+    ;
     grid-template-columns: repeat(2, 1fr);
 `;
 
-
-
-const tileStyles = css<TileContainerProps>`
+const sharedTileContainerStyles = css<TileContainerProps>`
     color: ${({ theme }) => theme.colors.black};
     background-color: ${({ theme }) => theme.colors.white};
     padding: 16px;
@@ -47,8 +45,8 @@ const tileStyles = css<TileContainerProps>`
         padding: 8px;
     }
 
-    ${({ $twoColumnsMobile: $twoColumns }) => $twoColumns && css`
-        @media (max-width: ${({ theme }) => theme.breakpoints.mobileL}) {
+    ${({ $twoColumnsMobile }) => $twoColumnsMobile && css`
+        @media (max-width: ${({ theme }) => theme.breakpoints.tabletM}) {
             ${twoColumnsMobileLayout}
         }
     `};
@@ -67,12 +65,20 @@ const tileStyles = css<TileContainerProps>`
     `}
 `;
 
-export const TileLinkContainer = styled(NavLink) <TileContainerProps>`
-    ${tileStyles}
+interface TileLinkContainerProps extends TileContainerProps {
+    $centeredText?: boolean;
+}
+
+export const TileLinkContainer = styled(NavLink) < TileLinkContainerProps>`
+    ${sharedTileContainerStyles}
+
+    ${({ $centeredText }) => $centeredText && css`
+        text-align: center;
+    `}
 `;
 
 export const TileContainer = styled.article<TileContainerProps>`
-    ${tileStyles}
+    ${sharedTileContainerStyles}
 `;
 
 export const InfoWrapper = styled.article`
@@ -92,7 +98,7 @@ export const Title = styled.header<TitleProps>`
         font-size:  ${({ theme }) => theme.fontSizes.m};
     }
 
-${({ $horizontalLayout }) => $horizontalLayout && css`
+    ${({ $horizontalLayout }) => $horizontalLayout && css`
         font-weight: ${({ theme }) => theme.fontWeights.semiBold};
         font-size:  ${({ theme }) => theme.fontSizes.title};
     `};
