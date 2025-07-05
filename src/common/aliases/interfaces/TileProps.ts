@@ -12,4 +12,5 @@ export interface TileProps {
     extraContent?: ReactNode;
     useHorizontalLayout?: boolean;
     useTwoColumnsMobileLayout?: boolean;
+    useCenterText?:boolean;
 };
