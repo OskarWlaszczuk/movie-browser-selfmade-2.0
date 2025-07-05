@@ -1,24 +1,76 @@
+import { useMediaQuery } from "react-responsive";
 import { OrUndefined } from "../../../../../../common/aliases/types/OrUndefined";
 import { URL_QUERY_PARAM_KEYS } from "../../../../../../common/constants/URL_QUERY_PARAM_KEYS";
 import { useReplaceQueryParameter } from "../../../../../../common/hooks/useReplaceQueryParameter";
-import { MoviesList, PeopleList } from "../../../../types/entityList.types";
+import { EntityListUnion } from "../../../../types/entityList.types";
 import { StyledNextPageIcon, StyledPreviousPageIcon } from "../components/PaginationButtonGroup/styled";
 import { PaginationButtonData } from "../types/PaginationButtonData";
+import { theme } from "../../../../../../core/theme";
+import { JSX } from "react/jsx-runtime";
 
-type ListType = PeopleList | MoviesList;
+const usePaginationButtonsHelpers = () => {
+    const isMobile = useMediaQuery({ query: `(max-width: ${theme.breakpoints.tablesS})` });
 
+    const getBackButtonsDesktopLabel = (desktopText: string, backButtonsDisableCondtion: boolean) => (
+        <>
+            <StyledPreviousPageIcon $isButtonDisabled={backButtonsDisableCondtion} />
+            <span>{desktopText}</span>
+        </>
+    );
+
+    interface SelectButtonLabelProps {
+        disableCondition: boolean;
+        desktopText: string;
+        mobileElement: JSX.Element;
+    }
+
+    const selectBackButtonsLabel = ({ disableCondition, desktopText, mobileElement }: SelectButtonLabelProps) => (
+        <>
+            {
+                isMobile ?
+                    <>
+                        {mobileElement}
+                    </> :
+                    getBackButtonsDesktopLabel(desktopText, disableCondition)
+
+            }
+        </>
+    );
+
+    const getForwardButtonsDesktopLabel = (desktopText: string, forwardButtonsDisableCondition: boolean) => (
+        <>
+            <span>{desktopText}</span>
+            <StyledNextPageIcon $isButtonDisabled={forwardButtonsDisableCondition} />
+        </>
+    );
+
+    const selectForwardButtonsDesktopLabel = ({ mobileElement, desktopText, disableCondition }: SelectButtonLabelProps) => (
+        <>
+            {
+                isMobile ?
+                    <>
+                        {mobileElement}
+                    </> :
+                    getForwardButtonsDesktopLabel(desktopText, disableCondition)
+            }
+        </>
+    );
+
+    return { selectBackButtonsLabel, selectForwardButtonsDesktopLabel };
+};
 
 export const usePaginationButtons = (
-    currentPage: OrUndefined<ListType["page"]>,
-    totalPages: OrUndefined<ListType["total_pages"]>
+    currentPage: OrUndefined<EntityListUnion["page"]>,
+    maxTotalPages: number,
 ) => {
-    
-    const replaceQueryParameter = useReplaceQueryParameter();
 
     const isFirstPage = currentPage === 1;
-    const isLastPage = currentPage === totalPages;
+    const isLastPage = currentPage === maxTotalPages;
 
-const pageKeySearchParam = URL_QUERY_PARAM_KEYS.PAGE;
+    const replaceQueryParameter = useReplaceQueryParameter();
+    const { selectBackButtonsLabel, selectForwardButtonsDesktopLabel } = usePaginationButtonsHelpers();
+
+    const pageKeySearchParam = URL_QUERY_PARAM_KEYS.PAGE;
 
     const paginationBackButtons: PaginationButtonData[] = [
         {
@@ -26,7 +78,18 @@ const pageKeySearchParam = URL_QUERY_PARAM_KEYS.PAGE;
                 key: pageKeySearchParam,
                 value: 1,
             }]),
-            label: <><StyledPreviousPageIcon $isButtonDisabled={isFirstPage} /> <span>First</span></>,
+            label: (
+                selectBackButtonsLabel({
+                    disableCondition: isFirstPage,
+                    desktopText: "First",
+                    mobileElement: (
+                        <>
+                            <StyledPreviousPageIcon $isButtonDisabled={isFirstPage} />
+                            <StyledPreviousPageIcon $isButtonDisabled={isFirstPage} />
+                        </>
+                    )
+                })
+            ),
             disabledCondition: isFirstPage,
         },
         {
@@ -34,29 +97,56 @@ const pageKeySearchParam = URL_QUERY_PARAM_KEYS.PAGE;
                 key: pageKeySearchParam,
                 value: isFirstPage ? currentPage : currentPage! - 1
             }]),
-            label: <><StyledPreviousPageIcon $isButtonDisabled={isFirstPage} /> <span>Previous</span></>,
+            label: (
+                selectBackButtonsLabel({
+                    disableCondition: isFirstPage,
+                    desktopText: "Previous",
+                    mobileElement: (
+                        <StyledPreviousPageIcon $isButtonDisabled={isFirstPage} />
+                    )
+                })
+            ),
             disabledCondition: isFirstPage,
         },
     ];
 
-    const paginationForwordButtons: PaginationButtonData[] = [
+    const paginationForwardButtons: PaginationButtonData[] = [
         {
             clickHandler: () => replaceQueryParameter([{
                 key: pageKeySearchParam,
                 value: isLastPage ? currentPage! : currentPage! + 1
             }]),
-            label: <><span>Next</span> <StyledNextPageIcon $isButtonDisabled={isLastPage} /></>,
+            label: (
+                selectForwardButtonsDesktopLabel({
+                    disableCondition: isLastPage,
+                    desktopText: "Next",
+                    mobileElement: (
+                        <StyledNextPageIcon $isButtonDisabled={isLastPage} />
+                    )
+                })
+            ),
             disabledCondition: isLastPage,
         },
         {
             clickHandler: () => replaceQueryParameter([{
                 key: pageKeySearchParam,
-                value: totalPages!,
+                value: maxTotalPages!,
             }]),
-            label: <><span>Last</span> <StyledNextPageIcon $isButtonDisabled={isLastPage} /></>,
+            label: (
+                selectForwardButtonsDesktopLabel({
+                    disableCondition: isLastPage,
+                    desktopText: "Last",
+                    mobileElement: (
+                        <>
+                            <StyledNextPageIcon $isButtonDisabled={isLastPage} />
+                            <StyledNextPageIcon $isButtonDisabled={isLastPage} />
+                        </>
+                    )
+                })
+            ),
             disabledCondition: isLastPage,
         },
     ];
 
-    return { paginationBackButtons, paginationForwordButtons, totalPages };
+    return { paginationBackButtons, paginationForwardButtons };
 };

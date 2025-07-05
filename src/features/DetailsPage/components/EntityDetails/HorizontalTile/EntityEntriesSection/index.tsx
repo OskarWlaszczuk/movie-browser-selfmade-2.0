@@ -3,14 +3,15 @@ import { MetaData } from "../../../../../../common/components/MetaData";
 import { capitalizeFirstLetter } from "../../../../../../common/functions/capitalizeFirstLetter";
 import { EntityEntries } from "../../../../types/entityEntries.types";
 import { StyledValue } from "./styled";
-import { useIsMobileXL } from "../../../../../../common/hooks/useIsMobileXL";
+import { theme } from "../../../../../../core/theme";
+import { useMediaQuery } from "react-responsive";
 
 interface EntityEntriesProps {
     entityEntries: EntityEntries;
 }
 
 export const EntityEntriesSection = ({ entityEntries: detailsEntry }: EntityEntriesProps) => {
-    const isMobileXL = useIsMobileXL();
+    const isLaptopXS = useMediaQuery({ query: `(max-width:${theme.breakpoints.laptopXS})` });
     const getValueElement = (value: string) => <StyledValue>{value}</StyledValue>;
 
     return (
@@ -20,7 +21,7 @@ export const EntityEntriesSection = ({ entityEntries: detailsEntry }: EntityEntr
                     (value || (Array.isArray(value) && value.length > 0)) && (
                         <div key={nanoid()}>
                             {
-                                isMobileXL ?
+                                isLaptopXS ?
                                     getValueElement(value) :
                                     <MetaData>{capitalizeFirstLetter(key)}:{" "}
                                         {getValueElement(value)}

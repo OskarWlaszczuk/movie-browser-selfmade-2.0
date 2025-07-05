@@ -12,13 +12,15 @@ interface PaginationProps {
 }
 
 export const Pagination = ({ currentPage, totalPages }: PaginationProps) => {
-    const { paginationBackButtons, paginationForwordButtons } = usePaginationButtons(currentPage, totalPages);
+        const maxTotalPages = totalPages || 1 > 500 ? 500 : totalPages || 1;
+
+    const { paginationBackButtons, paginationForwardButtons } = usePaginationButtons(currentPage, maxTotalPages);
 
     return (
         <PaginationContainer>
             <PaginationButtonGroup buttons={paginationBackButtons} />
-            <PageIndicator>Page <PageNumber>{currentPage} </PageNumber>of<PageNumber> {totalPages}</PageNumber></PageIndicator>
-            <PaginationButtonGroup buttons={paginationForwordButtons} />
+            <PageIndicator>Page <PageNumber>{currentPage} </PageNumber>of<PageNumber> {maxTotalPages}</PageNumber></PageIndicator>
+            <PaginationButtonGroup buttons={paginationForwardButtons} />
         </PaginationContainer>
     );
 };

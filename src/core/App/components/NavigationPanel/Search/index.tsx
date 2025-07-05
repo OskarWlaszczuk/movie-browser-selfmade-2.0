@@ -5,10 +5,13 @@ import { URL_QUERY_PARAM_KEYS } from "../../../../../common/constants/URL_QUERY_
 import { UrlQueryKeyValuePair } from "../../../../../common/aliases/interfaces/UrlQueryKeyValuePair";
 import { useURLQueryParams } from "../../../../../common/hooks/useURLQueryParams";
 import { getURLPath } from "../../../../../common/functions/getURLPath";
+import { useRef } from "react";
 
 export const Search = () => {
     const { pathname } = useLocation();
     const { search } = useURLQueryParams();
+    const inputRef = useRef<HTMLInputElement>(null);
+
     const replaceQueryParameter = useReplaceQueryParameter();
 
     const searchEntityType = getURLPath(pathname);
@@ -29,10 +32,15 @@ export const Search = () => {
 
     };
 
+    const handleContainerClick = () => {
+        inputRef.current?.focus();
+    };
+
     return (
-        <SearchPanel>
+        <SearchPanel onClick={handleContainerClick}>
             <StyledSearchIcon />
             <Input
+                ref={inputRef}
                 type="text"
                 name="search"
                 placeholder={`Search for ${searchEntityType}..`}
