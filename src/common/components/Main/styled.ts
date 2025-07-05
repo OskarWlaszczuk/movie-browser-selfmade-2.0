@@ -8,4 +8,9 @@ export const MainContent = styled.section`
     display: flex;
     flex-direction: column;
     width: 85%;
+    gap: 64px;
+
+    @media (max-width: ${({theme}) => theme.breakpoints.tablesS}) {
+        gap: 21px;
+    }
 `;
