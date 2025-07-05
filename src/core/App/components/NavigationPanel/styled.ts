@@ -55,9 +55,10 @@ export const NavItem = styled(NavLink)`
         border-radius: 24px;
     };
 
-    @media (max-width: ${({ theme }) => theme.breakpoints.laptopS}) {
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobileM}) {
         gap: 12px;
         padding: 8px 12px;
+        font-size:  ${({ theme }) => theme.fontSizes.xs};
     }
 `;
 
@@ -71,7 +72,7 @@ export const AppTitle = styled(NavLink)`
     text-decoration: none;
     white-space: nowrap;
 
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobileXXL}) {
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobileM}) {
         font-size: ${({ theme }) => theme.fontSizes.xs};
     }
 `;

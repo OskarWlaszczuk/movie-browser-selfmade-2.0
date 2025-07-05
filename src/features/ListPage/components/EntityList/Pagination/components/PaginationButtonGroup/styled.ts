@@ -26,6 +26,11 @@ export const PaginationButton = styled.button`
         filter: brightness(102%);
     }
 
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablesS}) {
+        padding: 7px 12px;
+        gap: 4px;
+    }
+
 `;
 
 interface StyledPaginationIconProps {
@@ -37,6 +42,10 @@ export const StyledPreviousPageIcon = styled(PaginationIcon) <StyledPaginationIc
         fill: ${({ theme, $isButtonDisabled }) =>
         $isButtonDisabled ? theme.colors.waterloo : theme.colors.scienceBlue
     };
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablesS}) {
+        width: 5px;
     }
 `;
 

@@ -17,11 +17,16 @@ export const SearchPanel = styled.div`
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobileM}) {
         padding: 14px 16px;
+        gap: 10px;
     }
 `;
 
 export const StyledSearchIcon = styled(SearchIcon)`
     max-width: 40px;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobileM}) {
+        max-width: 20px;
+    }
 `;
 
 export const Input = styled.input`
