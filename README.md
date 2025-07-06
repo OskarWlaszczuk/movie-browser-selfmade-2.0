@@ -56,16 +56,7 @@ This section explains the key code patterns and utility mechanisms used in the p
 
 ### 🗂️ Entity Types Config – Centralized Entity Type Management
 
-This setup helps manage all data categories (like movies, people, or TV shows) from one place using two constant objects: entitiesSingularTypes and entitiesPluralTypes. These are defined in entityTypes.ts and serve as the foundation for generating other parts of the app dynamically.
-
-***Core Benefits:***
-
-- Easily control what entity types exist in the app.
-
-- Dynamically generate routing and API paths using Object.values(...).
-
-- No need to manually update every route or API method when a new type is added—just update the entity config objects.
-***
+This setup helps manage all data categories (like movies or people) from one place using two constant objects: entitiesSingularTypes and entitiesPluralTypes. These are defined in entityTypes.ts and serve as the foundation for generating other parts of the app dynamically.
 
 <br>`entityTypes.ts`
 
@@ -82,6 +73,16 @@ export const entitiesPluralTypes = {
   TVS: "tvs",
 } as const;
 ```
+***
+
+***Core Benefits:***
+
+- Easily control what entity types exist in the app.
+
+- Dynamically generate routing and API paths using Object.values(...).
+
+- No need to manually update every route or API method when a new type is added -  just update the entity config objects.
+
 ***
 
 🧭` routes.ts` – **Dynamic Route Generators**
@@ -140,6 +141,7 @@ This custom React hook simplifies how different data types are transformed into 
  - Keeps the mapping logic declarative and scalable.
 
 This pattern makes the application easy to extend in the future. If a new type of entity is introduced, you only need to add its type guard and props function to the config array—no need to rewrite component logic.
+ ***
 
 ### 🧩 [EntityList](https://github.com/OskarWlaszczuk/movie-browser-selfmade-2.0/blob/main/src/features/ListPage/components/EntityList/index.tsx) – Generic List Renderer for Any Entity Type
 The EntityList component serves as a reusable list page for any entity type (e.g., movies or people). It abstracts away the logic of fetching, handling, and displaying search results and popular content based on the type passed as props.
@@ -166,6 +168,8 @@ The EntityList component serves as a reusable list page for any entity type (e.g
 
 This makes the component plug-and-play for any future entities you might add, with minimal boilerplate.
 
+***
+
 ### 🧱 [EntityDetails](https://github.com/OskarWlaszczuk/movie-browser-selfmade-2.0/blob/main/src/features/DetailsPage/components/EntityDetails/index.tsx) – Universal Details Page Component
 
 EntityDetails handles rendering the details view for any given entity category (e.g., movie or person). It fetches genres and specific entity data, then passes them to detail subcomponents like Credits, HorizontalTile, etc.
@@ -184,7 +188,7 @@ EntityDetails handles rendering the details view for any given entity category (
 
 ``` tsx
 <EntityDetails 
-        entityPathSegment={apiEntityPathSegments.person} 
+    entityPathSegment={apiEntityPathSegments.person} 
 />
 ```
 
