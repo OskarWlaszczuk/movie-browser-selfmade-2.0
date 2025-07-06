@@ -12,6 +12,7 @@ export interface MovieCastMember extends BasePersonData {
 
 export interface MovieCrewMember extends BasePersonData {
     job: string;
+    department: string;
 }
 
 export type SimplefiedPersonItem = BasePersonData;
