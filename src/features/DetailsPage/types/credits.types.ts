@@ -1,12 +1,12 @@
 import { PersonCastMovieItem, PersonCrewMovieItem } from "../../../common/aliases/interfaces/movie.types";
 import { MovieCastMember, MovieCrewMember } from "../../../common/aliases/interfaces/person.types";
 
-interface MovieCredits {
+export interface MovieCredits {
     cast: MovieCastMember[];
     crew: MovieCrewMember[];
 }
 
-interface PersonCredits {
+export interface PersonCredits {
     cast: PersonCastMovieItem[];
     crew: PersonCrewMovieItem[];
 }
