@@ -1,5 +1,7 @@
 export const theme = {
     colors: {
+        ebb: "#E5DFDF",
+        abbey: "#545456",
         white: "#FFFFFF",
         black: "#18181B",
         waterloo: "#7E839A",
