@@ -9,6 +9,7 @@ import {DetailedMovieItem} from "../../../../common/aliases/interfaces/movie.typ
 import {MovieCredits} from "../../types/credits.types";
 import {useFetchApi} from "../../../../common/hooks/useFetchApi";
 import {MovieCrewGroups} from "./MovieCrewGroups";
+import {MovieDetailsTab} from "./MovieDetailsTab";
 
 export interface JobsConfiguration {
   department: string;
@@ -43,15 +44,16 @@ export const Movie2 = () => {
     routePath: `/actor/${id}`,
   }));
 
+  const genresLinkData = movieDetails?.genres?.map(({name, id}) => ({
+    name,
+    routePath: `films/genre/${name}`,
+  }));
+
   const defaultTabCategory = "cast";
   const movieTabsConfig: TabConfig[] = [
     {
       category: defaultTabCategory,
-      view: (
-        <section>
-          <EntityLinksList entities={castLinkData!} />,
-        </section>
-      ),
+      view: <EntityLinksList entities={castLinkData!} />,
     },
     {
       category: "crew",
@@ -61,6 +63,14 @@ export const Movie2 = () => {
           jobsConfiguration={jobsConfiguration}
         />
       ),
+    },
+    {
+      category: "genres",
+      view: <EntityLinksList entities={genresLinkData!} />,
+    },
+    {
+      category: "details",
+      view: <MovieDetailsTab movieDetails={movieDetails} />,
     },
   ];
 
