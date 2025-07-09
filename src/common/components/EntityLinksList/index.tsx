@@ -3,13 +3,13 @@ import { EntityNameLink } from "../EntityNameLink";
 import { EntityListWrapper } from "./styled";
 import { OrUndefined } from "../../aliases/types/OrUndefined";
 
-interface EntityLink {
+export interface EntityLinkData {
     name: string;
     routePath: string;
 }
 
 interface EntityLinksListProps {
-    entities: OrUndefined<EntityLink[]>;
+    entities: OrUndefined<EntityLinkData[]>;
 }
 
 export const EntityLinksList = ({ entities }: EntityLinksListProps) => {
