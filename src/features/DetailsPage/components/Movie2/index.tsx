@@ -1,5 +1,5 @@
 import {useParams} from "react-router-dom";
-import {useFetchEntityProfile} from "../../hooks/useFetchDetailsPageData";
+import {useFetchEntityProfile} from "../../hooks/useFetchEntityProfile";
 import {EntityLinksList} from "../../../../common/components/EntityLinksList";
 import {HorizontalTile} from "../EntityDetails/HorizontalTile";
 import {useCombinedFetchStatus} from "../../../../common/hooks/useCombinedFetchStatus";

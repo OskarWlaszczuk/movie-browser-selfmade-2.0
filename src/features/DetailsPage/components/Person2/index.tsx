@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useFetchEntityProfile } from "../../hooks/useFetchDetailsPageData";
+import { useFetchEntityProfile } from "../../hooks/useFetchEntityProfile";
 import { DetailedPersonItem } from "../../../../common/aliases/interfaces/person.types";
 import { PersonCredits } from "../../types/credits.types";
 
