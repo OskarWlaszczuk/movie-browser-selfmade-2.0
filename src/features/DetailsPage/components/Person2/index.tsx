@@ -2,17 +2,11 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useFetchEntityProfile} from "../../hooks/useFetchEntityProfile";
 import {DetailedPersonItem} from "../../../../common/aliases/interfaces/person.types";
 import {PersonCredits} from "../../types/credits.types";
-import {useFetchJobsConfiguration} from "../Movie2";
 import {ChangeEvent} from "react";
 import {TilesListSection} from "../../../../common/components/TilesListSection";
 
 export const Person2 = () => {
   const {role, id} = useParams();
-  const {
-    data: jobsConfiguration,
-    isPaused: isJobsConfigurationPaused,
-    status: jobsConfigurationStatus,
-  } = useFetchJobsConfiguration();
   const navigate = useNavigate();
 
   const {details, credits, profileStatuses, profilePausedFlags} =
