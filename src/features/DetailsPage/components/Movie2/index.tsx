@@ -16,7 +16,7 @@ export interface JobsConfiguration {
   jobs: string[];
 }
 
-const useFetchJobsConfiguration = () => {
+export const useFetchJobsConfiguration = () => {
   return useFetchApi<JobsConfiguration[]>({
     queryKey: `jobs configurations`,
     endpoint: "configuration/jobs",
@@ -35,8 +35,8 @@ export const Movie2 = () => {
 
   const {
     data: jobsConfiguration,
-    status: jobsConfigurationStatus,
     isPaused: isJobsConfigurationPaused,
+    status: jobsConfigurationStatus,
   } = useFetchJobsConfiguration();
 
   const castLinkData = movieCredits?.cast?.map(({name, id}) => ({
