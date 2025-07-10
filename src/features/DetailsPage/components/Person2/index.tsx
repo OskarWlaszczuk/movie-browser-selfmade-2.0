@@ -6,14 +6,14 @@ import {ChangeEvent} from "react";
 import {TilesListSection} from "../../../../common/components/TilesListSection";
 
 export const Person2 = () => {
-  const {role, id} = useParams();
+  const {job, id} = useParams();
   const navigate = useNavigate();
 
   const {details, credits, profileStatuses, profilePausedFlags} =
     useFetchEntityProfile<DetailedPersonItem, PersonCredits>("person", id!);
 
   const personJobs = [
-    ...new Set(credits?.crew.map(({job}) => job)),
+    ...new Set(credits?.crew.map((member) => member.job)),
     ...(!!credits && credits?.cast?.length > 0 ? ["Actor"] : []),
   ];
 
@@ -24,19 +24,19 @@ export const Person2 = () => {
   };
 
   const movies =
-    role === "actor"
+    job === "actor"
       ? credits?.cast
       : [...(credits?.crew || [])].filter(
-          ({job}) => job.toLowerCase().replace(" ", "-") === role
+          (member) => member.job.toLowerCase().replace(" ", "-") === job
         );
 
   return (
     <>
       <label>
-        <select name="personJobs" value={role} onChange={handleChange}>
-          {personJobs.map((job) => {
+        <select name="personJobs" value={job} onChange={handleChange}>
+          {personJobs.map((personJob) => {
             return (
-              <option value={job.toLowerCase().replace(" ", "-")}>{job}</option>
+              <option value={personJob.toLowerCase().replace(" ", "-")}>{personJob}</option>
             );
           })}
         </select>
