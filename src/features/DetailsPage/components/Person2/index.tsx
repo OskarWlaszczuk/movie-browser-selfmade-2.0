@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { NavLink, useLocation, useParams } from "react-router-dom";
 import { useFetchEntityProfile } from "../../hooks/useFetchEntityProfile";
 import { DetailedPersonItem } from "../../../../common/aliases/interfaces/person.types";
 import { PersonCredits } from "../../types/credits.types";
@@ -15,10 +15,13 @@ import { useCombinedFetchStatus } from "../../../../common/hooks/useCombinedFetc
 import { FiltersPanel } from "./FiltersPanel";
 import { StyledFiltersPanel } from "./FiltersPanel/styled";
 import styled from "styled-components";
-import { PageContainer, MoviesList, MovieTile, KinematographySection, PersonDetailsSection, PersonPicture, Description } from "./styled";
+import { PageContainer, KinematographySection } from "./styled";
 import { Picture } from "../../../../common/components/Picture";
 import { apiUrls, pictureWidths } from "../../../../common/constants/pictureConfigs";
-import { Movie } from "../Movie";
+import { Biography } from "./Biography";
+import { MoviesGrid } from "./MoviesGrid";
+import { getYear } from "../../../../common/functions/getYear";
+import { DecadeFilter } from "./DecadeFilter";
 
 export const filterMoviesByRole = (
   crew: OrUndefined<PersonCrewMovieItem[]>,
@@ -37,9 +40,13 @@ export const Person2 = () => {
     profileStatuses,
     profilePausedFlags
   } = useFetchEntityProfile<DetailedPersonItem, PersonCredits>("person", id!);
-
+  const searchParams = new URLSearchParams(search)
   const genreKey = "genre";
-  const filteredGenresNames = new URLSearchParams(search).getAll(genreKey);
+  const filteredGenresNames = searchParams.getAll(genreKey);
+
+  const decadeFilter = Number(searchParams.get("decade")?.replace("s", ""));
+  const decadeYearRange = { start: decadeFilter, end: decadeFilter + 9 };
+
   const filteredGenresIDs = (
     genres
       ?.filter(({ name }) => filteredGenresNames.includes(formatForURL(name)))
@@ -51,11 +58,20 @@ export const Person2 = () => {
       credits?.cast :
       filterMoviesByRole(credits?.crew, role!)
   );
+  const moviesWithDate = listToDisplay?.filter(({ release_date }) => release_date);
+  const moviesGroupedByDecade = (
+    moviesWithDate
+      ?.filter(({ release_date }) => {
+        const movieYear = getYear(release_date) as number;
+        return movieYear >= decadeYearRange.start! && movieYear <= decadeYearRange.end
+      })
+  );
+  console.log(listToDisplay)
 
   const moviesGroupedByGenres = (
     filteredGenresIDs
       ?.map(filteredID => ({
-        genreList: [...listToDisplay?.filter(({ genre_ids }) => genre_ids.includes(filteredID)) || []],
+        genreList: [...moviesGroupedByDecade?.filter(({ genre_ids }) => genre_ids.includes(filteredID)) || []],
         genreName: genres?.find(({ id }) => id === filteredID)?.name
       }))
   );
@@ -89,41 +105,26 @@ export const Person2 = () => {
       />
   );
 
-
   const combinedFetchStatus = useCombinedFetchStatus(
     [...profileStatuses, genresStatus],
     [...profilePausedFlags, isGenresPaused]
   );
-
-
 
   return (
     <PageContainer>
       <KinematographySection>
         <StyledFiltersPanel>
           <RoleSwitcher
-            URLParams={{
-              id: id!,
-              role: role!,
-            }}
             credits={credits}
           />
           <GenreFilter
             genres={genres}
           />
+          <DecadeFilter />
         </StyledFiltersPanel>
-        <MoviesList>
-          {
-            listToDisplay?.map(({ poster_path }) => (
-              <MovieTile src={`${apiUrls.image}${pictureWidths.tile}${poster_path}`} />
-            ))
-          }
-        </MoviesList>
+        <MoviesGrid movies={listToDisplay!} />
       </KinematographySection>
-      <PersonDetailsSection>
-        <PersonPicture src={`${apiUrls.image}${pictureWidths.tile}${details?.profile_path}`} />
-        <Description>{details?.biography}</Description>
-      </PersonDetailsSection>
+      <Biography person={details!} />
     </PageContainer>
   );
 };
