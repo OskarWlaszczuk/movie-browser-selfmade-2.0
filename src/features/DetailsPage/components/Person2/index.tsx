@@ -1,38 +1,24 @@
-import { NavLink, useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useFetchEntityProfile } from "../../hooks/useFetchEntityProfile";
 import { DetailedPersonItem } from "../../../../common/aliases/interfaces/person.types";
 import { PersonCredits } from "../../types/credits.types";
-import { TilesListSection, TilesListSection2 } from "../../../../common/components/TilesListSection";
 import { useFetchGenres } from "../../../../common/hooks/useFetchGenres";
-import { PersonCrewMovieItem } from "../../../../common/aliases/interfaces/movie.types";
-import { OrUndefined } from "../../../../common/aliases/types/OrUndefined";
-import { actorRole } from "../../../../common/constants/actorRole";
 import { RoleSwitcher } from "./RoleSwitcher";
 import { GenreFilter } from "./GenreFilter";
 import { formatForURL } from "../../../../common/functions/formatForURL";
-import { Main } from "../../../../common/components/Main";
 import { useCombinedFetchStatus } from "../../../../common/hooks/useCombinedFetchStatus";
-import { FiltersPanel } from "./FiltersPanel";
 import { StyledFiltersPanel } from "./FiltersPanel/styled";
-import styled from "styled-components";
 import { PageContainer, KinematographySection } from "./styled";
-import { Picture } from "../../../../common/components/Picture";
-import { apiUrls, pictureWidths } from "../../../../common/constants/pictureConfigs";
 import { Biography } from "./Biography";
-import { MoviesGrid } from "./MoviesGrid";
 import { getYear } from "../../../../common/functions/getYear";
 import { DecadeFilter } from "./DecadeFilter";
-
-export const filterMoviesByRole = (
-  crew: OrUndefined<PersonCrewMovieItem[]>,
-  role: string
-) => crew?.filter(
-  ({ job }) => job.toLowerCase().replace(" ", "-") === role
-);
+import { MoviesByGenreGrid } from "./MoviesByGenreGrid";
+import { Genre } from "../../../../common/aliases/types/genre.types";
 
 export const Person2 = () => {
   const { role, id } = useParams();
   const { search } = useLocation();
+
   const { genres, genresStatus, isGenresPaused } = useFetchGenres();
   const {
     details,
@@ -40,75 +26,53 @@ export const Person2 = () => {
     profileStatuses,
     profilePausedFlags
   } = useFetchEntityProfile<DetailedPersonItem, PersonCredits>("person", id!);
-  const searchParams = new URLSearchParams(search)
+
+  const crewMovies = credits?.crew;
+  const castMovies = credits?.cast.map(movie => ({ ...movie, job: "Actor" }));
+  const movies = [...crewMovies || [], ...castMovies || []];
+
+  const searchParams = new URLSearchParams(search);
   const genreKey = "genre";
-  const filteredGenresNames = searchParams.getAll(genreKey);
+  const decadeKey = "decade";
 
-  const decadeFilter = Number(searchParams.get("decade")?.replace("s", ""));
-  const decadeYearRange = { start: decadeFilter, end: decadeFilter + 9 };
+  const filterByDecade = (movie) => {
+    const decadeValue = searchParams.get(decadeKey);
+    if (!searchParams.has(decadeKey)) return true;
 
-  const filteredGenresIDs = (
-    genres
-      ?.filter(({ name }) => filteredGenresNames.includes(formatForURL(name)))
-      .map(({ id }) => id)
-  );
+    const decadeYear = Number(decadeValue?.replace("s", ""));
+    const movieYear = getYear(movie.release_date) as number;
 
-  const listToDisplay = (
-    role === actorRole ?
-      credits?.cast :
-      filterMoviesByRole(credits?.crew, role!)
-  );
-  const moviesWithDate = listToDisplay?.filter(({ release_date }) => release_date);
-  const moviesGroupedByDecade = (
-    moviesWithDate
-      ?.filter(({ release_date }) => {
-        const movieYear = getYear(release_date) as number;
-        return movieYear >= decadeYearRange.start! && movieYear <= decadeYearRange.end
-      })
-  );
-  console.log(listToDisplay)
+    return movieYear! >= decadeYear && movieYear <= decadeYear + 9;
+  };
 
-  const moviesGroupedByGenres = (
-    filteredGenresIDs
-      ?.map(filteredID => ({
-        genreList: [...moviesGroupedByDecade?.filter(({ genre_ids }) => genre_ids.includes(filteredID)) || []],
-        genreName: genres?.find(({ id }) => id === filteredID)?.name
-      }))
-  );
+  const filterByGenres = (movie, genres: Genre[]) => {
+    const filteredGenresNames = searchParams.getAll(genreKey);
+    if (!searchParams.has(genreKey)) return true;
 
-  // const moviesByGenre = (
-  //   genres
-  //     ?.map(({ id }) => id)
-  //     ?.map(genreID => {
-  //       const genreMovies = [...listToDisplay?.filter(({ genre_ids }) => genre_ids.includes(genreID)) || []];
+    const filteredGenresIDs = (
+      genres
+        ?.filter(({ name }) => filteredGenresNames.includes(formatForURL(name)))
+        .map(({ id }) => id)
+    );
 
-  //       return {
-  //         genreMovies,
-  //         genreName: genres?.find(({ id }) => id === genreID)?.name,
-  //         movieCount: genreMovies.length
-  //       }
-  //     })
-  // );
-  // console.log(moviesByGenre)
+    return movie.genre_ids.some(id => filteredGenresIDs?.includes(id));
+  };
 
-  const view = (
-    filteredGenresNames.length > 0 ?
-      moviesGroupedByGenres?.map(({ genreList, genreName }) => (
-        <TilesListSection
-          list={genreList}
-          titleData={{ isPageTitle: false, text: genreName! }}
-        />
-      )) :
-      <TilesListSection
-        list={listToDisplay}
-        titleData={{ isPageTitle: true, text: details?.name! }}
-      />
-  );
+  const filterByRole = (movie) => formatForURL(movie.job) === role;
+
+  const filters = [
+    filterByDecade,
+    filterByGenres,
+    filterByRole,
+  ];
 
   const combinedFetchStatus = useCombinedFetchStatus(
     [...profileStatuses, genresStatus],
     [...profilePausedFlags, isGenresPaused]
   );
+
+  if (!details || !credits || !genres) return null
+  const filtered = movies.filter(movie => filters.every(filter => filter(movie, genres)));
 
   return (
     <PageContainer>
@@ -122,7 +86,10 @@ export const Person2 = () => {
           />
           <DecadeFilter />
         </StyledFiltersPanel>
-        <MoviesGrid movies={listToDisplay!} />
+        <MoviesByGenreGrid
+          movies={filtered}
+          genres={genres}
+        />
       </KinematographySection>
       <Biography person={details!} />
     </PageContainer>
