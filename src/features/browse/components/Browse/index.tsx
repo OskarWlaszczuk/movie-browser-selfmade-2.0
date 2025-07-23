@@ -4,10 +4,9 @@ import { MediaCarousel } from "../../../../common/components/MediaCarousel";
 import { ListSectionConfig } from "../../../../common/aliases/types/ListSectionConfig";
 import axios from "axios";
 import { useCombinedFetchStatus } from "../../../../common/hooks/useCombinedFetchStatus";
-
-export type MediaType = "movie" | "person";
-export type MediaListType = "top_rated" | "upcoming" | "now_playing" | "popular";
-
+import { MediaListItem } from "../../../../common/aliases/types/MediaListItem";
+import { MediaListType } from "../../../../common/aliases/types/MediaListType";
+import { MediaType } from "../../../../common/aliases/types/MediaType";
 interface ListFetchParams {
     mediaType: MediaType;
     listType: MediaListType;
@@ -28,12 +27,12 @@ const fetchList = async ({ mediaType, listType }: ListFetchParams) => {
     return response.data;
 };
 
-interface BrowseProps {
-    mediaType: "movie" | "person";
-    mediaConfig: ListSectionConfig[];
+interface BrowseProps<BrowseSectionItemType extends MediaListItem> {
+    mediaType: MediaType;
+    mediaConfig: ListSectionConfig<BrowseSectionItemType>[];
 }
 
-export const MediaBrowse = ({ mediaType, mediaConfig }: BrowseProps) => {
+export const MediaBrowse = <BrowseSectionItemType extends MediaListItem>({ mediaType, mediaConfig }: BrowseProps<BrowseSectionItemType>) => {
     const listsQueries = useQueries({
         queries: mediaConfig.map(({ listType }) => ({
             queryKey: [`${mediaType} list`, mediaType, listType],
@@ -59,8 +58,9 @@ export const MediaBrowse = ({ mediaType, mediaConfig }: BrowseProps) => {
                 successContent={(
                     <>
                         {
-                            mediaSections.map(({ title, fullSectionLink, mediaList }) => (
-                                <MediaCarousel
+                            mediaSections.map(({ title, fullSectionLink, mediaList, tileData }) => (
+                                <MediaCarousel<BrowseSectionItemType>
+                                    tileData={tileData}
                                     title={title}
                                     fullSectionLink={fullSectionLink}
                                     mediaList={mediaList}
