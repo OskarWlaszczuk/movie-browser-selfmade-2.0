@@ -27,12 +27,12 @@ const fetchList = async ({ mediaType, listType }: ListFetchParams) => {
     return response.data;
 };
 
-interface BrowseProps<BrowseSectionItemType extends MediaListItem> {
+interface BrowseOverviewProps<BrowseSectionItemType extends MediaListItem> {
     mediaType: MediaType;
     mediaConfig: ListSectionConfig<BrowseSectionItemType>[];
 }
 
-export const MediaBrowse = <BrowseSectionItemType extends MediaListItem>({ mediaType, mediaConfig }: BrowseProps<BrowseSectionItemType>) => {
+export const BrowseOverview = <BrowseSectionItemType extends MediaListItem>({ mediaType, mediaConfig }: BrowseOverviewProps<BrowseSectionItemType>) => {
     const listsQueries = useQueries({
         queries: mediaConfig.map(({ listType }) => ({
             queryKey: [`${mediaType} list`, mediaType, listType],
