@@ -1,18 +1,28 @@
 import { useRef } from "react";
-import { CarouselList, CarouselTitle, CarouselTitleSection, CarouselWrapper, ShowMoreLink, ScrollButton } from "./styled";
-import { PersonItem } from "../../aliases/interfaces/person.types";
-import { MovieItem } from "../../aliases/interfaces/movie.types";
-import { MediaTile } from "../MediaTile";
+import {
+  CarouselList,
+  CarouselTitle,
+  CarouselTitleSection,
+  CarouselWrapper,
+  ShowMoreLink,
+  ScrollButton
+} from "./styled";
+import { MediaTile, MediaTileProps } from "../MediaTile";
+import { MediaListItem } from "../../aliases/types/MediaListItem";
 
-export type MediaType = "movie" | "person";
-export type MediaListType = "top_rated" | "upcoming" | "now_playing" | "popular";
-interface MediaCarouselProps {
+interface MediaCarouselProps<MediaItemType extends MediaListItem> {
+  mediaList?: MediaItemType[];
+  tileData: (mediaItem: MediaItemType) => MediaTileProps;
   title: string;
   fullSectionLink: string;
-  mediaList: PersonItem[] | MovieItem[];
 }
 
-export const MediaCarousel = ({ title, fullSectionLink, mediaList }: MediaCarouselProps) => {
+export const MediaCarousel = <MediaItemType extends MediaListItem>({
+  mediaList,
+  tileData,
+  title,
+  fullSectionLink
+}: MediaCarouselProps<MediaItemType>) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const previousDirection = "left";
@@ -35,11 +45,9 @@ export const MediaCarousel = ({ title, fullSectionLink, mediaList }: MediaCarous
       <CarouselWrapper>
         <ScrollButton $previous onClick={() => scroll(previousDirection)}>{"<"}</ScrollButton>
         <CarouselList ref={containerRef}>
-          {mediaList?.map(({ poster_path, title, id }) => (
+          {mediaList?.map((mediaItem) => (
             <MediaTile
-              imagePath={poster_path}
-              name={title}
-              detailsRoute={`movie/${id}`}
+              {...tileData(mediaItem)}
             />
           ))}
         </CarouselList>
