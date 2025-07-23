@@ -1,14 +1,18 @@
 import { useRef } from "react";
-import { CarouselList, CarouselWrapper, ScrollButton } from "./styled";
-import { MoviePicture } from "../../../features/DetailsPage/components/Person2/MoviesGridSection/styled";
-import { NavLink } from "react-router-dom";
-import { apiUrls, pictureWidths } from "../../constants/pictureConfigs";
+import { CarouselList, CarouselTitle, CarouselTitleSection, CarouselWrapper, ShowMoreLink, ScrollButton } from "./styled";
+import { PersonItem } from "../../aliases/interfaces/person.types";
+import { MovieItem } from "../../aliases/interfaces/movie.types";
+import { MediaTile } from "../MediaTile";
 
+export type MediaType = "movie" | "person";
+export type MediaListType = "top_rated" | "upcoming" | "now_playing" | "popular";
 interface MediaCarouselProps {
-  media: any[];
+  title: string;
+  fullSectionLink: string;
+  mediaList: PersonItem[] | MovieItem[];
 }
 
-export const MediaCarousel = ({ media }: MediaCarouselProps) => {
+export const MediaCarousel = ({ title, fullSectionLink, mediaList }: MediaCarouselProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const previousDirection = "left";
@@ -23,16 +27,24 @@ export const MediaCarousel = ({ media }: MediaCarouselProps) => {
   };
 
   return (
-    <CarouselWrapper>
-      <ScrollButton $previous onClick={() => scroll(previousDirection)}>{"<"}</ScrollButton>
-      <CarouselList ref={containerRef}>
-        {media.map(({ poster_path, title, id }) => (
-          <NavLink to={`movie/${id}`}>
-            <MoviePicture src={`${apiUrls.image}${pictureWidths.tile}${poster_path}`} alt={title} />
-          </NavLink>
-        ))}
-      </CarouselList>
-      <ScrollButton $next onClick={() => scroll(nextDirection)}>{">"}</ScrollButton>
-    </CarouselWrapper>
+    <div>
+      <CarouselTitleSection>
+        <CarouselTitle to={fullSectionLink}>{title}</CarouselTitle>
+        <ShowMoreLink to={fullSectionLink}></ShowMoreLink>
+      </CarouselTitleSection>
+      <CarouselWrapper>
+        <ScrollButton $previous onClick={() => scroll(previousDirection)}>{"<"}</ScrollButton>
+        <CarouselList ref={containerRef}>
+          {mediaList?.map(({ poster_path, title, id }) => (
+            <MediaTile
+              imagePath={poster_path}
+              name={title}
+              detailsRoute={`movie/${id}`}
+            />
+          ))}
+        </CarouselList>
+        <ScrollButton $next onClick={() => scroll(nextDirection)}>{">"}</ScrollButton>
+      </CarouselWrapper>
+    </div>
   );
 };
