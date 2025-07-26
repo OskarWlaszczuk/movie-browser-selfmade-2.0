@@ -1,9 +1,14 @@
-import { MediaListType } from "../../components/MediaCarousel";
+import { FilterProps } from "../interfaces/FilterProps";
+import { ExtractTileProps } from "./ExtractTileProps";
+import { MediaListItem } from "./MediaListItem";
+import { MediaListType } from "./MediaListType";
 
-export interface ListSectionConfig {
+export interface ListSectionConfig<MediaItemType extends MediaListItem> {
     key: string;
     title: string;
     listType: MediaListType;
     apiParams?: Record<string, any>;
-    fullSectionLink: string;
+    expandedSectionLink: string;
+    extractTileProps: ExtractTileProps<MediaItemType>;
+    listFiltersConfig: FilterProps[];
 }
