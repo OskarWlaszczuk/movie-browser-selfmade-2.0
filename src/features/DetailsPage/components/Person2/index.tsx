@@ -6,8 +6,13 @@ import { useFetchGenres } from "../../../../common/hooks/useFetchGenres";
 import { useCombinedFetchStatus } from "../../../../common/hooks/useCombinedFetchStatus";
 import { StyledPerson } from "./styled";
 import { PersonBiography } from "./PersonBiography";
-import { PersonMoviesBrowse } from "./PersonMoviesBrowse";
 import { mediaSingularTypes } from "../../../../common/constants/entityTypes";
+import { BrowseExpandedSection } from "../../../browse/components/BrowseExpandedSection";
+import { MovieItem } from "../../../../common/aliases/interfaces/movie.types";
+import { ExtractTileProps } from "../../../../common/aliases/types/ExtractTileProps";
+import { useRoleFilterConfig } from "../../../../common/hooks/useRoleFilterConfig";
+import { useDecadeFilterConfig } from "../../../../common/hooks/useDecadeFilterConfig";
+import { useGenreFilterConfig } from "../../../../common/hooks/useGenreFilterConfig";
 
 export const Person2 = () => {
   const { id, role } = useParams();
@@ -29,15 +34,26 @@ export const Person2 = () => {
     [...profilePausedFlags, isGenresPaused]
   );
 
+  const roleFilterConfig = useRoleFilterConfig({ movies, personId: id!, roleParam: role! });
+  const decadeFilterConfig = useDecadeFilterConfig();
+  const genreFilterConfig = useGenreFilterConfig({ genres });
+
+  const moviesFiltersConfig = [roleFilterConfig, decadeFilterConfig, genreFilterConfig];
+
+  const extractMovie: ExtractTileProps<MovieItem> = (movie) => ({
+    imagePath: movie.poster_path,
+    name: movie.title,
+    detailsRoute: `movie/${movie.id}`,
+  });
+
   if (!details || !credits || !genres) return null;
 
   return (
     <StyledPerson>
-      <PersonMoviesBrowse
-        movies={movies}
-        genres={genres}
-        currentRole={role!}
-        personId={id!}
+      <BrowseExpandedSection<MovieItem>
+        mediaList={movies}
+        extractTileProps={extractMovie}
+        filtersConfig={moviesFiltersConfig}
       />
       <PersonBiography person={details} />
     </StyledPerson>
