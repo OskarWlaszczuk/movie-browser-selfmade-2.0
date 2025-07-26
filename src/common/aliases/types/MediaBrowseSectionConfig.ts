@@ -3,7 +3,7 @@ import { ExtractTileProps } from "./ExtractTileProps";
 import { MediaListItem } from "./MediaListItem";
 import { MediaListType } from "./MediaListType";
 
-export interface ListSectionConfig<MediaItemType extends MediaListItem> {
+export interface MediaBrowseSectionConfig<MediaItemType extends MediaListItem> {
     key: string;
     title: string;
     listType: MediaListType;
