@@ -9,6 +9,6 @@ export interface MediaBrowseSectionConfig<MediaItemType extends MediaListItem> {
     listType: MediaListType;
     apiParams?: Record<string, any>;
     expandedSectionLink: string;
+    expandedSectionFiltersConfig: FilterProps[];
     extractTileProps: ExtractTileProps<MediaItemType>;
-    listFiltersConfig: FilterProps[];
 }
