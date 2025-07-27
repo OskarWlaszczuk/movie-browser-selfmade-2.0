@@ -7,7 +7,7 @@ import { useCombinedFetchStatus } from "../../../../common/hooks/useCombinedFetc
 import { StyledPerson } from "./styled";
 import { PersonBiography } from "./PersonBiography";
 import { mediaSingularTypes } from "../../../../common/constants/entityTypes";
-import { BrowseExpandedSection } from "../../../browse/components/BrowseExpandedSection";
+import { MediaFilterHub } from "../../../../common/components/MediaFilterHub";
 import { MovieItem } from "../../../../common/aliases/interfaces/movie.types";
 import { ExtractTileProps } from "../../../../common/aliases/types/ExtractTileProps";
 import { useRoleFilterConfig } from "../../../../common/hooks/useRoleFilterConfig";
@@ -36,7 +36,7 @@ export const Person2 = () => {
 
   const roleFilterConfig = useRoleFilterConfig({ movies, personId: id!, roleParam: role! });
   const decadeFilterConfig = useDecadeFilterConfig();
-  const genreFilterConfig = useGenreFilterConfig({ genres });
+  const genreFilterConfig = useGenreFilterConfig();
 
   const moviesFiltersConfig = [roleFilterConfig, decadeFilterConfig, genreFilterConfig];
 
@@ -50,7 +50,7 @@ export const Person2 = () => {
 
   return (
     <StyledPerson>
-      <BrowseExpandedSection<MovieItem>
+      <MediaFilterHub<MovieItem>
         mediaList={movies}
         extractTileProps={extractMovie}
         filtersConfig={moviesFiltersConfig}
